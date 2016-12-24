@@ -14,8 +14,8 @@
         <FrameLayout
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp">
 
             <View
@@ -23,7 +23,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_oval_half_transparent_black"/>
+                android:background="@drawable/bg_oval_half_transparent_black"
+                android:visibility="visible"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -32,15 +33,16 @@
                 android:layout_gravity="center"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="17sp"/>
+                android:textSize="17sp"
+                android:textStyle="bold"/>
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/fl_action_more"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="15dp">
 
@@ -49,7 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_oval_half_transparent_black"/>
+                android:background="@drawable/bg_oval_half_transparent_black"
+                android:visibility="visible"/>
 
             <ImageView
                 android:layout_width="wrap_content"
