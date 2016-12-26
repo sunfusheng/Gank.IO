@@ -20,10 +20,11 @@ public class CircleLoadingView extends View {
     private int[] colors = new int[]{0xFF942909, 0xFF577B8C, 0xFF201289, 0xFF7E207C};
     private Paint paint = new Paint();
     private RectF oval = new RectF();
-    //属性
-    private int circleRadius;//圆半径
-    private int circleSpacing;//圆间距
-    private int increment = 2;//增量
+
+    // 属性
+    private int circleRadius; // 圆半径
+    private int circleSpacing; // 圆间距
+    private int increment = 2;// 增量
 
 
     public CircleLoadingView(Context context) {
@@ -35,7 +36,7 @@ public class CircleLoadingView extends View {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleLoadingViewAttr);
         circleRadius = (int) a.getDimension(R.styleable.CircleLoadingViewAttr_circleRadius, circleLoadingViewParams.getDefaultCircleRadius());
         circleSpacing = (int) a.getDimension(R.styleable.CircleLoadingViewAttr_circleSpacing, circleLoadingViewParams.getDefaultCircleSpacing());
-        int cycle = a.getInt(R.styleable.CircleLoadingViewAttr_cycle, 1000);//周期，默认为2秒
+        int cycle = a.getInt(R.styleable.CircleLoadingViewAttr_cycle, 1000); // 周期，默认为1秒
         cycle = cycle / 2;
         int number = (int) (cycle * 1.0 / 1000 * 83);
         this.increment = (int) (this.circleRadius * 2.0 / number);
@@ -49,28 +50,28 @@ public class CircleLoadingView extends View {
     private void createWrappers() {
         wrappers = new ArrayList<CircleWrapper>();
         int diameter = this.circleRadius * 2;//直径
-        //第一个圆
+        // 第一个圆
         CircleWrapper wrapper = new CircleWrapper();
         wrapper.diameter = diameter;
         wrapper.initDiameter = diameter;
         wrapper.dynamicDiameter = wrapper.initDiameter;
         wrapper.orientation = -1;
         wrappers.add(wrapper);
-        //第二个圆
+        // 第二个圆
         wrapper = new CircleWrapper();
         wrapper.diameter = diameter;
         wrapper.initDiameter = (int) (diameter * 0.75);
         wrapper.dynamicDiameter = wrapper.initDiameter;
         wrapper.orientation = 1;
         wrappers.add(wrapper);
-        //第三个圆
+        // 第三个圆
         wrapper = new CircleWrapper();
         wrapper.diameter = diameter;
         wrapper.initDiameter = (int) (diameter * 0.5);
         wrapper.dynamicDiameter = wrapper.initDiameter;
         wrapper.orientation = 1;
         wrappers.add(wrapper);
-        //第四个圆
+        // 第四个圆
         wrapper = new CircleWrapper();
         wrapper.diameter = diameter;
         wrapper.initDiameter = (int) (diameter * 0.25);
@@ -292,9 +293,9 @@ public class CircleLoadingView extends View {
      * 内部类
      */
     private class CircleWrapper {
-        private int diameter;//圆的直径
-        private int initDiameter;//初始直径
-        private int dynamicDiameter;//动态直径
-        private int orientation;//方向，即增加还是减少 1:增加 -1为减少
+        private int diameter; // 圆的直径
+        private int initDiameter; // 初始直径
+        private int dynamicDiameter; // 动态直径
+        private int orientation; // 方向，即增加还是减少 1:增加 -1为减少
     }
 }
