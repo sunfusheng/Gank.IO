@@ -30,6 +30,9 @@ public class MainActivity extends BaseActivity implements RefreshableLayout.Refr
     RefreshableLayout refreshableLayout;
 
     private List<String> mList = new ArrayList<>();
+    private int count = 15;
+    private TestAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,23 +46,23 @@ public class MainActivity extends BaseActivity implements RefreshableLayout.Refr
     }
 
     private void initData() {
-        for (int i=1; i<=15; i++) {
+        mList = new ArrayList<>();
+        for (int i=1; i<=count; i++) {
             mList.add("青蛙"+i+"号");
         }
     }
 
     private void initView() {
-        TestAdapter adapter = new TestAdapter(this, mList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        // 静默加载模式不能设置FooterView
-        recyclerView.setAdapter(adapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new TestAdapter(this, mList);
+        recyclerView.setAdapter(mAdapter);
 
-        refreshableLayout.setPinnedTime(1000); // 设置刷新完成以后，HeaderView固定的时间
+        refreshableLayout.setPinnedTime(1000);
         refreshableLayout.setMoveForHorizontal(true);
         refreshableLayout.setPullLoadEnable(true);
         refreshableLayout.setAutoLoadMore(true);
-        adapter.setCustomLoadMoreView(new RefreshableLayoutFooter(this));
+        mAdapter.setCustomLoadMoreView(new RefreshableLayoutFooter(this));
         refreshableLayout.enableReleaseToLoadMore(true);
         refreshableLayout.enableRecyclerViewPullUp(true);
         refreshableLayout.enablePullUpWhenLoadCompleted(true);
@@ -71,12 +74,22 @@ public class MainActivity extends BaseActivity implements RefreshableLayout.Refr
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(() -> refreshableLayout.stopRefresh(), 1000);
+        new Handler().postDelayed(() -> {
+            count = 15;
+            initData();
+            mAdapter.setData(mList);
+            refreshableLayout.stopRefresh();
+        }, 1000);
     }
 
     @Override
     public void onLoadMore(boolean isSilence) {
-        new Handler().postDelayed(() -> refreshableLayout.stopLoadMore(), 1000);
+        new Handler().postDelayed(() -> {
+            count += 5;
+            initData();
+            mAdapter.setData(mList);
+            refreshableLayout.stopLoadMore();
+        }, 1000);
     }
 
 }

@@ -3,7 +3,7 @@
     android:id="@+id/rl_rootView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="60dp"
     android:layout_gravity="center_horizontal"
     android:background="@color/bg">
 
@@ -22,5 +22,5 @@
         android:gravity="center"
         android:text="@string/xrefreshview_footer_hint_normal"
         android:textColor="@color/font_black_4"
-        android:textSize="12sp"/>
+        android:textSize="13sp"/>
 </RelativeLayout>

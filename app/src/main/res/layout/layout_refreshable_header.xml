@@ -33,7 +33,7 @@
             android:gravity="center"
             android:text="@string/xrefreshview_header_hint_normal"
             android:textColor="@color/font_black_4"
-            android:textSize="12sp"/>
+            android:textSize="13sp"/>
 
     </LinearLayout>
 

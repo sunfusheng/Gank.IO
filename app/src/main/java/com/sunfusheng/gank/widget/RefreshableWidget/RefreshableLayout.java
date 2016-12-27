@@ -287,9 +287,6 @@ public class RefreshableLayout extends LinearLayout {
         if (mFooterCallBack != null) {
             mFootHeight = mFooterCallBack.getFooterHeight();
         }
-//        if (mFooterView != null) {
-//            mFootHeight = mFooterView.getMeasuredHeight();
-//        }
     }
 
     @Override

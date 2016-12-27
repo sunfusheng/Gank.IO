@@ -29,6 +29,11 @@ public class TestAdapter extends BaseRecyclerAdapter<TestAdapter.ViewHolder> {
         this.mInflater = LayoutInflater.from(context);
     }
 
+    public void setData(List<String> list) {
+        mList = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType, boolean isItem) {
         View view = mInflater.inflate(R.layout.layout_test_item, parent, false);
