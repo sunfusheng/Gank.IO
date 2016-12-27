@@ -1,10 +1,9 @@
 <RelativeLayout
-    android:id="@+id/rl_bar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent">
+    android:background="@color/bg">
 
     <TextView
         android:id="@+id/tv_title"
@@ -19,15 +18,29 @@
         android:paddingRight="10dp"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:visibility="gone"/>
 
     <com.sunfusheng.gank.widget.CircleLoadingView
         android:id="@+id/monIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         app:circleRadius="8dp"
         app:cycle="800"/>
+
+    <com.sunfusheng.gank.widget.RefreshableWidget.RefreshableLayout
+        android:id="@+id/refreshableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+    </com.sunfusheng.gank.widget.RefreshableWidget.RefreshableLayout>
 
 </RelativeLayout>
 

@@ -226,7 +226,6 @@ public class RefreshableLayout extends LinearLayout {
             Utils.removeViewFromParent(mHeaderView);
             addView(mHeaderView, 0);
             mHeaderCallBack = (IHeaderCallBack) mHeaderView;
-            setRefreshTime();
             checkPullRefreshEnable();
         }
     }
@@ -523,7 +522,6 @@ public class RefreshableLayout extends LinearLayout {
 
     private void sendCancelEvent() {
         if (!mHasSendCancelEvent) {
-            setRefreshTime();
             mHasSendCancelEvent = true;
             mHasSendDownEvent = false;
             MotionEvent last = mLastMoveEvent;
@@ -804,8 +802,6 @@ public class RefreshableLayout extends LinearLayout {
         ViewCompat.postInvalidateOnAnimation(this);
         if (mRefreshViewListener != null && (mContentView.isTop() || mPullRefreshing)) {
             double headerMovePercent = 1.0 * mHolder.mOffsetY / mHeaderViewHeight;
-//            headerMovePercent = headerMovePercent > 1 ? 1 : headerMovePercent;
-            mRefreshViewListener.onHeaderMove(headerMovePercent, mHolder.mOffsetY);
             mHeaderCallBack.onHeaderMove(headerMovePercent, mHolder.mOffsetY, deltaY);
         }
     }
@@ -859,16 +855,6 @@ public class RefreshableLayout extends LinearLayout {
      */
     public long getLastRefreshTime() {
         return lastRefreshTime;
-    }
-
-    /**
-     * 设置并显示上次刷新的时间
-     */
-    private void setRefreshTime() {
-        if (lastRefreshTime <= 0) {
-            return;
-        }
-        mHeaderCallBack.setRefreshTime(lastRefreshTime);
     }
 
     /**
@@ -1180,8 +1166,7 @@ public class RefreshableLayout extends LinearLayout {
             mFooterView = footerView;
             dealAddFooterView();
         } else {
-            throw new RuntimeException(
-                    "footerView must be implementes IFooterCallBack!");
+            throw new RuntimeException("footerView must be implementes IFooterCallBack!");
         }
     }
 
@@ -1189,46 +1174,12 @@ public class RefreshableLayout extends LinearLayout {
      * implements this interface to get refresh/load more event.
      */
     public interface RefreshableLayoutListener {
-        public void onRefresh();
+        void onRefresh();
 
         /**
          * @param isSilence 是不是静默加载，静默加载即不显示footerview，自动监听滚动到底部并触发此回调
          */
-        public void onLoadMore(boolean isSilence);
-
-        /**
-         * 用户手指释放的监听回调
-         *
-         * @param direction >0: 下拉释放，<0:上拉释放 注：暂时没有使用这个方法
-         */
-        public void onRelease(float direction);
-
-        /**
-         * 获取headerview显示的高度与headerview高度的比例
-         *
-         * @param headerMovePercent  移动距离和headerview高度的比例
-         * @param offsetY headerview移动的距离
-         */
-        public void onHeaderMove(double headerMovePercent, int offsetY);
+        void onLoadMore(boolean isSilence);
     }
 
-    public static class SimpleRefreshableLayoutListener implements RefreshableLayoutListener {
-
-        @Override
-        public void onRefresh() {
-        }
-
-        @Override
-        public void onLoadMore(boolean isSilence) {
-        }
-
-        @Override
-        public void onRelease(float direction) {
-        }
-
-        @Override
-        public void onHeaderMove(double offset, int offsetY) {
-        }
-
-    }
 }
