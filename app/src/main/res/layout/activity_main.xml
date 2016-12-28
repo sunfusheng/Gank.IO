@@ -22,7 +22,7 @@
         android:visibility="gone"/>
 
     <com.sunfusheng.gank.widget.CircleLoadingView
-        android:id="@+id/monIndicator"
+        android:id="@+id/circleLoadingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

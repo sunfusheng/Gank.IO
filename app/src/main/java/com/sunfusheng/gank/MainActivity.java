@@ -22,8 +22,8 @@ public class MainActivity extends BaseActivity implements RefreshableLayout.Refr
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.monIndicator)
-    CircleLoadingView monIndicator;
+    @Bind(R.id.circleLoadingView)
+    CircleLoadingView circleLoadingView;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.refreshableLayout)
@@ -47,8 +47,8 @@ public class MainActivity extends BaseActivity implements RefreshableLayout.Refr
 
     private void initData() {
         mList = new ArrayList<>();
-        for (int i=1; i<=count; i++) {
-            mList.add("青蛙"+i+"号");
+        for (int i = 1; i <= count; i++) {
+            mList.add("青蛙" + i + "号");
         }
     }
 
