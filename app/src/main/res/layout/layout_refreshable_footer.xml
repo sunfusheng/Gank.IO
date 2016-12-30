@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="@string/xrefreshview_footer_hint_normal"
+        android:text="@string/refreshablelayout_footer_hint_normal"
         android:textColor="@color/font_black_4"
         android:textSize="13sp"/>
 </RelativeLayout>

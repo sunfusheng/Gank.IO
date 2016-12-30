@@ -20,6 +20,7 @@ public class CircleLoadingView extends View {
     private int[] colors = new int[]{0xFF942909, 0xFF577B8C, 0xFF201289, 0xFF7E207C};
     private Paint paint = new Paint();
     private RectF oval = new RectF();
+    private boolean isLoading = true;
 
     // 属性
     private int circleRadius; // 圆半径
@@ -151,7 +152,9 @@ public class CircleLoadingView extends View {
         drawCircle02(canvas);
         drawCircle03(canvas);
         drawCircle04(canvas);
-        this.invalidate();
+        if (isLoading){
+            this.invalidate();
+        }
     }
 
     /**
@@ -286,6 +289,13 @@ public class CircleLoadingView extends View {
             return;
         for (int i = 0; i < colors.length && i < this.colors.length; i++) {
             this.colors[i] = colors[i];
+        }
+    }
+
+    public void setLoadingOffset(boolean isLoading, int offset) {
+        this.isLoading = isLoading;
+        if (!isLoading) {
+            invalidate();
         }
     }
 

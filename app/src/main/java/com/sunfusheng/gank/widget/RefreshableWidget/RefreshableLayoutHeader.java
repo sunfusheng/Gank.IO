@@ -33,9 +33,6 @@ public class RefreshableLayoutHeader extends LinearLayout implements IHeaderCall
         tvStatus = (TextView) headerLayout.findViewById(R.id.tv_status);
     }
 
-    /**
-     * hide footer when disable pull refresh
-     */
     public void hide() {
         setVisibility(View.GONE);
     }
@@ -46,31 +43,39 @@ public class RefreshableLayoutHeader extends LinearLayout implements IHeaderCall
 
     @Override
     public void onStateNormal() {
-        circleLoadingView.setVisibility(VISIBLE);
-        tvStatus.setText(R.string.xrefreshview_header_hint_normal);
+        isLoading = false;
+        circleLoadingView.setLoadingOffset(isLoading, mOffsetY);
+        tvStatus.setText(R.string.refreshablelayout_header_hint_normal);
     }
 
     @Override
     public void onStateReady() {
-        circleLoadingView.setVisibility(VISIBLE);
-        tvStatus.setText(R.string.xrefreshview_header_hint_ready);
+        isLoading = true;
+        circleLoadingView.setLoadingOffset(isLoading, mOffsetY);
+        tvStatus.setText(R.string.refreshablelayout_header_hint_ready);
     }
 
     @Override
     public void onStateRefreshing() {
-        circleLoadingView.setVisibility(VISIBLE);
-        tvStatus.setText(R.string.xrefreshview_header_hint_loading);
+        isLoading = true;
+        circleLoadingView.setLoadingOffset(isLoading, mOffsetY);
+        tvStatus.setText(R.string.refreshablelayout_header_hint_refreshing);
     }
 
     @Override
     public void onStateFinish(boolean success) {
-        circleLoadingView.setVisibility(GONE);
-        tvStatus.setText(success ? R.string.xrefreshview_header_hint_loaded : R.string.xrefreshview_header_hint_loaded_fail);
+        isLoading = false;
+        circleLoadingView.setLoadingOffset(isLoading, mOffsetY);
+        tvStatus.setText(success ? R.string.refreshablelayout_header_hint_loaded_success : R.string.refreshablelayout_header_hint_loaded_fail);
     }
+
+    private boolean isLoading = true;
+    private int mOffsetY;
 
     @Override
     public void onHeaderMove(double headerMovePercent, int offsetY, int deltaY) {
-
+        mOffsetY = offsetY;
+        circleLoadingView.setLoadingOffset(isLoading, offsetY);
     }
 
     @Override

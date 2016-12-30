@@ -2,18 +2,18 @@
 
     <string name="app_name">RxGank</string>
 
-    <string name="xrefreshview_header_hint_normal">下拉刷新</string>
-    <string name="xrefreshview_header_hint_ready">松开刷新</string>
-    <string name="xrefreshview_header_hint_refreshing">正在刷新</string>
-    <string name="xrefreshview_header_hint_loading">正在加载</string>
-    <string name="xrefreshview_header_hint_loaded">刷新完成</string>
-    <string name="xrefreshview_header_hint_loaded_fail">加载失败</string>
+    <string name="refreshablelayout_header_hint_normal">下拉刷新</string>
+    <string name="refreshablelayout_header_hint_ready">松开刷新</string>
+    <string name="refreshablelayout_header_hint_refreshing">正在刷新</string>
+    <string name="refreshablelayout_header_hint_loading">正在加载</string>
+    <string name="refreshablelayout_header_hint_loaded_success">刷新成功</string>
+    <string name="refreshablelayout_header_hint_loaded_fail">加载失败</string>
 
-    <string name="xrefreshview_footer_hint_normal">加载完成</string>
-    <string name="xrefreshview_footer_hint_fail">加载失败，请重试</string>
-    <string name="xrefreshview_footer_hint_complete">已无更多数据</string>
-    <string name="xrefreshview_footer_hint_click">点击加载更多</string>
-    <string name="xrefreshview_footer_hint_release">松开加载更多</string>
-    <string name="xrefreshview_footer_hint_ready">松开载入更多</string>
+    <string name="refreshablelayout_footer_hint_normal">加载成功</string>
+    <string name="refreshablelayout_footer_hint_fail">加载失败，请重试</string>
+    <string name="refreshablelayout_footer_hint_complete">已无更多数据</string>
+    <string name="refreshablelayout_footer_hint_click">点击加载更多</string>
+    <string name="refreshablelayout_footer_hint_release">松开加载更多</string>
+    <string name="refreshablelayout_footer_hint_ready">松开载入更多</string>
 
 </resources>

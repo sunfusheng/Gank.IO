@@ -45,7 +45,7 @@ public class RefreshableLayoutFooter extends LinearLayout implements IFooterCall
         progressBar.setVisibility(GONE);
         tvStatus.setVisibility(VISIBLE);
         tvStatus.setClickable(true);
-        tvStatus.setText(R.string.xrefreshview_footer_hint_click);
+        tvStatus.setText(R.string.refreshablelayout_footer_hint_click);
         tvStatus.setOnClickListener(v -> refreshableLayout.notifyLoadMore());
     }
 
@@ -54,7 +54,7 @@ public class RefreshableLayoutFooter extends LinearLayout implements IFooterCall
         progressBar.setVisibility(GONE);
         tvStatus.setVisibility(VISIBLE);
         tvStatus.setClickable(true);
-        tvStatus.setText(R.string.xrefreshview_footer_hint_click);
+        tvStatus.setText(R.string.refreshablelayout_footer_hint_click);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class RefreshableLayoutFooter extends LinearLayout implements IFooterCall
         progressBar.setVisibility(GONE);
         tvStatus.setVisibility(VISIBLE);
         tvStatus.setClickable(false);
-        tvStatus.setText(R.string.xrefreshview_footer_hint_release);
+        tvStatus.setText(R.string.refreshablelayout_footer_hint_release);
     }
 
     @Override
@@ -79,10 +79,10 @@ public class RefreshableLayoutFooter extends LinearLayout implements IFooterCall
         tvStatus.setVisibility(VISIBLE);
         tvStatus.setClickable(false);
         if (hideFooter) {
-            tvStatus.setText(R.string.xrefreshview_footer_hint_normal);
+            tvStatus.setText(R.string.refreshablelayout_footer_hint_normal);
         } else {
             //处理数据加载失败时ui显示的逻辑，也可以不处理，看自己的需求
-            tvStatus.setText(R.string.xrefreshview_footer_hint_fail);
+            tvStatus.setText(R.string.refreshablelayout_footer_hint_fail);
         }
     }
 
@@ -91,7 +91,7 @@ public class RefreshableLayoutFooter extends LinearLayout implements IFooterCall
         progressBar.setVisibility(GONE);
         tvStatus.setVisibility(VISIBLE);
         tvStatus.setClickable(false);
-        tvStatus.setText(R.string.xrefreshview_footer_hint_complete);
+        tvStatus.setText(R.string.refreshablelayout_footer_hint_complete);
     }
 
     @Override
