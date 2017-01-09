@@ -11,9 +11,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        String url = "http://click.btime.com/api/weblog";
-//        HitLog.init(this, url, true);
-//        HitLog.appStart();
-//        HitLog.deviceInfo();
+
     }
+
 }
