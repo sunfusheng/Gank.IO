@@ -15,18 +15,18 @@ import com.sunfusheng.gank.widget.RefreshableWidget.RefreshableLayoutFooter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements RefreshableLayout.RefreshableLayoutListener {
 
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.circleLoadingView)
+    @BindView(R.id.circleLoadingView)
     CircleLoadingView circleLoadingView;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @Bind(R.id.refreshableLayout)
+    @BindView(R.id.refreshableLayout)
     RefreshableLayout refreshableLayout;
 
     private List<String> mList = new ArrayList<>();

@@ -294,7 +294,7 @@ public class CircleLoadingView extends View {
 
     public void setLoadingOffset(boolean isLoading, int offset) {
         this.isLoading = isLoading;
-        if (!isLoading) {
+        if (!isLoading && offset % 2 == 0) {
             invalidate();
         }
     }

@@ -12,7 +12,7 @@ import com.sunfusheng.gank.widget.RefreshableWidget.recyclerview.BaseRecyclerAda
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -57,7 +57,7 @@ public class TestAdapter extends BaseRecyclerAdapter<TestAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tvDesc)
+        @BindView(R.id.tvDesc)
         TextView tvDesc;
 
         ViewHolder(View view, boolean isItem) {

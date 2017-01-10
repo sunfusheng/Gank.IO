@@ -50,7 +50,7 @@ public class RefreshableLayoutHeader extends LinearLayout implements IHeaderCall
 
     @Override
     public void onStateReady() {
-        isLoading = true;
+        isLoading = false;
         circleLoadingView.setLoadingOffset(isLoading, mOffsetY);
         tvStatus.setText(R.string.refreshablelayout_header_hint_ready);
     }
@@ -59,6 +59,7 @@ public class RefreshableLayoutHeader extends LinearLayout implements IHeaderCall
     public void onStateRefreshing() {
         isLoading = true;
         circleLoadingView.setLoadingOffset(isLoading, mOffsetY);
+        circleLoadingView.invalidate();
         tvStatus.setText(R.string.refreshablelayout_header_hint_refreshing);
     }
 
