@@ -33,7 +33,8 @@
     <com.sunfusheng.gank.widget.RefreshableWidget.RefreshableLayout
         android:id="@+id/refreshableLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -41,6 +42,11 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"/>
     </com.sunfusheng.gank.widget.RefreshableWidget.RefreshableLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
 

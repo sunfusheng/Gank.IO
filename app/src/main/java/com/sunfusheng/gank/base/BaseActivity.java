@@ -1,4 +1,4 @@
-package com.sunfusheng.gank;
+package com.sunfusheng.gank.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

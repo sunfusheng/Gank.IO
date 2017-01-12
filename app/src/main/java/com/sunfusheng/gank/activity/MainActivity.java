@@ -1,4 +1,4 @@
-package com.sunfusheng.gank;
+package com.sunfusheng.gank.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,7 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.sunfusheng.gank.R;
+import com.sunfusheng.gank.fragment.TestFragment;
 import com.sunfusheng.gank.adapter.TestAdapter;
+import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.widget.CircleLoadingView;
 import com.sunfusheng.gank.widget.RefreshableWidget.RefreshableLayout;
 import com.sunfusheng.gank.widget.RefreshableWidget.RefreshableLayoutFooter;
@@ -43,6 +46,10 @@ public class MainActivity extends BaseActivity implements RefreshableLayout.Refr
         initData();
         initView();
         initListener();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new TestFragment())
+                .commit();
     }
 
     private void initData() {
