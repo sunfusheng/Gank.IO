@@ -13,12 +13,12 @@
         android:gravity="center_vertical"
         android:layout_marginLeft="15dp"
         android:textSize="16sp"
-        android:textColor="@color/font_black_2"
+        android:textColor="@color/color2"
         android:text="item 1"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/font_black_6"/>
+        android:background="@color/divider_1"/>
 
 </LinearLayout>

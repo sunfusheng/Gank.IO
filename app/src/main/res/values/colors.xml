@@ -5,24 +5,36 @@
     <color name="colorPrimaryDark">#e51c23</color>
     <color name="colorAccent">#e51c23</color>
 
+    <!-- standard -->
+    <color name="white">#FFFFFF</color>  <!-- 白色 -->
+    <color name="yellow">#FFFF00</color> <!-- 黄色 -->
+    <color name="gold">#FFD700</color>   <!-- 金色 -->
+    <color name="orange">#FFA500</color> <!-- 橙色 -->
+    <color name="red">#FF0000</color>    <!-- 红色 -->
+    <color name="gray">#808080</color>   <!-- 灰色 -->
+    <color name="green">#008000</color>  <!-- 绿色 -->
+    <color name="blue">#0000FF</color>   <!-- 蓝色 -->
+    <color name="black">#000000</color>  <!-- 黑色 -->
+
     <!-- common -->
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
-    <color name="half_transparent">#8f000000</color>
+    <color name="transparent_30percent">#4D000000</color>
+    <color name="transparent_50percent">#80000000</color>
+    <color name="transparent_70percent">#B3000000</color>
+    <color name="transparent_80percent">#CC000000</color>
+
+    <color name="color1">#212121</color>
+    <color name="color2">#333333</color>
+    <color name="color3">#666666</color>
+    <color name="color4">#999999</color>
+    <color name="color5">#BBBBBB</color>
+    <color name="color6">#EEEEEE</color>
+    <color name="color7">#F5F5F5</color>
+    <color name="color8">#FAFAFA</color>
 
     <!-- background -->
     <color name="bg">#FFF5F5F5</color>
     <color name="bg_pressed">#FFF2F2F2</color>
-
-    <!-- material design black font color -->
-    <color name="font_black_0">#212121</color>
-    <color name="font_black_1">#424242</color>
-    <color name="font_black_2">#616161</color>
-    <color name="font_black_3">#757575</color>
-    <color name="font_black_4">#9e9e9e</color>
-    <color name="font_black_5">#bdbdbd</color>
-    <color name="font_black_6">#e0e0e0</color>
 
     <!-- divider -->
     <color name="divider_1">#e2e2e2</color>

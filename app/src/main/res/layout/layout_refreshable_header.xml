@@ -32,7 +32,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/refreshablelayout_header_hint_normal"
-            android:textColor="@color/font_black_4"
+            android:textColor="@color/color4"
             android:textSize="13sp"/>
 
     </LinearLayout>

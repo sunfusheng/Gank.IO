@@ -21,6 +21,6 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/refreshablelayout_footer_hint_normal"
-        android:textColor="@color/font_black_4"
+        android:textColor="@color/color4"
         android:textSize="13sp"/>
 </RelativeLayout>
