@@ -6,6 +6,6 @@ package com.sunfusheng.gank.base;
 public interface BaseView<P extends BasePresenter> {
 
     void setPresenter(P presenter);
-    void onAttached();
-    void onDetached();
+    void onAttach();
+    void onDetach();
 }
