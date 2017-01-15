@@ -10,11 +10,14 @@ public interface GankContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadGankList();
+        void loadList();
+        void loadMoreList();
     }
 
     interface View extends BaseView<Presenter> {
 
-        void showGankList();
+        void onSuccess();
+        void onError();
+        void onEmpty();
     }
 }

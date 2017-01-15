@@ -31,7 +31,12 @@ public class GankPresenter implements GankContract.Presenter {
     }
 
     @Override
-    public void loadGankList() {
+    public void loadList() {
+
+    }
+
+    @Override
+    public void loadMoreList() {
 
     }
 }

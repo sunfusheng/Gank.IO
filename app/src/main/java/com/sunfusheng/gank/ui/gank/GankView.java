@@ -31,7 +31,17 @@ public class GankView extends FrameLayout implements GankContract.View {
     }
 
     @Override
-    public void showGankList() {
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onEmpty() {
 
     }
 }
