@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget.RefreshLayout;
+package com.sunfusheng.gank.widget.RecyclerViewLayout;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

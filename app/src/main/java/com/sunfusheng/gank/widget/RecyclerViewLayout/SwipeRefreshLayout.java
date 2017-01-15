@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget.RefreshLayout;
+package com.sunfusheng.gank.widget.RecyclerViewLayout;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -40,7 +40,7 @@ import android.widget.AbsListView;
  * the function {@link #setRefreshView(View, ViewGroup.LayoutParams)}
  * </p>
  */
-public class RecyclerRefreshLayout extends ViewGroup
+public class SwipeRefreshLayout extends ViewGroup
         implements NestedScrollingParent, NestedScrollingChild {
 
     private static final int INVALID_INDEX = -1;
@@ -181,11 +181,11 @@ public class RecyclerRefreshLayout extends ViewGroup
         }
     };
 
-    public RecyclerRefreshLayout(Context context) {
+    public SwipeRefreshLayout(Context context) {
         this(context, null);
     }
 
-    public RecyclerRefreshLayout(Context context, AttributeSet attrs) {
+    public SwipeRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 

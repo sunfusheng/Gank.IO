@@ -1,7 +1,7 @@
-package com.sunfusheng.gank.widget.RefreshLayout;
+package com.sunfusheng.gank.widget.RecyclerViewLayout;
 
 /**
- * {@link RecyclerRefreshLayout#mRefreshView} all the custom drop-down refresh view need to
+ * {@link SwipeRefreshLayout#mRefreshView} all the custom drop-down refresh view need to
  * implements the interface
  */
 public interface IRefreshStatus {

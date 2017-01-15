@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget.RefreshLayout;
+package com.sunfusheng.gank.widget.RecyclerViewLayout;
 
 
 public interface TipsHelper {

@@ -11,14 +11,14 @@ import android.widget.Toast;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseListFragment;
 import com.sunfusheng.gank.util.DensityUtil;
-import com.sunfusheng.gank.widget.RefreshLayout.RecyclerRefreshLayout;
-import com.sunfusheng.gank.widget.RefreshLayout.TipsHelper;
+import com.sunfusheng.gank.widget.RecyclerViewLayout.SwipeRefreshLayout;
+import com.sunfusheng.gank.widget.RecyclerViewLayout.TipsHelper;
 
 public class DefaultTipsHelper implements TipsHelper {
 
     protected final BaseListFragment<?> mFragment;
     protected final RecyclerView mRecyclerView;
-    protected final RecyclerRefreshLayout mRefreshLayout;
+    protected final SwipeRefreshLayout mRefreshLayout;
     protected final ImageView mLoadingView;
 
     public DefaultTipsHelper(BaseListFragment<?> fragment) {
@@ -31,7 +31,7 @@ public class DefaultTipsHelper implements TipsHelper {
         mLoadingView.setPadding(0, (int) DensityUtil.dip2px(mFragment.getActivity(), 10),
                 0, (int) DensityUtil.dip2px(mFragment.getActivity(), 10));
         mLoadingView.setLayoutParams(new RecyclerView.LayoutParams(
-                RecyclerRefreshLayout.LayoutParams.MATCH_PARENT,
+                SwipeRefreshLayout.LayoutParams.MATCH_PARENT,
                 (int) DensityUtil.dip2px(fragment.getActivity(), 40)));
     }
 

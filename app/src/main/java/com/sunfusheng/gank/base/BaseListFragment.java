@@ -14,8 +14,8 @@ import com.sunfusheng.gank.adapter.HeaderViewRecyclerAdapter;
 import com.sunfusheng.gank.adapter.RecyclerListAdapter;
 import com.sunfusheng.gank.base.RecyclerView.DefaultTipsHelper;
 import com.sunfusheng.gank.model.IMoreData;
-import com.sunfusheng.gank.widget.RefreshLayout.RecyclerRefreshLayout;
-import com.sunfusheng.gank.widget.RefreshLayout.TipsHelper;
+import com.sunfusheng.gank.widget.RecyclerViewLayout.SwipeRefreshLayout;
+import com.sunfusheng.gank.widget.RecyclerViewLayout.TipsHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +28,7 @@ public abstract class BaseListFragment<E extends IMoreData> extends BaseFragment
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.refreshLayout)
-    RecyclerRefreshLayout refreshLayout;
+    SwipeRefreshLayout refreshLayout;
 
     private boolean mIsLoading;
     private TipsHelper mTipsHelper;
@@ -113,7 +113,7 @@ public abstract class BaseListFragment<E extends IMoreData> extends BaseFragment
         return mOriginAdapter;
     }
 
-    public RecyclerRefreshLayout getRecyclerRefreshLayout() {
+    public SwipeRefreshLayout getRecyclerRefreshLayout() {
         return refreshLayout;
     }
 
@@ -139,7 +139,7 @@ public abstract class BaseListFragment<E extends IMoreData> extends BaseFragment
         return mOriginAdapter.getItemCount() <= 0;
     }
 
-    public class RefreshEventDetector implements RecyclerRefreshLayout.OnRefreshListener {
+    public class RefreshEventDetector implements SwipeRefreshLayout.OnRefreshListener {
 
         @Override
         public void onRefresh() {
