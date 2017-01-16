@@ -12,6 +12,8 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 
 import com.sunfusheng.gank.R;
+import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
+import com.sunfusheng.gank.widget.MultiType.MultiTypeAdapter;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -20,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by sunfusheng on 2017/1/15.
  */
-public class MultiRecyclerView extends FrameLayout {
+public class MultiTypeRecyclerView extends FrameLayout {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -40,15 +42,17 @@ public class MultiRecyclerView extends FrameLayout {
 
     private LoadingStateDelegate loadingStateDelegate;
 
-    public MultiRecyclerView(@NonNull Context context) {
+    private MultiTypeAdapter multiTypeAdapter;
+
+    public MultiTypeRecyclerView(@NonNull Context context) {
         this(context, null);
     }
 
-    public MultiRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public MultiTypeRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MultiRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+    public MultiTypeRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
@@ -61,6 +65,10 @@ public class MultiRecyclerView extends FrameLayout {
         loadingView = ButterKnife.findById(view, R.id.loading_view);
         loadingStateDelegate = new LoadingStateDelegate(recyclerView, loadingView, errorStub, emptyStub);
         loadingStateDelegate.setViewState(LoadingStateDelegate.LOADING_STATE.STATE_LOADING);
+
+        multiTypeAdapter = new MultiTypeAdapter();
+        multiTypeAdapter.applyGlobalMultiTypePool();
+        recyclerView.setAdapter(multiTypeAdapter);
     }
 
     public void setLoadingState(@LoadingStateDelegate.LOADING_STATE int state) {
@@ -103,5 +111,9 @@ public class MultiRecyclerView extends FrameLayout {
         if (errorStub != null && layoutId != -1) {
             errorStub.setLayoutResource(layoutId);
         }
+    }
+
+    public void register(@NonNull Class<?> clazz, @NonNull ItemViewProvider provider) {
+        multiTypeAdapter.register(clazz, provider);
     }
 }

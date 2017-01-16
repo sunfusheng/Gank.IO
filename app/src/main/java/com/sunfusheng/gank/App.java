@@ -8,7 +8,6 @@ import com.orhanobut.logger.Logger;
 /**
  * Created by sunfusheng on 2017/1/5.
  */
-
 public class App extends Application {
 
     @Override
@@ -16,6 +15,8 @@ public class App extends Application {
         super.onCreate();
 
         Logger.init("RxGank").logLevel(BuildConfig.DEBUG? LogLevel.FULL:LogLevel.NONE);
+
+        MultiTypeInitializer.init();
     }
 
 }
