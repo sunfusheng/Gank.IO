@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget.RecyclerViewLayout;
+package com.sunfusheng.gank.widget.SwipeRefreshLayout;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

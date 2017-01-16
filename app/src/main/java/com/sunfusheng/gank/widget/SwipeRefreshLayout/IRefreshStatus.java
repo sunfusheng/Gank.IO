@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget.RecyclerViewLayout;
+package com.sunfusheng.gank.widget.SwipeRefreshLayout;
 
 /**
  * {@link SwipeRefreshLayout#mRefreshView} all the custom drop-down refresh view need to

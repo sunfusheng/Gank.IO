@@ -1,6 +1,6 @@
 package com.sunfusheng.gank.base.RecyclerView;
 
-import com.sunfusheng.gank.widget.RecyclerViewLayout.IDragDistanceConverter;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.IDragDistanceConverter;
 
 public class DragDistanceConverterEg implements IDragDistanceConverter {
 

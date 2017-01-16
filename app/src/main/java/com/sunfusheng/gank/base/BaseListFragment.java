@@ -14,8 +14,8 @@ import com.sunfusheng.gank.adapter.HeaderViewRecyclerAdapter;
 import com.sunfusheng.gank.adapter.RecyclerListAdapter;
 import com.sunfusheng.gank.base.RecyclerView.DefaultTipsHelper;
 import com.sunfusheng.gank.model.IMoreData;
-import com.sunfusheng.gank.widget.RecyclerViewLayout.SwipeRefreshLayout;
-import com.sunfusheng.gank.widget.RecyclerViewLayout.TipsHelper;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.TipsHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

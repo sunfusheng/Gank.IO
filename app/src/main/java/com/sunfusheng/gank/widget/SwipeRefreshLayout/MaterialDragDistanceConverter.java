@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget.RecyclerViewLayout;
+package com.sunfusheng.gank.widget.SwipeRefreshLayout;
 
 public class MaterialDragDistanceConverter implements IDragDistanceConverter {
 

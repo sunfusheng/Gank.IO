@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseListFragment;
 import com.sunfusheng.gank.util.DensityUtil;
-import com.sunfusheng.gank.widget.RecyclerViewLayout.SwipeRefreshLayout;
-import com.sunfusheng.gank.widget.RecyclerViewLayout.TipsHelper;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.TipsHelper;
 
 public class DefaultTipsHelper implements TipsHelper {
 

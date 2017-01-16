@@ -3,7 +3,7 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-    <com.sunfusheng.gank.widget.RecyclerViewLayout.SwipeRefreshLayout
+    <com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout
         android:id="@+id/recyclerRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,22 +12,22 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </com.sunfusheng.gank.widget.RecyclerViewLayout.SwipeRefreshLayout>
+    </com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout>
 
     <ViewStub
-        android:id="@+id/error_view_stub"
+        android:id="@+id/error_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout="@layout/layout_error"/>
 
     <ViewStub
-        android:id="@+id/empty_view_stub"
+        android:id="@+id/empty_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout="@layout/layout_empty"/>
 
     <include
-        android:id="@+id/loading_view_layout"
+        android:id="@+id/loading_view"
         layout="@layout/layout_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
