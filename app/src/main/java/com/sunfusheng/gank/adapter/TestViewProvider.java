@@ -28,7 +28,7 @@ public class TestViewProvider extends ItemViewProvider<TestEntity, TestViewProvi
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull TestEntity entity) {
-        holder.tvDesc.setText(entity.desc);
+        holder.tvDesc.setText("描述："+entity.desc);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

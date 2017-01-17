@@ -16,6 +16,8 @@ import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 import com.sunfusheng.gank.widget.MultiType.MultiTypeAdapter;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -55,6 +57,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
     public MultiTypeRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
+        initListener();
     }
 
     private void initView(Context context) {
@@ -64,23 +67,52 @@ public class MultiTypeRecyclerView extends FrameLayout {
 
         loadingView = ButterKnife.findById(view, R.id.loading_view);
         loadingStateDelegate = new LoadingStateDelegate(recyclerView, loadingView, errorStub, emptyStub);
-        loadingStateDelegate.setViewState(LoadingStateDelegate.LOADING_STATE.STATE_LOADING);
 
         multiTypeAdapter = new MultiTypeAdapter();
         multiTypeAdapter.applyGlobalMultiTypePool();
         recyclerView.setAdapter(multiTypeAdapter);
     }
 
-    public void setLoadingState(@LoadingStateDelegate.LOADING_STATE int state) {
-        if (state == LoadingStateDelegate.LOADING_STATE.STATE_LOAD_FAILED) {
+    private void initListener() {
+        recyclerRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onRefresh();
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+                if (manager.getChildCount() > 0) {
+                    int count = manager.getItemCount();
+                    int last = ((RecyclerView.LayoutParams) manager.getChildAt(manager.getChildCount() - 1).getLayoutParams()).getViewAdapterPosition();
+
+                    if (last == count - 1) {
+                        onLoadingMore();
+                    }
+                }
+            }
+        });
+    }
+
+    public void setLoadingState(@LoadingStateDelegate.STATE int state) {
+        if (state == LoadingStateDelegate.STATE.FAILED) {
             if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() > 0) {
-                loadingStateDelegate.setViewState(LoadingStateDelegate.LOADING_STATE.STATE_LOAD_SUCCEED);
+                loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.SUCCEED);
             } else {
-                emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.LOADING_STATE.STATE_LOAD_FAILED);
+                emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.FAILED);
                 setErrorViewClickListener(errorViewClickListener);
             }
-        } else if (state == LoadingStateDelegate.LOADING_STATE.STATE_LOAD_EMPTY) {
-            emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.LOADING_STATE.STATE_LOAD_EMPTY);
+        } else if (state == LoadingStateDelegate.STATE.EMPTY) {
+            emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.EMPTY);
             setEmptyViewClickListener(emptyViewClickListener);
         } else {
             loadingStateDelegate.setViewState(state);
@@ -113,7 +145,19 @@ public class MultiTypeRecyclerView extends FrameLayout {
         }
     }
 
+    public void setData(@Nullable List<?> items) {
+        multiTypeAdapter.setItems(items);
+    }
+
     public void register(@NonNull Class<?> clazz, @NonNull ItemViewProvider provider) {
         multiTypeAdapter.register(clazz, provider);
+    }
+
+    private void onRefresh() {
+
+    }
+
+    private void onLoadingMore() {
+
     }
 }

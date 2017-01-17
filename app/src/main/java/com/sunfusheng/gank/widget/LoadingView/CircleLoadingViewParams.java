@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget;
+package com.sunfusheng.gank.widget.LoadingView;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

@@ -21,7 +21,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.d("log-fragment", getClass().getSimpleName()+".java");
+        Logger.d("log-fragment", getClass().getSimpleName() + ".java");
         isCreated = true;
     }
 
@@ -36,7 +36,7 @@ public class BaseFragment extends Fragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public boolean isVisibleNow(){
+    public boolean isVisibleNow() {
         return isCreated && isVisible;
     }
 
@@ -81,7 +81,7 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    public boolean isLazyLoaded(){
+    public boolean isLazyLoaded() {
         return isLoaded;
     }
 
@@ -89,7 +89,11 @@ public class BaseFragment extends Fragment {
         isLoaded = true;
         new Handler(Looper.getMainLooper()).post(this::lazyLoad);
     }
-    protected void lazyLoad(){};
 
-    public boolean onBackPressed() {return false;}
+    protected void lazyLoad() {
+    }
+
+    public boolean onBackPressed() {
+        return false;
+    }
 }

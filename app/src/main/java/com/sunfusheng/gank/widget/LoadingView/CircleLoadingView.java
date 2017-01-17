@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.widget;
+package com.sunfusheng.gank.widget.LoadingView;
 
 import android.content.Context;
 import android.content.res.TypedArray;

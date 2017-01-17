@@ -26,6 +26,12 @@ public class GankFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mPresenter.loadList();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mPresenter != null) {

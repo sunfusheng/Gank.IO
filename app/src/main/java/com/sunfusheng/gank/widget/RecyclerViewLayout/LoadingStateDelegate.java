@@ -12,29 +12,26 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class LoadingStateDelegate {
 
-    @IntDef({LOADING_STATE.STATE_LOADING, LOADING_STATE.STATE_LOAD_SUCCEED, LOADING_STATE.STATE_LOAD_FAILED, LOADING_STATE.STATE_LOAD_EMPTY})
+    @IntDef({STATE.LOADING, STATE.SUCCEED, STATE.FAILED, STATE.EMPTY})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface LOADING_STATE {
-        int STATE_LOADING = 0;
-        int STATE_LOAD_SUCCEED = 1;
-        int STATE_LOAD_FAILED = 2;
-        int STATE_LOAD_EMPTY = 3;
+    public @interface STATE {
+        int LOADING = 0;
+        int SUCCEED = 1;
+        int FAILED = 2;
+        int EMPTY = 3;
     }
 
     private View viewHolder[] = new View[4];
     private ViewStub viewStubHolder[] = new ViewStub[4];
 
-    public LoadingStateDelegate(View normalView,
-                                View loadingView,
-                                ViewStub errorViewStub,
-                                ViewStub emptyViewStub) {
+    public LoadingStateDelegate(View normalView, View loadingView, ViewStub errorViewStub, ViewStub emptyViewStub) {
         viewHolder[0] = loadingView;
         viewHolder[1] = normalView;
         viewStubHolder[2] = errorViewStub;
         viewStubHolder[3] = emptyViewStub;
     }
 
-    public View setViewState(@LOADING_STATE int viewState) {
+    public View setViewState(@STATE int viewState) {
         if (viewState < 0 || viewState >= viewHolder.length) {
             return null;
         }
@@ -58,6 +55,7 @@ public class LoadingStateDelegate {
 
         return viewHolder[viewState];
     }
+
     public void setEmptyView(View view){
         viewHolder[3] = view;
     }
