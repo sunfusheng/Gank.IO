@@ -14,7 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Logger.init("RxGank").logLevel(BuildConfig.DEBUG? LogLevel.FULL:LogLevel.NONE);
+        Logger.init("RxGank").setLogLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
 
         MultiTypeInitializer.init();
     }

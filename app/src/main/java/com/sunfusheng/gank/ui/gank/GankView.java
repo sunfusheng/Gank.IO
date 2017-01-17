@@ -54,7 +54,7 @@ public class GankView extends FrameLayout implements GankContract.View {
     }
 
     @Override
-    public void onSuccess(List<?> list) {
+    public void onSuccess(List<Object> list) {
         multiTypeRecyclerView.setData(list);
         multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.SUCCEED);
     }

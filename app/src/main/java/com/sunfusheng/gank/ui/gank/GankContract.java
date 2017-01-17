@@ -19,7 +19,7 @@ public interface GankContract {
     interface View extends BaseView<Presenter> {
 
         void onLoading();
-        void onSuccess(List<?> list);
+        void onSuccess(List<Object> list);
         void onError();
         void onEmpty();
     }

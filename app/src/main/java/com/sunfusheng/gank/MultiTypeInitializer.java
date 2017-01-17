@@ -1,7 +1,11 @@
 package com.sunfusheng.gank;
 
-import com.sunfusheng.gank.adapter.TestViewProvider;
-import com.sunfusheng.gank.model.TestEntity;
+import com.sunfusheng.gank.adapter.GankItemGirlViewProvider;
+import com.sunfusheng.gank.adapter.GankItemTitleViewProvider;
+import com.sunfusheng.gank.adapter.GankItemViewProvider;
+import com.sunfusheng.gank.model.GankItem;
+import com.sunfusheng.gank.model.GankItemGirl;
+import com.sunfusheng.gank.model.GankItemTitle;
 import com.sunfusheng.gank.widget.MultiType.GlobalMultiTypePool;
 
 /**
@@ -10,6 +14,8 @@ import com.sunfusheng.gank.widget.MultiType.GlobalMultiTypePool;
 public class MultiTypeInitializer {
 
     static void init() {
-        GlobalMultiTypePool.register(TestEntity.class, new TestViewProvider());
+        GlobalMultiTypePool.register(GankItem.class, new GankItemViewProvider());
+        GlobalMultiTypePool.register(GankItemGirl.class, new GankItemGirlViewProvider());
+        GlobalMultiTypePool.register(GankItemTitle.class, new GankItemTitleViewProvider());
     }
 }

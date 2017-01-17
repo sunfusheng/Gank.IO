@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -41,8 +42,11 @@ public class MultiTypeRecyclerView extends FrameLayout {
 
     private OnClickListener errorViewClickListener;
     private OnClickListener emptyViewClickListener;
+    private OnRequestListener onRequestListener;
 
     private LoadingStateDelegate loadingStateDelegate;
+
+    private int lastItemCount;
 
     private MultiTypeAdapter multiTypeAdapter;
 
@@ -70,6 +74,8 @@ public class MultiTypeRecyclerView extends FrameLayout {
 
         multiTypeAdapter = new MultiTypeAdapter();
         multiTypeAdapter.applyGlobalMultiTypePool();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(multiTypeAdapter);
     }
 
@@ -77,7 +83,9 @@ public class MultiTypeRecyclerView extends FrameLayout {
         recyclerRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                onRefresh();
+                if (onRequestListener != null) {
+                    onRequestListener.onRefresh();
+                }
             }
         });
 
@@ -90,13 +98,14 @@ public class MultiTypeRecyclerView extends FrameLayout {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-                if (manager.getChildCount() > 0) {
-                    int count = manager.getItemCount();
-                    int last = ((RecyclerView.LayoutParams) manager.getChildAt(manager.getChildCount() - 1).getLayoutParams()).getViewAdapterPosition();
+                if (recyclerView.getLayoutManager() instanceof  LinearLayoutManager) {
+                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int itemCount = linearLayoutManager.getItemCount();
+                    int lastPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
 
-                    if (last == count - 1) {
-                        onLoadingMore();
+                    if (itemCount != lastItemCount && lastPosition == itemCount - 1 && onRequestListener != null) {
+                        lastItemCount = itemCount;
+                        onRequestListener.onLoadingMore();
                     }
                 }
             }
@@ -153,11 +162,12 @@ public class MultiTypeRecyclerView extends FrameLayout {
         multiTypeAdapter.register(clazz, provider);
     }
 
-    private void onRefresh() {
-
+    public void setOnRequestListener(OnRequestListener onRequestListener) {
+        this.onRequestListener = onRequestListener;
     }
 
-    private void onLoadingMore() {
-
+    public interface OnRequestListener {
+        void onRefresh();
+        void onLoadingMore();
     }
 }
