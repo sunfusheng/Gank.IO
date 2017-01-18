@@ -59,7 +59,7 @@ public class RefreshView extends View implements IRefreshStatus {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(mStrokeWidth);
-        mPaint.setColor(Color.parseColor("#FFD72263"));
+        mPaint.setColor(Color.parseColor("#FFe51c23"));
     }
 
     private void startAnimator() {

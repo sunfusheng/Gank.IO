@@ -83,6 +83,10 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
         notifyDataSetChanged();
     }
 
+    public List<?> getItems() {
+        return items;
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override

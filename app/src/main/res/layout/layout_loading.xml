@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:circleRadius="6dp"
-        app:cycle="800"/>
+        app:cycle="1000"/>
 
 </RelativeLayout>

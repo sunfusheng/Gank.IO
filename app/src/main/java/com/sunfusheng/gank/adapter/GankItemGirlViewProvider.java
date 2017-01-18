@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +32,7 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemGirl item) {
+        holder.rlGirl.setTag(item);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
 
         Glide.with(holder.ivGirl.getContext())
@@ -42,6 +44,8 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.rl_girl)
+        RelativeLayout rlGirl;
         @BindView(R.id.iv_girl)
         ImageView ivGirl;
         @BindView(R.id.tv_time)

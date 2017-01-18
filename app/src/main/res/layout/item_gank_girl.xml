@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/rl_girl"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp">
 
@@ -15,12 +15,12 @@
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/transparent_30percent"
         android:gravity="bottom"
         android:paddingBottom="15dp"
         android:paddingLeft="15dp"
-        android:text="2017年1月17"
+        android:text="2017-01-17"
         android:textColor="@color/md_white"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:background="@color/transparent_30percent"/>
+        android:textStyle="bold"/>
 </RelativeLayout>
