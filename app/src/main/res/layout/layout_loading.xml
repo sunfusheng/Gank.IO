@@ -13,12 +13,4 @@
         app:circleRadius="6dp"
         app:cycle="800"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/circleLoadingView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="加载中..."
-        android:textColor="@color/color4"/>
 </RelativeLayout>

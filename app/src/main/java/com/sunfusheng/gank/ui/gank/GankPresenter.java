@@ -15,6 +15,9 @@ import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subjects.PublishSubject;
+import rx.subjects.SerializedSubject;
+import rx.subjects.Subject;
 
 /**
  * Created by sunfusheng on 2017/1/13.
@@ -25,6 +28,7 @@ public class GankPresenter implements GankContract.Presenter {
     private GankView mView;
     private List<Object> mList;
     private RequestInfo mRequestInfo;
+    protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
 
     public GankPresenter(Context context, GankView mView) {
         this.mContext = context;
@@ -33,28 +37,35 @@ public class GankPresenter implements GankContract.Presenter {
 
     @Override
     public void init() {
+        mList = new ArrayList<>();
+        mRequestInfo = new RequestInfo();
         if (mView != null) {
             mView.setPresenter(this);
             mView.onAttach();
         }
-        mList = new ArrayList<>();
-        mRequestInfo = new RequestInfo();
     }
 
     @Override
     public void unInit() {
+        lifecycle.onNext(null);
+        lifecycle.onCompleted();
         if (mView != null) {
             mView.onDetach();
         }
     }
 
     @Override
-    public void loadList() {
+    public void onRefresh() {
         if (Utils.isEmpty(mList)) {
             mView.onLoading();
         }
         mList = new ArrayList<>();
         mRequestInfo = new RequestInfo();
+        getGankDayList();
+    }
+
+    @Override
+    public void onLoadingMore() {
         getGankDayList();
     }
 
@@ -66,6 +77,7 @@ public class GankPresenter implements GankContract.Presenter {
                 .filter(gankDay -> gankDay.results != null)
                 .doOnNext(gankDay -> Logger.d("log-data", gankDay.toString()))
                 .map(this::flatGankDay2List)
+                .takeUntil(lifecycle)
                 .subscribe(list -> {
                     if (Utils.notEmpty(list)) {
                         Logger.d("log-data", mRequestInfo.toString());
@@ -86,7 +98,9 @@ public class GankPresenter implements GankContract.Presenter {
                         }
                     }
                 }, e -> {
+                    e.printStackTrace();
                     mRequestInfo.onError();
+
                     if (!mRequestInfo.isComplete()) {
                         getGankDayList();
                     } else {
@@ -98,11 +112,6 @@ public class GankPresenter implements GankContract.Presenter {
                         }
                     }
                 });
-    }
-
-    @Override
-    public void loadMoreList() {
-        getGankDayList();
     }
 
     private List<Object> flatGankDay2List(GankDay gankDay) {

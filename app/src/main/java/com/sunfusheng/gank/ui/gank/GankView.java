@@ -47,7 +47,8 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
 
     @Override
     public void onDetach() {
-
+        multiTypeRecyclerView.removeAllViews();
+        multiTypeRecyclerView = null;
     }
 
     @Override
@@ -63,7 +64,7 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
 
     @Override
     public void onError() {
-        multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.FAILED);
+        multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.ERROR);
     }
 
     @Override
@@ -74,14 +75,14 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
     @Override
     public void onRefresh() {
         if (mPresenter != null) {
-            mPresenter.loadList();
+            mPresenter.onRefresh();
         }
     }
 
     @Override
     public void onLoadingMore() {
         if (mPresenter != null) {
-            mPresenter.loadMoreList();
+            mPresenter.onLoadingMore();
         }
     }
 }

@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class RequestInfo {
 
-    private static final int MS_OF_DAY = 24*60*60*1000;
+    private static final int MS_OF_DAY = 24 * 60 * 60 * 1000;
 
     public int year;
     public int month;
@@ -59,7 +59,7 @@ public class RequestInfo {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH)+1;
+        month = calendar.get(Calendar.MONTH) + 1;
         day = calendar.get(Calendar.DAY_OF_MONTH);
     }
 

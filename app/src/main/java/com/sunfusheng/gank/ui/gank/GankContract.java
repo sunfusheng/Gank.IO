@@ -11,13 +11,11 @@ import java.util.List;
 public interface GankContract {
 
     interface Presenter extends BasePresenter {
-
-        void loadList();
-        void loadMoreList();
+        void onRefresh();
+        void onLoadingMore();
     }
 
     interface View extends BaseView<Presenter> {
-
         void onLoading();
         void onSuccess(List<Object> list);
         void onError();

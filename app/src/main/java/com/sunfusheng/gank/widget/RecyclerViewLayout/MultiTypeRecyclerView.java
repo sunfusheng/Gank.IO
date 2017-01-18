@@ -114,11 +114,11 @@ public class MultiTypeRecyclerView extends FrameLayout {
 
     public void setLoadingState(@LoadingStateDelegate.STATE int state) {
         recyclerRefreshLayout.setRefreshing(false);
-        if (state == LoadingStateDelegate.STATE.FAILED) {
+        if (state == LoadingStateDelegate.STATE.ERROR) {
             if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() > 0) {
                 loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.SUCCEED);
             } else {
-                emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.FAILED);
+                emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.ERROR);
                 setErrorViewClickListener(errorViewClickListener);
             }
         } else if (state == LoadingStateDelegate.STATE.EMPTY) {

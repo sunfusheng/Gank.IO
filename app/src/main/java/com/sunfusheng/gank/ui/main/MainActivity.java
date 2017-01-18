@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new GankFragment())
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     private void initData() {

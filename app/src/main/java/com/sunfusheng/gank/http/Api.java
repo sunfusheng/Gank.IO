@@ -4,6 +4,8 @@ import android.support.compat.BuildConfig;
 
 import com.sunfusheng.gank.Constants;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -17,9 +19,8 @@ public class Api {
 
     private static ApiService mApiService;
 
-    // 连接超时时间，默认10秒
-    private static final int CONNECT_TIMEOUT = 10;
-
+    // 连接超时时间，默认20秒
+    private static final int CONNECT_TIMEOUT = 20;
 
     private static class Holder {
         private static Api instance = new Api();
@@ -35,6 +36,8 @@ public class Api {
 
     private void init() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS);
+
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

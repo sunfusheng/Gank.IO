@@ -12,23 +12,23 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class LoadingStateDelegate {
 
-    @IntDef({STATE.LOADING, STATE.SUCCEED, STATE.FAILED, STATE.EMPTY})
+    @IntDef({STATE.LOADING, STATE.SUCCEED, STATE.ERROR, STATE.EMPTY})
     @Retention(RetentionPolicy.SOURCE)
     public @interface STATE {
         int LOADING = 0;
         int SUCCEED = 1;
-        int FAILED = 2;
+        int ERROR = 2;
         int EMPTY = 3;
     }
 
     private View viewHolder[] = new View[4];
     private ViewStub viewStubHolder[] = new ViewStub[4];
 
-    public LoadingStateDelegate(View normalView, View loadingView, ViewStub errorViewStub, ViewStub emptyViewStub) {
+    public LoadingStateDelegate(View normalView, View loadingView, ViewStub errorStub, ViewStub emptyStub) {
         viewHolder[0] = loadingView;
         viewHolder[1] = normalView;
-        viewStubHolder[2] = errorViewStub;
-        viewStubHolder[3] = emptyViewStub;
+        viewStubHolder[2] = errorStub;
+        viewStubHolder[3] = emptyStub;
     }
 
     public View setViewState(@STATE int viewState) {

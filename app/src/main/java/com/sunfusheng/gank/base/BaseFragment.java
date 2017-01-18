@@ -4,17 +4,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 /**
  * Created by sunfusheng on 2017/1/12.
  */
-public class BaseFragment extends Fragment {
+public class BaseFragment extends RxFragment {
 
     private boolean isCreated = false, isVisible = false, isEnter = false, isLoaded = false;
 
@@ -93,7 +93,4 @@ public class BaseFragment extends Fragment {
     protected void lazyLoad() {
     }
 
-    public boolean onBackPressed() {
-        return false;
-    }
 }
