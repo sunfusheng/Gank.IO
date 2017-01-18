@@ -16,7 +16,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.d("log-activity", getClass().getSimpleName() + ".java");
-        StatusBarUtil.setStatusBarTranslucent(this, true);
+        StatusBarUtil.setStatusBarTranslucent(this, false);
         inflateView();
     }
 

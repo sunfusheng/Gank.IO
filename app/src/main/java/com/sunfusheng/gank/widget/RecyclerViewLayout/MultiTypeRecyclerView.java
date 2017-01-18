@@ -113,6 +113,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
     }
 
     public void setLoadingState(@LoadingStateDelegate.STATE int state) {
+        recyclerRefreshLayout.setRefreshing(false);
         if (state == LoadingStateDelegate.STATE.FAILED) {
             if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() > 0) {
                 loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.SUCCEED);

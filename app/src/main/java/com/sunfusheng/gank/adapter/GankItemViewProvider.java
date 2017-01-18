@@ -23,12 +23,19 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
     @Override
     protected ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
         View view = inflater.inflate(R.layout.item_gank, parent, false);
+        view.setOnClickListener(v -> {
+
+        });
         return new ViewHolder(view);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItem item) {
         holder.tvDesc.setText(item.desc + "\n" + item.who);
+
+        holder.tvDesc.setOnClickListener(v -> {
+
+        });
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

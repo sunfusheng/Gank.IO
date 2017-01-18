@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
+import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
@@ -30,7 +31,7 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemGirl item) {
-        holder.tvTime.setText(item.publishedAt);
+        holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
 
         Glide.with(holder.ivGirl.getContext())
                 .load(item.url)

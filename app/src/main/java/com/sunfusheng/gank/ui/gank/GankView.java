@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * Created by sunfusheng on 2017/1/13.
  */
-public class GankView extends FrameLayout implements GankContract.View {
+public class GankView extends FrameLayout implements GankContract.View, MultiTypeRecyclerView.OnRequestListener {
 
     @BindView(R.id.multiTypeRecyclerView)
     MultiTypeRecyclerView multiTypeRecyclerView;
@@ -41,6 +41,8 @@ public class GankView extends FrameLayout implements GankContract.View {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.view_gank, this);
         ButterKnife.bind(this, view);
+
+        multiTypeRecyclerView.setOnRequestListener(this);
     }
 
     @Override
@@ -67,5 +69,19 @@ public class GankView extends FrameLayout implements GankContract.View {
     @Override
     public void onEmpty() {
         multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.EMPTY);
+    }
+
+    @Override
+    public void onRefresh() {
+        if (mPresenter != null) {
+            mPresenter.loadList();
+        }
+    }
+
+    @Override
+    public void onLoadingMore() {
+        if (mPresenter != null) {
+            mPresenter.loadMoreList();
+        }
     }
 }

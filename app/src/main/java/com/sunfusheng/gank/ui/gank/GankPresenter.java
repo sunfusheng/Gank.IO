@@ -50,7 +50,11 @@ public class GankPresenter implements GankContract.Presenter {
 
     @Override
     public void loadList() {
-        mView.onLoading();
+        if (Utils.isEmpty(mList)) {
+            mView.onLoading();
+        }
+        mList = new ArrayList<>();
+        mRequestInfo = new RequestInfo();
         getGankDayList();
     }
 
@@ -74,6 +78,7 @@ public class GankPresenter implements GankContract.Presenter {
                     if (!mRequestInfo.isComplete()) {
                         getGankDayList();
                     } else {
+                        mRequestInfo.onComplete();
                         if (Utils.notEmpty(mList)) {
                             mView.onSuccess(mList);
                         } else {
@@ -85,6 +90,7 @@ public class GankPresenter implements GankContract.Presenter {
                     if (!mRequestInfo.isComplete()) {
                         getGankDayList();
                     } else {
+                        mRequestInfo.onComplete();
                         if (Utils.notEmpty(mList)) {
                             mView.onSuccess(mList);
                         } else {
