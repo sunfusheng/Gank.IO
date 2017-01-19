@@ -32,13 +32,12 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemGirl item) {
-        holder.rlGirl.setTag(item);
+        holder.rlGirl.setTag(true);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
-
         Glide.with(holder.ivGirl.getContext())
                 .load(item.url)
                 .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.color.transparent)
                 .crossFade()
                 .into(holder.ivGirl);
     }

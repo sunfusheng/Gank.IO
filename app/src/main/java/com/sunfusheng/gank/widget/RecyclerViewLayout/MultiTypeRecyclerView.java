@@ -50,6 +50,8 @@ public class MultiTypeRecyclerView extends FrameLayout {
     private LinearLayoutManager linearLayoutManager;
     private MultiTypeAdapter multiTypeAdapter;
     private int lastItemCount;
+    private int firstVisibleItemPosition = RecyclerView.NO_POSITION;
+    private int lastVisibleItemPosition = RecyclerView.NO_POSITION;
 
     public MultiTypeRecyclerView(@NonNull Context context) {
         this(context, null);
@@ -103,7 +105,10 @@ public class MultiTypeRecyclerView extends FrameLayout {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
                 if (recyclerView.getLayoutManager() instanceof  LinearLayoutManager) {
+                    firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                    lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
                     int itemCount = linearLayoutManager.getItemCount();
                     int lastPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
 
@@ -171,12 +176,38 @@ public class MultiTypeRecyclerView extends FrameLayout {
         multiTypeAdapter.register(clazz, provider);
     }
 
+    public List<?> getData() {
+        return multiTypeAdapter.getItems();
+    }
+
     public LinearLayoutManager getLinearLayoutManager() {
         return linearLayoutManager;
     }
 
     public MultiTypeAdapter getMultiTypeAdapter() {
         return multiTypeAdapter;
+    }
+
+    public int getFirstVisibleItemPosition() {
+        return firstVisibleItemPosition;
+    }
+
+    public int getLastVisibleItemPosition() {
+        return lastVisibleItemPosition;
+    }
+
+    public Object getFirstVisibleItem() {
+        if (multiTypeAdapter.getItemCount() <= 0) return null;
+        if (firstVisibleItemPosition == RecyclerView.NO_POSITION) return null;
+        if (firstVisibleItemPosition >= multiTypeAdapter.getItemCount()) return null;
+        return multiTypeAdapter.getItems().get(firstVisibleItemPosition);
+    }
+
+    public Object getLastVisibleItem() {
+        if (multiTypeAdapter.getItemCount() <= 0) return null;
+        if (lastVisibleItemPosition == RecyclerView.NO_POSITION) return null;
+        if (lastVisibleItemPosition >= multiTypeAdapter.getItemCount()) return null;
+        return multiTypeAdapter.getItems().get(lastVisibleItemPosition);
     }
 
     public void setOnRequestListener(OnRequestListener onRequestListener) {

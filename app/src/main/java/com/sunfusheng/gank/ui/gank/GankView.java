@@ -3,7 +3,6 @@ package com.sunfusheng.gank.ui.gank;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,6 +38,7 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
 
     private Context mContext;
     private GankContract.Presenter mPresenter;
+    private int lastPos = -1;
 
     public GankView(@NonNull Context context) {
         super(context);
@@ -74,13 +74,9 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
 
     @Override
     public void onSuccess(List<Object> list) {
-        if (list.get(0) instanceof GankItemGirl) {
-            girl = (GankItemGirl) list.get(0);
-            lastGirl = girl;
-            updateFakeView(girl, 1);
-        }
-        rlGirl.setVisibility(VISIBLE);
         multiTypeRecyclerView.setData(list);
+        renderFakeView(0);
+        rlGirl.setVisibility(VISIBLE);
         multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.SUCCEED);
     }
 
@@ -112,54 +108,37 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
     }
 
-    private GankItemGirl girl;
-    private GankItemGirl lastGirl;
-    private int flag;
-
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         View realItemView = recyclerView.findChildViewUnder(rlGirl.getMeasuredWidth() / 2, rlGirl.getMeasuredHeight() + 1);
-        if (realItemView != null) {
-            int dealtY = realItemView.getTop() - rlGirl.getHeight();
-
-            if (realItemView.getTag() != null) {
-                Object item = realItemView.getTag();
-                if (item instanceof GankItemGirl) {
-                    girl = (GankItemGirl) item;
-                    Log.d("----5 ", "time: "+DateUtil.convertString2String(girl.publishedAt));
-                }
-                if ((item instanceof GankItemGirl) && realItemView.getTop() > 0) {
-                    Log.d("----1 ", "dealtY: " + dealtY + " top: "+realItemView.getTop() + " Y: " +rlGirl.getTranslationY());
-                    rlGirl.setTranslationY(dealtY);
-                    updateFakeView(girl, 1);
-                } else {
-                    Log.d("----2 ", "dealtY: " + dealtY + " top: "+realItemView.getTop() + " Y: " +rlGirl.getTranslationY());
-                    rlGirl.setTranslationY(0);
-                }
-            } else if (realItemView.getTop() <= rlGirl.getHeight()) {
-                Log.d("----3 ", "dealtY: " + dealtY + " top: "+realItemView.getTop() + " Y: " +rlGirl.getTranslationY());
-                rlGirl.setTranslationY(0);
-                updateFakeView(girl, 3);
+        if (realItemView == null) return;
+        if (realItemView.getTag() != null) {
+            boolean isGirl = (boolean) realItemView.getTag();
+            if (isGirl && realItemView.getTop() > 0) {
+                rlGirl.setTranslationY(realItemView.getTop() - rlGirl.getHeight());
+                renderFakeView(1);
             } else {
-                Log.d("----4 ", "dealtY: " + dealtY + " top: "+realItemView.getTop() + " Y: " +rlGirl.getTranslationY());
+                rlGirl.setTranslationY(0);
             }
+        } else if (realItemView.getTop() <= rlGirl.getHeight()) {
+            rlGirl.setTranslationY(0);
+            renderFakeView(2);
         }
     }
 
-    private void updateFakeView(GankItemGirl girl, int i) {
-        if (girl == null) return;
-//        if (lastGirl == girl) return;
-//        lastGirl = girl;
-        if (flag == i) return;
-        if (flag == 1 && lastGirl != null) {
-            girl = lastGirl;
-        } else if (flag == 3) {
-            lastGirl = girl;
+    // pos: 为了提高渲染效率的临时解决方案，调用一次pos+1
+    private void renderFakeView(int pos) {
+        if (lastPos == pos) return;
+        lastPos = pos;
+        if (multiTypeRecyclerView.getFirstVisibleItem() == null) return;
+        GankItemGirl girl = null;
+        for (int i = multiTypeRecyclerView.getFirstVisibleItemPosition(); i >= 0; i--) {
+            Object item = multiTypeRecyclerView.getData().get(i);
+            if (item instanceof GankItemGirl) {
+                girl = (GankItemGirl) item;
+                break;
+            }
         }
-        flag = i;
-
-        Log.d("----5 ", "success: "+flag + " time: "+DateUtil.convertString2String(girl.publishedAt));
-
         tvTime.setText(DateUtil.convertString2String(girl.publishedAt));
         Glide.with(ivGirl.getContext())
                 .load(girl.url)
