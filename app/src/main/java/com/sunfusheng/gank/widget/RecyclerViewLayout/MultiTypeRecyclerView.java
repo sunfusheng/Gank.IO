@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 import com.sunfusheng.gank.widget.MultiType.MultiTypeAdapter;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.DragDistanceConverterEg;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class MultiTypeRecyclerView extends FrameLayout {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.recyclerRefreshLayout)
-    SwipeRefreshLayout recyclerRefreshLayout;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.error_stub)
     ViewStub errorStub;
     @BindView(R.id.empty_stub)
@@ -78,18 +79,16 @@ public class MultiTypeRecyclerView extends FrameLayout {
         multiTypeAdapter = new MultiTypeAdapter();
         multiTypeAdapter.applyGlobalMultiTypePool();
 
+        swipeRefreshLayout.setDragDistanceConverter(new DragDistanceConverterEg());
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(multiTypeAdapter);
     }
 
     private void initListener() {
-        recyclerRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (onRequestListener != null) {
-                    onRequestListener.onRefresh();
-                }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            if (onRequestListener != null) {
+                onRequestListener.onRefresh();
             }
         });
 
@@ -126,7 +125,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
     }
 
     public void setLoadingState(@LoadingStateDelegate.STATE int state) {
-        recyclerRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
         if (state == LoadingStateDelegate.STATE.ERROR) {
             if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() > 0) {
                 loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.SUCCEED);
@@ -178,6 +177,18 @@ public class MultiTypeRecyclerView extends FrameLayout {
 
     public List<?> getData() {
         return multiTypeAdapter.getItems();
+    }
+
+    public int getItemCount() {
+        return multiTypeAdapter.getItemCount();
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
     }
 
     public LinearLayoutManager getLinearLayoutManager() {

@@ -26,6 +26,9 @@ public class RefreshView extends View implements IRefreshStatus {
     private float mStartDegrees;
     private float mSwipeDegrees;
 
+    private float pullDistance;
+    private float pullProgress;
+
     private float mStrokeWidth;
 
     private boolean mHasTriggeredRefresh;
@@ -75,7 +78,6 @@ public class RefreshView extends View implements IRefreshStatus {
         mRotateAnimator.setRepeatMode(ValueAnimator.RESTART);
         mRotateAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mRotateAnimator.setDuration(ANIMATION_DURATION);
-
         mRotateAnimator.start();
     }
 
@@ -83,7 +85,6 @@ public class RefreshView extends View implements IRefreshStatus {
         if (mRotateAnimator != null) {
             mRotateAnimator.cancel();
             mRotateAnimator.removeAllUpdateListeners();
-
             mRotateAnimator = null;
         }
     }
@@ -144,7 +145,6 @@ public class RefreshView extends View implements IRefreshStatus {
 
     @Override
     public void pullToRefresh() {
-
     }
 
     @Override
@@ -153,9 +153,27 @@ public class RefreshView extends View implements IRefreshStatus {
 
     @Override
     public void pullProgress(float pullDistance, float pullProgress) {
+        this.pullDistance = pullDistance;
+        this.pullProgress = pullProgress;
         if (!mHasTriggeredRefresh) {
             float swipeProgress = Math.min(1.0f, pullProgress);
             setSwipeDegrees(swipeProgress * MAX_ARC_DEGREE);
         }
+    }
+
+    public float getPullDistance() {
+        return pullDistance;
+    }
+
+    public void setPullDistance(float pullDistance) {
+        this.pullDistance = pullDistance;
+    }
+
+    public float getPullProgress() {
+        return pullProgress;
+    }
+
+    public void setPullProgress(float pullProgress) {
+        this.pullProgress = pullProgress;
     }
 }

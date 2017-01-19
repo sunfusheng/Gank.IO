@@ -10,7 +10,6 @@ import android.support.v4.view.NestedScrollingParentHelper;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -53,15 +52,13 @@ public class SwipeRefreshLayout extends ViewGroup
     private static final int DEFAULT_REFRESH_TARGET_OFFSET_DP = 50;
 
     private static final float DECELERATE_INTERPOLATION_FACTOR = 2.0f;
-
-    // NestedScroll
-    private float mTotalUnconsumed;
-    private boolean mNestedScrollInProgress;
     private final int[] mParentScrollConsumed = new int[2];
     private final int[] mParentOffsetInWindow = new int[2];
     private final NestedScrollingChildHelper mNestedScrollingChildHelper;
     private final NestedScrollingParentHelper mNestedScrollingParentHelper;
-
+    // NestedScroll
+    private float mTotalUnconsumed;
+    private boolean mNestedScrollInProgress;
     //whether to remind the callback listener(OnRefreshListener)
     private boolean mIsAnimatingToStart;
     private boolean mIsRefreshing;
@@ -97,16 +94,12 @@ public class SwipeRefreshLayout extends ViewGroup
     private RefreshStyle mRefreshStyle = RefreshStyle.NORMAL;
 
     private View mTarget;
-    private View mRefreshView;
+    private RefreshView mRefreshView;
 
+    private OnDragOffsetListener onDragOffsetListener;
     private IDragDistanceConverter mDragDistanceConverter;
 
     private IRefreshStatus mIRefreshStatus;
-    private OnRefreshListener mOnRefreshListener;
-
-    private Interpolator mAnimateToStartInterpolator = new DecelerateInterpolator(DECELERATE_INTERPOLATION_FACTOR);
-    private Interpolator mAnimateToRefreshInterpolator = new DecelerateInterpolator(DECELERATE_INTERPOLATION_FACTOR);
-
     private final Animation mAnimateToRefreshingAnimation = new Animation() {
         @Override
         protected void applyTransformation(float interpolatedTime, Transformation t) {
@@ -121,7 +114,6 @@ public class SwipeRefreshLayout extends ViewGroup
             }
         }
     };
-
     private final Animation mAnimateToStartAnimation = new Animation() {
         @Override
         protected void applyTransformation(float interpolatedTime, Transformation t) {
@@ -135,13 +127,22 @@ public class SwipeRefreshLayout extends ViewGroup
             }
         }
     };
+    private final Animation.AnimationListener mResetListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            mIsAnimatingToStart = true;
+        }
 
-    private void animateToTargetOffset(float targetEnd, float currentOffset, float interpolatedTime) {
-        int targetOffset = (int) (mFrom + (targetEnd - mFrom) * interpolatedTime);
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+        }
 
-        setTargetOrRefreshViewOffsetY((int) (targetOffset - currentOffset));
-    }
-
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            reset();
+        }
+    };
+    private OnRefreshListener mOnRefreshListener;
     private final Animation.AnimationListener mRefreshingListener = new Animation.AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) {
@@ -164,22 +165,8 @@ public class SwipeRefreshLayout extends ViewGroup
             mIsAnimatingToStart = false;
         }
     };
-
-    private final Animation.AnimationListener mResetListener = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationStart(Animation animation) {
-            mIsAnimatingToStart = true;
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            reset();
-        }
-    };
+    private Interpolator mAnimateToStartInterpolator = new DecelerateInterpolator(DECELERATE_INTERPOLATION_FACTOR);
+    private Interpolator mAnimateToRefreshInterpolator = new DecelerateInterpolator(DECELERATE_INTERPOLATION_FACTOR);
 
     public SwipeRefreshLayout(Context context) {
         this(context, null);
@@ -204,6 +191,12 @@ public class SwipeRefreshLayout extends ViewGroup
         initDragDistanceConverter();
         setNestedScrollingEnabled(true);
         ViewCompat.setChildrenDrawingOrderEnabled(this, true);
+    }
+
+    private void animateToTargetOffset(float targetEnd, float currentOffset, float interpolatedTime) {
+        int targetOffset = (int) (mFrom + (targetEnd - mFrom) * interpolatedTime);
+
+        setTargetOrRefreshViewOffsetY((int) (targetOffset - currentOffset));
     }
 
     @Override
@@ -275,7 +268,7 @@ public class SwipeRefreshLayout extends ViewGroup
         refreshView.setVisibility(View.GONE);
         addView(refreshView, layoutParams);
 
-        mRefreshView = refreshView;
+        mRefreshView = (RefreshView) refreshView;
     }
 
     public void setDragDistanceConverter(@NonNull IDragDistanceConverter dragDistanceConverter) {
@@ -418,7 +411,6 @@ public class SwipeRefreshLayout extends ViewGroup
                 consumed[1] = dy;
 
             }
-            Log.i("debug", "pre scroll");
             moveSpinner(mTotalUnconsumed);
         }
 
@@ -464,7 +456,6 @@ public class SwipeRefreshLayout extends ViewGroup
         final int dy = dyUnconsumed + mParentOffsetInWindow[1];
         if (dy < 0) {
             mTotalUnconsumed += Math.abs(dy);
-            Log.i("debug", "nested scroll");
             moveSpinner(mTotalUnconsumed);
         }
     }
@@ -472,13 +463,13 @@ public class SwipeRefreshLayout extends ViewGroup
     // NestedScrollingChild
 
     @Override
-    public void setNestedScrollingEnabled(boolean enabled) {
-        mNestedScrollingChildHelper.setNestedScrollingEnabled(enabled);
+    public boolean isNestedScrollingEnabled() {
+        return mNestedScrollingChildHelper.isNestedScrollingEnabled();
     }
 
     @Override
-    public boolean isNestedScrollingEnabled() {
-        return mNestedScrollingChildHelper.isNestedScrollingEnabled();
+    public void setNestedScrollingEnabled(boolean enabled) {
+        mNestedScrollingChildHelper.setNestedScrollingEnabled(enabled);
     }
 
     @Override
@@ -770,14 +761,10 @@ public class SwipeRefreshLayout extends ViewGroup
                 float overScrollY;
                 if (mIsAnimatingToStart) {
                     overScrollY = getTargetOrRefreshViewTop();
-
                     mInitialMotionY = activeMoveY;
                     mInitialScrollY = overScrollY;
-
-                    Log.i("debug", "animatetostart overscrolly " + overScrollY + " -- " + mInitialMotionY);
                 } else {
                     overScrollY = activeMoveY - mInitialMotionY + mInitialScrollY;
-                    Log.i("debug", "overscrolly " + overScrollY + " --" + mInitialMotionY + " -- " + mInitialScrollY);
                 }
 
                 if (mIsRefreshing) {
@@ -799,7 +786,6 @@ public class SwipeRefreshLayout extends ViewGroup
                             mTarget.dispatchTouchEvent(obtain);
                         }
                     }
-                    Log.i("debug", "moveSpinner refreshing -- " + mInitialScrollY + " -- " + (activeMoveY - mInitialMotionY));
                     moveSpinner(overScrollY);
                 } else {
                     if (mIsBeingDragged) {
@@ -853,7 +839,6 @@ public class SwipeRefreshLayout extends ViewGroup
 
     private void resetTouchEvent() {
         mInitialScrollY = 0.0f;
-
         mIsBeingDragged = false;
         mDispatchTargetTouchDown = false;
         mActivePointerId = INVALID_POINTER;
@@ -942,8 +927,6 @@ public class SwipeRefreshLayout extends ViewGroup
     }
 
     private int computeAnimateToRefreshingDuration(float from) {
-        Log.i("debug", "from -- refreshing " + from);
-
         if (from < mRefreshInitialOffset) {
             return 0;
         }
@@ -959,8 +942,6 @@ public class SwipeRefreshLayout extends ViewGroup
     }
 
     private int computeAnimateToStartDuration(float from) {
-        Log.i("debug", "from -- start " + from);
-
         if (from < mRefreshInitialOffset) {
             return 0;
         }
@@ -1020,10 +1001,6 @@ public class SwipeRefreshLayout extends ViewGroup
                 mIRefreshStatus.releaseToRefresh();
             }
         }
-
-        Log.i("debug", targetOrRefreshViewOffsetY + " -- " + refreshTargetOffset + " -- "
-                + convertScrollOffset + " -- " + mTargetOrRefreshViewOffsetY + " -- " + mRefreshTargetOffset);
-
         setTargetOrRefreshViewOffsetY((int) (convertScrollOffset - mTargetOrRefreshViewOffsetY));
     }
 
@@ -1044,10 +1021,7 @@ public class SwipeRefreshLayout extends ViewGroup
     private void onNewerPointerDown(MotionEvent ev) {
         final int index = MotionEventCompat.getActionIndex(ev);
         mActivePointerId = MotionEventCompat.getPointerId(ev, index);
-
         mInitialMotionY = getMotionEventY(ev, mActivePointerId) - mCurrentTouchOffsetY;
-
-        Log.i("debug", " onDown " + mInitialMotionY);
     }
 
     private void onSecondaryPointerUp(MotionEvent ev) {
@@ -1060,8 +1034,6 @@ public class SwipeRefreshLayout extends ViewGroup
         }
 
         mInitialMotionY = getMotionEventY(ev, mActivePointerId) - mCurrentTouchOffsetY;
-
-        Log.i("debug", " onUp " + mInitialMotionY);
     }
 
     private void setTargetOrRefreshViewOffsetY(int offsetY) {
@@ -1085,12 +1057,9 @@ public class SwipeRefreshLayout extends ViewGroup
                 break;
         }
 
-        Log.i("debug", "current offset" + mTargetOrRefreshViewOffsetY);
-
         switch (mRefreshStyle) {
             case FLOAT:
-                mIRefreshStatus.pullProgress(mTargetOrRefreshViewOffsetY,
-                        (mTargetOrRefreshViewOffsetY - mRefreshInitialOffset) / mRefreshTargetOffset);
+                mIRefreshStatus.pullProgress(mTargetOrRefreshViewOffsetY, (mTargetOrRefreshViewOffsetY - mRefreshInitialOffset) / mRefreshTargetOffset);
                 break;
             default:
                 mIRefreshStatus.pullProgress(mTargetOrRefreshViewOffsetY, mTargetOrRefreshViewOffsetY / mRefreshTargetOffset);
@@ -1099,6 +1068,10 @@ public class SwipeRefreshLayout extends ViewGroup
 
         if (mRefreshView.getVisibility() != View.VISIBLE) {
             mRefreshView.setVisibility(View.VISIBLE);
+        }
+
+        if (onDragOffsetListener != null) {
+            onDragOffsetListener.onDragOffset(mTargetOrRefreshViewOffsetY);
         }
 
         invalidate();
@@ -1187,18 +1160,46 @@ public class SwipeRefreshLayout extends ViewGroup
         mRefreshStyle = refreshStyle;
     }
 
-    public enum RefreshStyle {
-        NORMAL,
-        PINNED,
-        FLOAT
-    }
-
     /**
      * Set the listener to be notified when a refresh is triggered via the swipe
      * gesture.
      */
     public void setOnRefreshListener(OnRefreshListener listener) {
         mOnRefreshListener = listener;
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new LayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
+        return new LayoutParams(p);
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+        return p instanceof LayoutParams;
+    }
+
+    public enum RefreshStyle {
+        NORMAL,
+        PINNED,
+        FLOAT
+    }
+
+    public void setOnDragOffsetListener(OnDragOffsetListener onDragOffsetListener) {
+        this.onDragOffsetListener = onDragOffsetListener;
+    }
+
+    public interface OnDragOffsetListener {
+        void onDragOffset(float offsetY);
     }
 
     public interface OnRefreshListener {
@@ -1225,25 +1226,5 @@ public class SwipeRefreshLayout extends ViewGroup
         public LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
         }
-    }
-
-    @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new LayoutParams(getContext(), attrs);
-    }
-
-    @Override
-    protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
-        return new LayoutParams(p);
-    }
-
-    @Override
-    protected LayoutParams generateDefaultLayoutParams() {
-        return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-    }
-
-    @Override
-    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof LayoutParams;
     }
 }

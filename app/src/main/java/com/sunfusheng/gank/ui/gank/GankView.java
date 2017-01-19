@@ -16,6 +16,7 @@ import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.widget.RecyclerViewLayout.LoadingStateDelegate;
 import com.sunfusheng.gank.widget.RecyclerViewLayout.MultiTypeRecyclerView;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
 
 import java.util.List;
 
@@ -25,7 +26,10 @@ import butterknife.ButterKnife;
 /**
  * Created by sunfusheng on 2017/1/13.
  */
-public class GankView extends FrameLayout implements GankContract.View, MultiTypeRecyclerView.OnRequestListener, MultiTypeRecyclerView.OnScrollListener {
+public class GankView extends FrameLayout implements GankContract.View,
+        MultiTypeRecyclerView.OnRequestListener,
+        MultiTypeRecyclerView.OnScrollListener,
+        SwipeRefreshLayout.OnDragOffsetListener {
 
     @BindView(R.id.multiTypeRecyclerView)
     MultiTypeRecyclerView multiTypeRecyclerView;
@@ -59,6 +63,7 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
         rlGirl.setVisibility(INVISIBLE);
         multiTypeRecyclerView.setOnRequestListener(this);
         multiTypeRecyclerView.setOnScrollListener(this);
+        multiTypeRecyclerView.getSwipeRefreshLayout().setOnDragOffsetListener(this);
     }
 
     @Override
@@ -148,4 +153,16 @@ public class GankView extends FrameLayout implements GankContract.View, MultiTyp
                 .into(ivGirl);
     }
 
+    @Override
+    public void onDragOffset(float offsetY) {
+        if (offsetY > 0) {
+            if (rlGirl.getVisibility() == VISIBLE) {
+                rlGirl.setVisibility(INVISIBLE);
+            }
+        } else {
+            if (rlGirl.getVisibility() == INVISIBLE && multiTypeRecyclerView.getItemCount() > 0) {
+                rlGirl.setVisibility(VISIBLE);
+            }
+        }
+    }
 }

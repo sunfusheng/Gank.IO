@@ -20,7 +20,7 @@ public class Api {
     private static ApiService mApiService;
 
     // 连接超时时间，默认20秒
-    private static final int CONNECT_TIMEOUT = 20;
+    private static final int CONNECT_TIMEOUT = 30;
 
     private static class Holder {
         private static Api instance = new Api();

@@ -17,7 +17,7 @@ public class RequestInfo {
     private Date currentDate;
     private int successTimes;
     private int errorTimes;
-    private int emptyTimes;
+    private int emptyTimes; // 擦，我就不相信代码家30天都没有更新
 
     public RequestInfo() {
         this.successTimes = 0;
@@ -49,7 +49,7 @@ public class RequestInfo {
     }
 
     public boolean isComplete() {
-        if (successTimes >= 3 || errorTimes >= 10 || emptyTimes >= 20) {
+        if (successTimes >= 3 || errorTimes >= 10 || emptyTimes >= 30) {
             return true;
         }
         return false;
