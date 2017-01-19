@@ -1,8 +1,8 @@
 package com.sunfusheng.gank;
 
-import com.sunfusheng.gank.adapter.GankItemGirlViewProvider;
-import com.sunfusheng.gank.adapter.GankItemTitleViewProvider;
-import com.sunfusheng.gank.adapter.GankItemViewProvider;
+import com.sunfusheng.gank.viewprovider.GankItemGirlViewProvider;
+import com.sunfusheng.gank.viewprovider.GankItemTitleViewProvider;
+import com.sunfusheng.gank.viewprovider.GankItemViewProvider;
 import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.model.GankItemTitle;

@@ -87,6 +87,13 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
         return items;
     }
 
+    public void removeAll() {
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        items.clear();
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override

@@ -80,7 +80,7 @@ public class GankView extends FrameLayout implements GankContract.View,
     }
 
     @Override
-    public void onSuccess(List<Object> list) {
+    public void onSuccess(List<Object> list, boolean isLoadMore) {
         multiTypeRecyclerView.setData(list);
         renderFakeView(0);
         rlGirl.setVisibility(VISIBLE);

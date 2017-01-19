@@ -20,7 +20,7 @@ public class GankFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = new GankView(getContext());
-        mPresenter = new GankPresenter(getContext(), mView);
+        mPresenter = new GankPresenter(mView);
         mPresenter.init();
         return mView;
     }

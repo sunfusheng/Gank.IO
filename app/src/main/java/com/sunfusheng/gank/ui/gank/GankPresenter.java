@@ -1,7 +1,5 @@
 package com.sunfusheng.gank.ui.gank;
 
-import android.content.Context;
-
 import com.orhanobut.logger.Logger;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.model.GankDay;
@@ -24,14 +22,12 @@ import rx.subjects.Subject;
  */
 public class GankPresenter implements GankContract.Presenter {
 
-    private Context mContext;
     private GankView mView;
     private List<Object> mList;
     private RequestInfo mRequestInfo;
     protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
 
-    public GankPresenter(Context context, GankView mView) {
-        this.mContext = context;
+    public GankPresenter(GankView mView) {
         this.mView = mView;
     }
 
@@ -61,15 +57,15 @@ public class GankPresenter implements GankContract.Presenter {
         }
         mList = new ArrayList<>();
         mRequestInfo = new RequestInfo();
-        getGankDayList();
+        getGankDayList(false);
     }
 
     @Override
     public void onLoadingMore() {
-        getGankDayList();
+        getGankDayList(true);
     }
 
-    private void getGankDayList() {
+    private void getGankDayList(final boolean isLoadMore) {
         Api.getInstance().getApiService().getGankDay(mRequestInfo.year, mRequestInfo.month, mRequestInfo.day)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -88,11 +84,11 @@ public class GankPresenter implements GankContract.Presenter {
                     }
 
                     if (!mRequestInfo.isComplete()) {
-                        getGankDayList();
+                        getGankDayList(isLoadMore);
                     } else {
                         mRequestInfo.onComplete();
                         if (Utils.notEmpty(mList)) {
-                            mView.onSuccess(mList);
+                            mView.onSuccess(mList, isLoadMore);
                         } else {
                             mView.onEmpty();
                         }
@@ -102,11 +98,11 @@ public class GankPresenter implements GankContract.Presenter {
                     mRequestInfo.onError();
 
                     if (!mRequestInfo.isComplete()) {
-                        getGankDayList();
+                        getGankDayList(isLoadMore);
                     } else {
                         mRequestInfo.onComplete();
                         if (Utils.notEmpty(mList)) {
-                            mView.onSuccess(mList);
+                            mView.onSuccess(mList, isLoadMore);
                         } else {
                             mView.onError();
                         }
