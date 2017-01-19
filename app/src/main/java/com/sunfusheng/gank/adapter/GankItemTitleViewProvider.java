@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemTitle;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
@@ -28,6 +29,7 @@ public class GankItemTitleViewProvider extends ItemViewProvider<GankItemTitle, G
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemTitle item) {
+        holder.tvTitle.setTypeface(App.songTiTf);
         holder.tvTitle.setText(item.type + "");
     }
 

@@ -1067,6 +1067,7 @@ public class SwipeRefreshLayout extends ViewGroup
         }
 
         if (mRefreshView.getVisibility() != View.VISIBLE) {
+            mIRefreshStatus.reset();
             mRefreshView.setVisibility(View.VISIBLE);
         }
 

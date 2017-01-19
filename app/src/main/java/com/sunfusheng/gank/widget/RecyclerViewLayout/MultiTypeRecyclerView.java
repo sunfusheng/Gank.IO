@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
@@ -32,6 +33,8 @@ public class MultiTypeRecyclerView extends FrameLayout {
     RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     @BindView(R.id.error_stub)
     ViewStub errorStub;
     @BindView(R.id.empty_stub)
@@ -40,6 +43,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
     View loadingView;
     View errorView;
     View emptyView;
+
 
     private OnClickListener errorViewClickListener;
     private OnClickListener emptyViewClickListener;
@@ -104,8 +108,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                if (recyclerView.getLayoutManager() instanceof  LinearLayoutManager) {
+                if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
                     firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
                     lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
                     int itemCount = linearLayoutManager.getItemCount();
@@ -114,6 +117,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
                     if (itemCount != lastItemCount && lastPosition == itemCount - 1 && onRequestListener != null) {
                         lastItemCount = itemCount;
                         onRequestListener.onLoadingMore();
+                        progressBar.setVisibility(VISIBLE);
                     }
                 }
 
@@ -125,6 +129,9 @@ public class MultiTypeRecyclerView extends FrameLayout {
     }
 
     public void setLoadingState(@LoadingStateDelegate.STATE int state) {
+        if (progressBar.getVisibility() == VISIBLE) {
+            progressBar.setVisibility(GONE);
+        }
         swipeRefreshLayout.setRefreshing(false);
         if (state == LoadingStateDelegate.STATE.ERROR) {
             if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() > 0) {
@@ -231,11 +238,13 @@ public class MultiTypeRecyclerView extends FrameLayout {
 
     public interface OnRequestListener {
         void onRefresh();
+
         void onLoadingMore();
     }
 
     public interface OnScrollListener {
         void onScrollStateChanged(RecyclerView recyclerView, int newState);
+
         void onScrolled(RecyclerView recyclerView, int dx, int dy);
     }
 }

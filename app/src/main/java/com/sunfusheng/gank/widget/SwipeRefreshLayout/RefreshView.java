@@ -155,6 +155,10 @@ public class RefreshView extends View implements IRefreshStatus {
     public void pullProgress(float pullDistance, float pullProgress) {
         this.pullDistance = pullDistance;
         this.pullProgress = pullProgress;
+        if (pullDistance <= 0f) {
+            mStartDegrees = DEFAULT_START_DEGREES;
+            mSwipeDegrees = 0f;
+        }
         if (!mHasTriggeredRefresh) {
             float swipeProgress = Math.min(1.0f, pullProgress);
             setSwipeDegrees(swipeProgress * MAX_ARC_DEGREE);

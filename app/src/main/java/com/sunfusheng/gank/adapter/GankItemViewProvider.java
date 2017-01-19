@@ -2,6 +2,12 @@ package com.sunfusheng.gank.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +37,17 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItem item) {
-        holder.tvDesc.setText(item.desc + "\n" + item.who);
+        if (TextUtils.isEmpty(item.who)) {
+            holder.tvDesc.setText(item.desc);
+        } else {
+            int start = item.desc.length();
+            int end = start + item.who.length() + 3;
+            int color = holder.tvDesc.getContext().getResources().getColor(R.color.md_grey_400);
+            SpannableStringBuilder ssb = new SpannableStringBuilder(item.desc + " - " + item.who);
+            ssb.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            ssb.setSpan(new RelativeSizeSpan(0.85f), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.tvDesc.setText(ssb);
+        }
 
         holder.tvDesc.setOnClickListener(v -> {
 

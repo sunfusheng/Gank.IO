@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.util.DateUtil;
@@ -33,6 +34,7 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemGirl item) {
         holder.rlGirl.setTag(true);
+        holder.tvTime.setTypeface(App.songTiTf);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
         Glide.with(holder.ivGirl.getContext())
                 .load(item.url)

@@ -17,10 +17,11 @@
         android:layout_height="match_parent"
         android:background="@color/transparent_30percent"
         android:gravity="bottom"
+        android:includeFontPadding="false"
         android:paddingBottom="15dp"
         android:paddingLeft="15dp"
         android:text="2017-01-17"
-        android:textColor="@color/md_white"
-        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textSize="30sp"
         android:textStyle="bold"/>
 </RelativeLayout>

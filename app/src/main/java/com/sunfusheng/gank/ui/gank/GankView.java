@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.util.DateUtil;
@@ -60,6 +61,7 @@ public class GankView extends FrameLayout implements GankContract.View,
         View view = inflater.inflate(R.layout.view_gank, this);
         ButterKnife.bind(this, view);
 
+        tvTime.setTypeface(App.songTiTf);
         rlGirl.setVisibility(INVISIBLE);
         multiTypeRecyclerView.setOnRequestListener(this);
         multiTypeRecyclerView.setOnScrollListener(this);
