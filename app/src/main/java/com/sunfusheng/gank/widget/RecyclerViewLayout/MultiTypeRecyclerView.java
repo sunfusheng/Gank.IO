@@ -78,7 +78,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
         ButterKnife.bind(this, view);
 
         loadingView = ButterKnife.findById(view, R.id.loading_view);
-        loadingStateDelegate = new LoadingStateDelegate(recyclerView, loadingView, errorStub, emptyStub);
+        loadingStateDelegate = new LoadingStateDelegate(swipeRefreshLayout, loadingView, errorStub, emptyStub);
 
         multiTypeAdapter = new MultiTypeAdapter();
         multiTypeAdapter.applyGlobalMultiTypePool();
