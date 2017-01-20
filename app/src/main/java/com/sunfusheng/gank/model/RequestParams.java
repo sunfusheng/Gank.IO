@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by sunfusheng on 2017/1/17.
  */
-public class RequestInfo {
+public class RequestParams {
 
     private static final int MS_OF_DAY = 24 * 60 * 60 * 1000;
 
@@ -19,7 +19,7 @@ public class RequestInfo {
     private int errorTimes;
     private int emptyTimes; // 擦，我就不相信代码家30天都没有更新
 
-    public RequestInfo() {
+    public RequestParams() {
         this.successTimes = 0;
         this.currentDate = new Date();
         processDate(currentDate);

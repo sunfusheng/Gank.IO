@@ -150,7 +150,9 @@ public class GankView extends FrameLayout implements GankContract.View,
         Glide.with(ivGirl.getContext())
                 .load(girl.url)
                 .centerCrop()
-                .placeholder(R.color.transparent)
+                .placeholder(R.mipmap.liuyifei)
+                .error(R.mipmap.liuyifei)
+                .fallback(R.mipmap.liuyifei)
                 .crossFade()
                 .into(ivGirl);
     }

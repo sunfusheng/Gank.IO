@@ -5,7 +5,7 @@ import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.model.GankDay;
 import com.sunfusheng.gank.model.GankDayResults;
 import com.sunfusheng.gank.model.GankItemTitle;
-import com.sunfusheng.gank.model.RequestInfo;
+import com.sunfusheng.gank.model.RequestParams;
 import com.sunfusheng.gank.util.Utils;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class GankPresenter implements GankContract.Presenter {
 
     private GankView mView;
     private List<Object> mList;
-    private RequestInfo mRequestInfo;
+    private RequestParams mRequestParams;
     protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
 
     public GankPresenter(GankView mView) {
@@ -34,7 +34,7 @@ public class GankPresenter implements GankContract.Presenter {
     @Override
     public void init() {
         mList = new ArrayList<>();
-        mRequestInfo = new RequestInfo();
+        mRequestParams = new RequestParams();
         if (mView != null) {
             mView.setPresenter(this);
             mView.onAttach();
@@ -56,7 +56,7 @@ public class GankPresenter implements GankContract.Presenter {
             mView.onLoading();
         }
         mList = new ArrayList<>();
-        mRequestInfo = new RequestInfo();
+        mRequestParams = new RequestParams();
         getGankDayList(false);
     }
 
@@ -66,7 +66,7 @@ public class GankPresenter implements GankContract.Presenter {
     }
 
     private void getGankDayList(final boolean isLoadMore) {
-        Api.getInstance().getApiService().getGankDay(mRequestInfo.year, mRequestInfo.month, mRequestInfo.day)
+        Api.getInstance().getApiService().getGankDay(mRequestParams.year, mRequestParams.month, mRequestParams.day)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(gankDay -> gankDay != null)
@@ -76,17 +76,17 @@ public class GankPresenter implements GankContract.Presenter {
                 .takeUntil(lifecycle)
                 .subscribe(list -> {
                     if (Utils.notEmpty(list)) {
-                        Logger.d("log-data", mRequestInfo.toString());
+                        Logger.d("log-data", mRequestParams.toString());
                         mList.addAll(list);
-                        mRequestInfo.onSuccess();
+                        mRequestParams.onSuccess();
                     } else {
-                        mRequestInfo.onEmpty();
+                        mRequestParams.onEmpty();
                     }
 
-                    if (!mRequestInfo.isComplete()) {
+                    if (!mRequestParams.isComplete()) {
                         getGankDayList(isLoadMore);
                     } else {
-                        mRequestInfo.onComplete();
+                        mRequestParams.onComplete();
                         if (Utils.notEmpty(mList)) {
                             mView.onSuccess(mList, isLoadMore);
                         } else {
@@ -95,12 +95,12 @@ public class GankPresenter implements GankContract.Presenter {
                     }
                 }, e -> {
                     e.printStackTrace();
-                    mRequestInfo.onError();
+                    mRequestParams.onError();
 
-                    if (!mRequestInfo.isComplete()) {
+                    if (!mRequestParams.isComplete()) {
                         getGankDayList(isLoadMore);
                     } else {
-                        mRequestInfo.onComplete();
+                        mRequestParams.onComplete();
                         if (Utils.notEmpty(mList)) {
                             mView.onSuccess(mList, isLoadMore);
                         } else {

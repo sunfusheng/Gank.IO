@@ -39,7 +39,9 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
         Glide.with(holder.ivGirl.getContext())
                 .load(item.url)
                 .centerCrop()
-                .placeholder(R.color.transparent)
+                .placeholder(R.mipmap.liuyifei)
+                .error(R.mipmap.liuyifei)
+                .fallback(R.mipmap.liuyifei)
                 .crossFade()
                 .into(holder.ivGirl);
     }
