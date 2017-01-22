@@ -72,7 +72,6 @@ dependencies {
 
     // OkHttp
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
 
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'

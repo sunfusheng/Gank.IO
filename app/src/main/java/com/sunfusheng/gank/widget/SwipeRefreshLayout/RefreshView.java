@@ -1,5 +1,7 @@
 package com.sunfusheng.gank.widget.SwipeRefreshLayout;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,6 +21,7 @@ public class RefreshView extends View implements IRefreshStatus {
     private static final int ANIMATION_DURATION = 888;
     private static final int DEFAULT_START_DEGREES = 285;
     private static final int DEFAULT_STROKE_WIDTH = 2;
+    private static final float DEFAULT_SWIPE_DEGREES = 0.01f;
 
     private final RectF mArcBounds = new RectF();
     private final Paint mPaint = new Paint();
@@ -55,7 +58,7 @@ public class RefreshView extends View implements IRefreshStatus {
         mStrokeWidth = density * DEFAULT_STROKE_WIDTH;
 
         mStartDegrees = DEFAULT_START_DEGREES;
-        mSwipeDegrees = 0.0f;
+        mSwipeDegrees = DEFAULT_SWIPE_DEGREES;
     }
 
     private void initPaint() {
@@ -68,12 +71,9 @@ public class RefreshView extends View implements IRefreshStatus {
     private void startAnimator() {
         mRotateAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
         mRotateAnimator.setInterpolator(new LinearInterpolator());
-        mRotateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float rotateProgress = (float) animation.getAnimatedValue();
-                setStartDegrees(DEFAULT_START_DEGREES + rotateProgress * 360);
-            }
+        mRotateAnimator.addUpdateListener(animation -> {
+            float rotateProgress = (float) animation.getAnimatedValue();
+            setStartDegrees(DEFAULT_START_DEGREES + rotateProgress * 360);
         });
         mRotateAnimator.setRepeatMode(ValueAnimator.RESTART);
         mRotateAnimator.setRepeatCount(ValueAnimator.INFINITE);
@@ -132,7 +132,50 @@ public class RefreshView extends View implements IRefreshStatus {
 
         mHasTriggeredRefresh = false;
         mStartDegrees = DEFAULT_START_DEGREES;
-        mSwipeDegrees = 0.0f;
+        mSwipeDegrees = DEFAULT_SWIPE_DEGREES;
+        setSwipeDegrees(mSwipeDegrees);
+    }
+
+    public void startLoading() {
+        ValueAnimator anim = ValueAnimator.ofFloat(0.0f, 1.0f);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.addUpdateListener(animation -> {
+            float rotateProgress = (float) animation.getAnimatedValue();
+            setSwipeDegrees(rotateProgress * MAX_ARC_DEGREE);
+        });
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                setVisibility(VISIBLE);
+                reset();
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                refreshing();
+            }
+        });
+        anim.setDuration(300);
+        anim.start();
+    }
+
+    public void stopLoading() {
+        resetAnimator();
+        ValueAnimator anim = ValueAnimator.ofFloat(1.0f, 0.1f);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.addUpdateListener(animation -> {
+            float rotateProgress = (float) animation.getAnimatedValue();
+            setSwipeDegrees(rotateProgress * MAX_ARC_DEGREE);
+        });
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                reset();
+                setVisibility(INVISIBLE);
+            }
+        });
+        anim.setDuration(300);
+        anim.start();
     }
 
     @Override
@@ -156,8 +199,7 @@ public class RefreshView extends View implements IRefreshStatus {
         this.pullDistance = pullDistance;
         this.pullProgress = pullProgress;
         if (pullDistance <= 0f) {
-            mStartDegrees = DEFAULT_START_DEGREES;
-            mSwipeDegrees = 0f;
+            mSwipeDegrees = DEFAULT_SWIPE_DEGREES;
         }
         if (!mHasTriggeredRefresh) {
             float swipeProgress = Math.min(1.0f, pullProgress);

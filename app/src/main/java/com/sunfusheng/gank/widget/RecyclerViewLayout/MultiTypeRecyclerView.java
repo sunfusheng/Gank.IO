@@ -11,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 import com.sunfusheng.gank.widget.MultiType.MultiTypeAdapter;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.DragDistanceConverterEg;
+import com.sunfusheng.gank.widget.SwipeRefreshLayout.RefreshView;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
 
 import java.util.List;
@@ -33,8 +33,8 @@ public class MultiTypeRecyclerView extends FrameLayout {
     RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    @BindView(R.id.rv_loading)
+    RefreshView rvLoading;
     @BindView(R.id.error_stub)
     ViewStub errorStub;
     @BindView(R.id.empty_stub)
@@ -92,6 +92,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
     private void initListener() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             if (onRequestListener != null) {
+                lastItemCount = 0;
                 onRequestListener.onRefresh();
             }
         });
@@ -117,7 +118,7 @@ public class MultiTypeRecyclerView extends FrameLayout {
                     if (itemCount != lastItemCount && lastPosition == itemCount - 1 && onRequestListener != null) {
                         lastItemCount = itemCount;
                         onRequestListener.onLoadingMore();
-                        progressBar.setVisibility(VISIBLE);
+                        rvLoading.startLoading();
                     }
                 }
 
@@ -129,8 +130,8 @@ public class MultiTypeRecyclerView extends FrameLayout {
     }
 
     public void setLoadingState(@LoadingStateDelegate.STATE int state) {
-        if (progressBar.getVisibility() == VISIBLE) {
-            progressBar.setVisibility(GONE);
+        if (rvLoading.getVisibility() == VISIBLE) {
+            rvLoading.stopLoading();
         }
         swipeRefreshLayout.setRefreshing(false);
         if (state == LoadingStateDelegate.STATE.ERROR) {

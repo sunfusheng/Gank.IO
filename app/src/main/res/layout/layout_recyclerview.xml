@@ -33,10 +33,11 @@
         android:layout_height="match_parent"
         android:visibility="gone"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
+    <com.sunfusheng.gank.widget.SwipeRefreshLayout.RefreshView
+        android:id="@+id/rv_loading"
         android:layout_width="30dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|center"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="bottom|center"/>
+        android:visibility="gone"/>
 </merge>
