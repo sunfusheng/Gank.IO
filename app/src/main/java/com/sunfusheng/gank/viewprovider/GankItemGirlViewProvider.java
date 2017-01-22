@@ -5,15 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.util.DateUtil;
+import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
@@ -36,21 +35,14 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
         holder.rlGirl.setTag(true);
         holder.tvTime.setTypeface(App.songTiTf);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
-        Glide.with(holder.ivGirl.getContext())
-                .load(item.url)
-                .centerCrop()
-                .placeholder(R.mipmap.liuyifei)
-                .error(R.mipmap.liuyifei)
-                .fallback(R.mipmap.liuyifei)
-                .crossFade()
-                .into(holder.ivGirl);
+        holder.givGirl.loadNetImage(item.url, R.mipmap.liuyifei);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.rl_girl)
         RelativeLayout rlGirl;
-        @BindView(R.id.iv_girl)
-        ImageView ivGirl;
+        @BindView(R.id.giv_girl)
+        GlideImageView givGirl;
         @BindView(R.id.tv_time)
         TextView tvTime;
 

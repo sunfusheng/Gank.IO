@@ -6,15 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.util.DateUtil;
+import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.RecyclerViewLayout.LoadingStateDelegate;
 import com.sunfusheng.gank.widget.RecyclerViewLayout.MultiTypeRecyclerView;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
@@ -34,8 +33,8 @@ public class GankView extends FrameLayout implements GankContract.View,
 
     @BindView(R.id.multiTypeRecyclerView)
     MultiTypeRecyclerView multiTypeRecyclerView;
-    @BindView(R.id.iv_girl)
-    ImageView ivGirl;
+    @BindView(R.id.giv_girl)
+    GlideImageView givGirl;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.rl_girl)
@@ -147,14 +146,7 @@ public class GankView extends FrameLayout implements GankContract.View,
             }
         }
         tvTime.setText(DateUtil.convertString2String(girl.publishedAt));
-        Glide.with(ivGirl.getContext())
-                .load(girl.url)
-                .centerCrop()
-                .placeholder(R.mipmap.liuyifei)
-                .error(R.mipmap.liuyifei)
-                .fallback(R.mipmap.liuyifei)
-                .crossFade()
-                .into(ivGirl);
+        givGirl.loadNetImage(girl.url, R.mipmap.liuyifei);
     }
 
     @Override
