@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.ui.main;
+package com.sunfusheng.gank.ui;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;

@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -13,12 +12,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.orhanobut.logger.Logger;
 
 /**
  * Created by sunfusheng on 2017/1/22.
+ *
+ * 设置 placeholder 有坑
  */
-public class GlideImageView extends ImageView {
+public class GlideImageView extends android.support.v7.widget.AppCompatImageView {
 
     public static final String ANDROID_RESOURCE = "android.resource://";
     public static final String SEPARATOR = "/";
@@ -89,7 +89,6 @@ public class GlideImageView extends ImageView {
     public DrawableRequestBuilder uriBuilder(Uri uri, int holderResId) {
         return Glide.with(getContext())
                 .load(uri)
-                .dontAnimate()
                 .centerCrop()
                 .crossFade()
                 .fallback(holderResId)
@@ -104,7 +103,6 @@ public class GlideImageView extends ImageView {
         }
         return Glide.with(getContext())
                 .load(url)
-                .dontAnimate()
                 .centerCrop()
                 .crossFade()
                 .fallback(holderResId)
