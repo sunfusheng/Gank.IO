@@ -60,7 +60,7 @@ public class GankView extends FrameLayout implements GankContract.View,
         View view = inflater.inflate(R.layout.view_gank, this);
         ButterKnife.bind(this, view);
 
-        tvTime.setTypeface(App.songTiTf);
+        tvTime.setTypeface(App.songTi);
         rlGirl.setVisibility(INVISIBLE);
         multiTypeRecyclerView.setOnRequestListener(this);
         multiTypeRecyclerView.setOnScrollListener(this);

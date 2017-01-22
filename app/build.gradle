@@ -33,13 +33,10 @@ android {
 
     buildTypes {
         release {
-            //压缩资源
-            shrinkResources true
-            //zip优化
-            zipAlignEnabled true
-            //apk签名
-            signingConfig signingConfigs.release
-
+            buildConfigField "boolean", "isDebug", "false"
+            shrinkResources true // 压缩资源
+            zipAlignEnabled true // zip优化
+            signingConfig signingConfigs.release // apk签名
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all {
                 variant -> generateAppName(variant)
@@ -47,6 +44,7 @@ android {
         }
 
         debug{
+            buildConfigField "boolean", "isDebug", "true"
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all {

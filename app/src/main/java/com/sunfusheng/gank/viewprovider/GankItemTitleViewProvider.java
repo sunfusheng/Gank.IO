@@ -29,7 +29,7 @@ public class GankItemTitleViewProvider extends ItemViewProvider<GankItemTitle, G
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemTitle item) {
-        holder.tvTitle.setTypeface(App.songTiTf);
+        holder.tvTitle.setTypeface(App.songTi);
         holder.tvTitle.setText(item.type + "");
     }
 

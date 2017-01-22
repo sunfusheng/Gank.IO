@@ -1,6 +1,5 @@
 package com.sunfusheng.gank.ui.gank;
 
-import com.orhanobut.logger.Logger;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.model.GankDay;
 import com.sunfusheng.gank.model.GankDayResults;
@@ -71,12 +70,10 @@ public class GankPresenter implements GankContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(gankDay -> gankDay != null)
                 .filter(gankDay -> gankDay.results != null)
-                .doOnNext(gankDay -> Logger.d("log-data", gankDay.toString()))
                 .map(this::flatGankDay2List)
                 .takeUntil(lifecycle)
                 .subscribe(list -> {
                     if (Utils.notEmpty(list)) {
-                        Logger.d("log-data", mRequestParams.toString());
                         mList.addAll(list);
                         mRequestParams.onSuccess();
                     } else {

@@ -33,7 +33,7 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemGirl item) {
         holder.rlGirl.setTag(true);
-        holder.tvTime.setTypeface(App.songTiTf);
+        holder.tvTime.setTypeface(App.songTi);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
         holder.givGirl.loadNetImage(item.url, R.mipmap.liuyifei);
     }

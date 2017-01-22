@@ -11,13 +11,13 @@ import com.orhanobut.logger.Logger;
  */
 public class App extends Application {
 
-    public static Typeface songTiTf; // 宋体
+    public static Typeface songTi; // 宋体
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        songTiTf = Typeface.createFromAsset(getAssets(), "Songti-SC-Black.TTF");
+        songTi = Typeface.createFromAsset(getAssets(), "SongTi.TTF");
 
         Logger.init("RxGank").setLogLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
 
