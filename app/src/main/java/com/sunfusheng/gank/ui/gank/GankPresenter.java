@@ -1,8 +1,12 @@
 package com.sunfusheng.gank.ui.gank;
 
+import android.text.TextUtils;
+
+import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.model.GankDay;
 import com.sunfusheng.gank.model.GankDayResults;
+import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.model.GankItemTitle;
 import com.sunfusheng.gank.model.RequestParams;
 import com.sunfusheng.gank.util.Utils;
@@ -26,8 +30,8 @@ public class GankPresenter implements GankContract.Presenter {
     private RequestParams mRequestParams;
     protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
 
-    public GankPresenter(GankView mView) {
-        this.mView = mView;
+    public GankPresenter(GankView view) {
+        this.mView = view;
     }
 
     @Override
@@ -79,32 +83,26 @@ public class GankPresenter implements GankContract.Presenter {
                     } else {
                         mRequestParams.onEmpty();
                     }
-
-                    if (!mRequestParams.isComplete()) {
-                        getGankDayList(isLoadMore);
-                    } else {
-                        mRequestParams.onComplete();
-                        if (Utils.notEmpty(mList)) {
-                            mView.onSuccess(mList, isLoadMore);
-                        } else {
-                            mView.onEmpty();
-                        }
-                    }
+                    processRequestResult(isLoadMore);
                 }, e -> {
                     e.printStackTrace();
                     mRequestParams.onError();
-
-                    if (!mRequestParams.isComplete()) {
-                        getGankDayList(isLoadMore);
-                    } else {
-                        mRequestParams.onComplete();
-                        if (Utils.notEmpty(mList)) {
-                            mView.onSuccess(mList, isLoadMore);
-                        } else {
-                            mView.onError();
-                        }
-                    }
+                    processRequestResult(isLoadMore);
                 });
+    }
+
+    private void processRequestResult(boolean isLoadMore) {
+        if (!mRequestParams.isComplete()) {
+            getGankDayList(isLoadMore);
+        } else {
+            mRequestParams.onComplete();
+            if (Utils.notEmpty(mList)) {
+                processGirls(mList);
+                mView.onSuccess(mList, isLoadMore);
+            } else {
+                mView.onError();
+            }
+        }
     }
 
     private List<Object> flatGankDay2List(GankDay gankDay) {
@@ -132,6 +130,20 @@ public class GankPresenter implements GankContract.Presenter {
             list.addAll(results.休息视频);
         }
         return list;
+    }
+
+    private void processGirls(List<Object> list) {
+        if (Utils.isEmpty(list) || GankApp.girls == null) {
+            GankApp.girls = new ArrayList<>();
+            return;
+        }
+        GankApp.girls.clear();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof GankItemGirl) {
+                GankItemGirl girl = (GankItemGirl) list.get(i);
+                GankApp.girls.add(TextUtils.isEmpty(girl.url) ? "" : girl.url);
+            }
+        }
     }
 
 }

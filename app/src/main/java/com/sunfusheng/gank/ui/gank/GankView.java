@@ -3,16 +3,16 @@ package com.sunfusheng.gank.ui.gank;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.App;
+import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
+import com.sunfusheng.gank.ui.PhotoViewsActivity;
 import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.RecyclerViewLayout.LoadingStateDelegate;
@@ -44,6 +44,7 @@ public class GankView extends FrameLayout implements GankContract.View,
     private Context mContext;
     private GankContract.Presenter mPresenter;
     private int lastPos = -1;
+    private GankItemGirl curGirl;
 
     public GankView(@NonNull Context context) {
         super(context);
@@ -61,11 +62,14 @@ public class GankView extends FrameLayout implements GankContract.View,
         View view = inflater.inflate(R.layout.view_gank, this);
         ButterKnife.bind(this, view);
 
-        tvTime.setTypeface(App.songTi);
+        tvTime.setTypeface(GankApp.songTi);
         rlGirl.setVisibility(INVISIBLE);
         multiTypeRecyclerView.setOnRequestListener(this);
         multiTypeRecyclerView.setOnScrollListener(this);
         multiTypeRecyclerView.getSwipeRefreshLayout().setOnDragOffsetListener(this);
+        givGirl.setOnClickListener(v -> {
+            PhotoViewsActivity.startActivity(givGirl, curGirl.url);
+        });
     }
 
     @Override
@@ -138,16 +142,15 @@ public class GankView extends FrameLayout implements GankContract.View,
         if (lastPos == pos) return;
         lastPos = pos;
         if (multiTypeRecyclerView.getFirstVisibleItem() == null) return;
-        GankItemGirl girl = null;
         for (int i = multiTypeRecyclerView.getFirstVisibleItemPosition(); i >= 0; i--) {
             Object item = multiTypeRecyclerView.getData().get(i);
             if (item instanceof GankItemGirl) {
-                girl = (GankItemGirl) item;
+                curGirl = (GankItemGirl) item;
                 break;
             }
         }
-        tvTime.setText(DateUtil.convertString2String(girl.publishedAt));
-        givGirl.loadNetImage(girl.url, R.mipmap.liuyifei);
+        tvTime.setText(DateUtil.convertString2String(curGirl.publishedAt));
+        givGirl.loadNetImage(curGirl.url, R.mipmap.liuyifei);
     }
 
     @Override

@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.App;
+import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
+import com.sunfusheng.gank.ui.PhotoViewsActivity;
 import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
@@ -33,9 +34,12 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemGirl item) {
         holder.rlGirl.setTag(true);
-        holder.tvTime.setTypeface(App.songTi);
+        holder.tvTime.setTypeface(GankApp.songTi);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
         holder.givGirl.loadNetImage(item.url, R.mipmap.liuyifei);
+        holder.givGirl.setOnClickListener(v -> {
+            PhotoViewsActivity.startActivity(holder.givGirl, item.url);
+        });
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
