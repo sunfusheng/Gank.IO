@@ -2,12 +2,20 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <com.sunfusheng.gank.widget.PhotoView.HackyViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/rl_indicator"

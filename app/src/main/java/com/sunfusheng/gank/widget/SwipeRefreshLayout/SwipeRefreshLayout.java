@@ -49,7 +49,7 @@ public class SwipeRefreshLayout extends ViewGroup
     //the animation duration of the RefreshView scroll to the refresh point or the start point
     private static final int DEFAULT_ANIMATE_DURATION = 300;
     // the threshold of the trigger to refresh
-    private static final int DEFAULT_REFRESH_TARGET_OFFSET_DP = 50;
+    private static final int DEFAULT_REFRESH_TARGET_OFFSET_DP = 60;
 
     private static final float DECELERATE_INTERPOLATION_FACTOR = 2.0f;
     private final int[] mParentScrollConsumed = new int[2];

@@ -33,9 +33,9 @@
 
         <activity
             android:name=".ui.PhotoViewsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoAnimTheme"/>
+            android:screenOrientation="portrait"/>
 
+        <activity android:name=".ui.WebViewActivity"/>
     </application>
 
 </manifest>

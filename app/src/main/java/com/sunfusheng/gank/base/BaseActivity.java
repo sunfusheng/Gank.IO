@@ -1,9 +1,11 @@
 package com.sunfusheng.gank.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
+import com.sunfusheng.gank.ui.MainActivity;
 import com.sunfusheng.gank.util.StatusBarUtil;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -16,21 +18,41 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.d("log-activity", getClass().getSimpleName() + ".java");
+        setStatusBarTranslucent(false);
+    }
+
+    protected void setStatusBarTranslucent(boolean isLightStatusBar) {
         StatusBarUtil.setStatusBarTranslucent(this, false);
-        inflateView();
     }
 
-    private void inflateView() {
-        onBeforeInflation();
-        setContentView();
-        getWindow().setBackgroundDrawable(null);
-        onAfterInflation();
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        if (intent == null) return;
+        if (intent.getComponent() == null) return;
+        String className = intent.getComponent().getClassName();
+        if (!className.equals(MainActivity.class.getName())) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
     }
 
-    protected void onBeforeInflation() {}
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        if (intent == null) return;
+        if (intent.getComponent() == null) return;
+        String className = intent.getComponent().getClassName();
+        if (!className.equals(MainActivity.class.getName())) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+    }
 
-    protected abstract void setContentView();
-
-    protected void onAfterInflation() {}
+    @Override
+    public void finish() {
+        super.finish();
+        if (!((Object) this).getClass().equals(MainActivity.class)) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+    }
 
 }

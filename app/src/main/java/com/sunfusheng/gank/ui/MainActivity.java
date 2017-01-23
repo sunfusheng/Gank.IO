@@ -1,5 +1,8 @@
 package com.sunfusheng.gank.ui;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.ui.gank.GankFragment;
@@ -9,7 +12,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void setContentView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 

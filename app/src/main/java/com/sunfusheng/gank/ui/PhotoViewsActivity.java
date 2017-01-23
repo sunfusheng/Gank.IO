@@ -3,11 +3,14 @@ package com.sunfusheng.gank.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by sunfusheng on 2017/1/23.
@@ -39,6 +43,8 @@ public class PhotoViewsActivity extends BaseActivity {
     TextView tvSumCount;
     @BindView(R.id.rl_indicator)
     RelativeLayout rlIndicator;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private List<String> mGirls;
     private int curPosition = 0;
@@ -48,18 +54,11 @@ public class PhotoViewsActivity extends BaseActivity {
         Intent intent = new Intent(context, PhotoViewsActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
-
-//        if (context instanceof BaseActivity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            BaseActivity activity = (BaseActivity) context;
-//            ActivityOptionsCompat optionCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, imageView, "PhotoView");
-//            ActivityCompat.startActivity(context, intent, optionCompat.toBundle());
-//        } else {
-//            context.startActivity(intent);
-//        }
     }
 
     @Override
-    protected void setContentView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photoviews);
         ButterKnife.bind(this);
 
@@ -121,8 +120,20 @@ public class PhotoViewsActivity extends BaseActivity {
         public View instantiateItem(ViewGroup container, int position) {
             PhotoView photoView = new PhotoView(container.getContext());
             photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            GlideImageLoader loader = new GlideImageLoader(photoView);
-            loader.loadNetImage(mList.get(position), R.mipmap.liuyifei);
+            photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                @Override
+                public void onPhotoTap(View view, float x, float y) {
+                    mActivity.finish();
+                }
+
+                @Override
+                public void onOutsidePhotoTap() {
+                    mActivity.finish();
+                }
+            });
+
+            GlideImageLoader imageLoader = new GlideImageLoader(photoView);
+            imageLoader.loadNetImage(mList.get(position), R.mipmap.liuyifei);
             container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             return photoView;
         }
@@ -138,9 +149,4 @@ public class PhotoViewsActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(0, 0);
-    }
 }

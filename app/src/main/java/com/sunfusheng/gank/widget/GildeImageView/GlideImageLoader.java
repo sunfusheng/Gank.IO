@@ -98,14 +98,31 @@ public class GlideImageLoader {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                         GlideManager.getInstance().putRequestFailedUrl(url);
+                        if (onLoadingListener != null) {
+                            onLoadingListener.onError();
+                        }
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        if (onLoadingListener != null) {
+                            onLoadingListener.onSuccess();
+                        }
                         return false;
                     }
                 });
+    }
+
+    private OnLoadingListener onLoadingListener;
+
+    public void setOnLoadingListener(OnLoadingListener onLoadingListener) {
+        this.onLoadingListener = onLoadingListener;
+    }
+
+    public interface OnLoadingListener {
+        void onSuccess();
+        void onError();
     }
 
     public boolean isGif(String url) {

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
+import com.sunfusheng.gank.ui.WebViewActivity;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
@@ -50,7 +51,11 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
         }
 
         holder.tvDesc.setOnClickListener(v -> {
+            WebViewActivity.startActivity(v.getContext(), item.url);
+        });
 
+        holder.tvDesc.setOnLongClickListener(v -> {
+            return true;
         });
     }
 
