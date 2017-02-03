@@ -80,7 +80,7 @@ public class AboutActivity extends BaseActivity {
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); // 取消滚动条白边效果
         webView.requestFocus();
 
-        webView.loadUrl("file:///android_asset/about_bingo.html");
+        webView.loadUrl("file:///android_asset/about_rxgank.html");
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
