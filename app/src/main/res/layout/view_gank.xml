@@ -15,10 +15,10 @@
         android:id="@+id/iv_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_action_more"
         android:layout_gravity="right"
-        android:layout_marginTop="25dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/bg_round_grey_selector"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        android:src="@mipmap/ic_action_more"/>
 </FrameLayout>
