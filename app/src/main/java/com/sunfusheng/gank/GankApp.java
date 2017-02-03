@@ -14,12 +14,14 @@ import java.util.List;
  */
 public class GankApp extends Application {
 
+    public static Application application;
     public static Typeface songTi; // 宋体
     public static List<String> girls;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        application = this;
         girls = new ArrayList<>();
         Logger.init("RxGank").setLogLevel(BuildConfig.isDebug ? LogLevel.FULL : LogLevel.NONE);
 

@@ -5,6 +5,7 @@ package com.sunfusheng.gank;
  */
 public class Constants {
 
+    // 干货集中营Base Url
     public static final String BASE_URL = "http://gank.io/api/";
 
 }

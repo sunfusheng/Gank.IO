@@ -2,9 +2,12 @@ package com.sunfusheng.gank.http;
 
 import com.sunfusheng.gank.BuildConfig;
 import com.sunfusheng.gank.Constants;
+import com.sunfusheng.gank.GankApp;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -33,9 +36,14 @@ public class Api {
     }
 
     private void init() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        File cacheFile = new File(GankApp.application.getCacheDir(), "HttpCache");
+        Cache cache = new Cache(cacheFile, 1024 * 1024 * 20); // 20M
 
-        builder.connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(new CacheInterceptor())
+                .addNetworkInterceptor(new CacheInterceptor())
+                .cache(cache);
 
         if (BuildConfig.isDebug) {
             builder.addInterceptor(new LogInterceptor());

@@ -19,7 +19,9 @@ public class LogInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Logger.d("log-data-request", request.url().toString());
+
         Response response = chain.proceed(request);
+
         if (response != null && response.body() != null) {
             MediaType mediaType = response.body().contentType();
             String content = response.body().string();

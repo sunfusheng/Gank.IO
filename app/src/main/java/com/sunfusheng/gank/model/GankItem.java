@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class GankItem {
 
+    public String _id;
     public String type;
     public String desc;
     public String who;
@@ -18,7 +19,8 @@ public class GankItem {
     @Override
     public String toString() {
         return "GankItem{" +
-                "type='" + type + '\'' +
+                "_id='" + _id + '\'' +
+                ", type='" + type + '\'' +
                 ", desc='" + desc + '\'' +
                 ", who='" + who + '\'' +
                 ", url='" + url + '\'' +

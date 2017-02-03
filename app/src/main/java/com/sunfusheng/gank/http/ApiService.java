@@ -3,6 +3,7 @@ package com.sunfusheng.gank.http;
 import com.sunfusheng.gank.model.GankDay;
 
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import rx.Observable;
 
@@ -11,6 +12,7 @@ import rx.Observable;
  */
 public interface ApiService {
 
+    @Headers("Cache-Control: public, max-age=86400")
     @GET("day/{year}/{month}/{day}")
-    Observable<GankDay> getGankDay(@Path("year")int year, @Path("month")int month, @Path("day")int day);
+    Observable<GankDay> getGankDay(@Path("year") int year, @Path("month") int month, @Path("day") int day);
 }
