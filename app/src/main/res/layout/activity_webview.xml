@@ -14,6 +14,6 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:progressDrawable="@drawable/progressbar_selector"/>
+        android:progressDrawable="@drawable/progressbar_color_primary_selector"/>
 
 </RelativeLayout>

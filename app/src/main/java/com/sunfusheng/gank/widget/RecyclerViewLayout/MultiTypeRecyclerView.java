@@ -23,6 +23,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 /**
  * Created by sunfusheng on 2017/1/15.
@@ -86,7 +88,12 @@ public class MultiTypeRecyclerView extends FrameLayout {
         swipeRefreshLayout.setDragDistanceConverter(new DragDistanceConverterEg());
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(multiTypeAdapter);
+
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(multiTypeAdapter);
+        alphaInAnimationAdapter.setDuration(500);
+        SlideInBottomAnimationAdapter slideInBottomAnimationAdapter = new SlideInBottomAnimationAdapter(alphaInAnimationAdapter);
+        slideInBottomAnimationAdapter.setDuration(500);
+        recyclerView.setAdapter(slideInBottomAnimationAdapter);
     }
 
     private void initListener() {

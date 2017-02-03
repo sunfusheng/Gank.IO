@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/transparent_50percent" android:state_pressed="true"/>
+    <item android:drawable="@drawable/bg_round_grey_icon" android:state_pressed="true"/>
     <item android:drawable="@color/transparent" />
 
 </selector>

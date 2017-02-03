@@ -6,12 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
+import com.sunfusheng.gank.ui.AboutActivity;
 import com.sunfusheng.gank.ui.PhotoViewsActivity;
 import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
@@ -40,6 +42,8 @@ public class GankView extends FrameLayout implements GankContract.View,
     TextView tvTime;
     @BindView(R.id.rl_girl)
     RelativeLayout rlGirl;
+    @BindView(R.id.iv_about)
+    ImageView ivAbout;
 
     private Context mContext;
     private GankContract.Presenter mPresenter;
@@ -67,9 +71,8 @@ public class GankView extends FrameLayout implements GankContract.View,
         multiTypeRecyclerView.setOnRequestListener(this);
         multiTypeRecyclerView.setOnScrollListener(this);
         multiTypeRecyclerView.getSwipeRefreshLayout().setOnDragOffsetListener(this);
-        givGirl.setOnClickListener(v -> {
-            PhotoViewsActivity.startActivity(givGirl, curGirl.url);
-        });
+        givGirl.setOnClickListener(v -> PhotoViewsActivity.startActivity(givGirl, curGirl.url));
+        ivAbout.setOnClickListener(v -> AboutActivity.startActivity(mContext));
     }
 
     @Override

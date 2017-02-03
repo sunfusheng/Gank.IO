@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,8 +42,6 @@ public class PhotoViewsActivity extends BaseActivity {
     TextView tvSumCount;
     @BindView(R.id.rl_indicator)
     RelativeLayout rlIndicator;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
 
     private List<String> mGirls;
     private int curPosition = 0;

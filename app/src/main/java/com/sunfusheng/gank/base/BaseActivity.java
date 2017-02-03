@@ -22,7 +22,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void setStatusBarTranslucent(boolean isLightStatusBar) {
-        StatusBarUtil.setStatusBarTranslucent(this, false);
+        StatusBarUtil.setStatusBarTranslucent(this, isLightStatusBar);
     }
 
     @Override
