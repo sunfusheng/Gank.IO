@@ -1,8 +1,10 @@
-# RxGank
+## RxGank
 
 干货集中营Android客户端
 
 感谢代码家的[Gank.IO](http://gank.io/)，每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。
+
+<br/>
 
 <table>
     <tr>
@@ -11,9 +13,13 @@
     </tr>
 </table>
 
-## [APK下载地址](https://fir.im/RxGank)
+<br/>
 
-## 主要开源库
+### [APK下载地址](https://fir.im/RxGank)
+
+<br/>
+
+### 主要开源库
 
 [RxJava](https://github.com/ReactiveX/RxJava)  
 [RxLifecycle](https://github.com/trello/RxLifecycle)  
@@ -23,7 +29,13 @@
 [PhotoView](https://github.com/chrisbanes/PhotoView)  
 [MultiType](https://github.com/drakeet/MultiType)   
 
-## 关于我
+<br/>
+
+### 微信公众号
+
+<img src="/res/微信公众号.jpg" style="width: 30%;">
+
+### 关于我
 
 个人邮箱：sfsheng0322@126.com  
 [GitHub主页](https://github.com/sfsheng0322)  
