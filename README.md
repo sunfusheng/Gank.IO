@@ -8,6 +8,7 @@
 
 <table>
     <tr>
+    <td><img src="/res/RxGank.gif" style="width: 30%;"></td>
         <td><img src="/res/image1.png" style="width: 30%;"></td>
         <td><img src="/res/image2.png" style="width: 30%;"></td>
     </tr>
@@ -28,8 +29,6 @@
 [Glide](https://github.com/bumptech/glide)  
 [PhotoView](https://github.com/chrisbanes/PhotoView)  
 [MultiType](https://github.com/drakeet/MultiType)   
-
-<br/>
 
 ### 微信公众号
 
