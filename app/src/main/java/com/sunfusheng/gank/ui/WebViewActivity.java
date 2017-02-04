@@ -32,7 +32,6 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-    private WebSettings settings;
     private String url = "";
 
     public static void startActivity(Context context, String url) {
@@ -56,7 +55,7 @@ public class WebViewActivity extends BaseActivity {
     }
 
     private void initView() {
-        settings = webView.getSettings();
+        WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true); // 如果访问的页面中有Javascript，则WebView必须设置支持Javascript
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setSupportZoom(true); // 支持缩放

@@ -12,7 +12,7 @@ import rx.Observable;
  */
 public interface ApiService {
 
-    @Headers("Cache-Control: public, max-age=43200")
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("day/{year}/{month}/{day}")
     Observable<GankDay> getGankDay(@Path("year") int year, @Path("month") int month, @Path("day") int day);
 }

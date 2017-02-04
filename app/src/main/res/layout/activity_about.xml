@@ -31,6 +31,7 @@
             android:src="@mipmap/app_logo"/>
 
         <TextView
+            android:id="@+id/tv_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

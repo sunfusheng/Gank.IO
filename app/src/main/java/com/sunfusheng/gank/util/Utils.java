@@ -1,8 +1,11 @@
 package com.sunfusheng.gank.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 
 import com.sunfusheng.gank.GankApp;
 
@@ -24,11 +27,7 @@ public class Utils {
         return false;
     }
 
-    /**
-     * 判断网络是否可用
-     *
-     * @return true: network is available
-     */
+    // 判断网络是否可用
     public static boolean isNetworkAvailable() {
         try {
             ConnectivityManager connectivity = (ConnectivityManager) GankApp.application.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -45,5 +44,32 @@ public class Utils {
             return false;
         }
         return false;
+    }
+
+    // 获取当前应用的版本号
+    public static String getVersionName() {
+        try {
+            PackageManager packageManager = GankApp.application.getPackageManager();
+            PackageInfo packInfo = packageManager.getPackageInfo(GankApp.application.getPackageName(), 0);
+            String version = packInfo.versionName;
+            if (!TextUtils.isEmpty(version)) {
+                return "V" + version;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "V1.0";
+    }
+
+    // 获取当前应用的版本号
+    public static int getVersionCode() {
+        try {
+            PackageManager packageManager = GankApp.application.getPackageManager();
+            PackageInfo packInfo = packageManager.getPackageInfo(GankApp.application.getPackageName(), 0);
+            return packInfo.versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 1;
     }
 }

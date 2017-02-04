@@ -8,14 +8,18 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
+import com.sunfusheng.gank.util.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,8 +35,10 @@ public class AboutActivity extends BaseActivity {
     ProgressBar progressBar;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.tv_about)
+    TextView tvAbout;
 
-    private WebSettings settings;
+    private String url = "file:///android_asset/about_rxgank.html";
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, AboutActivity.class);
@@ -50,41 +56,41 @@ public class AboutActivity extends BaseActivity {
 
     private void initView() {
         ivBack.setOnClickListener(v -> finish());
-        settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true); //如果访问的页面中有Javascript，则WebView必须设置支持Javascript
+        tvAbout.setText("关于"+ Utils.getVersionName());
+
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true); // 如果访问的页面中有Javascript，则WebView必须设置支持Javascript
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
-        settings.setSupportZoom(true); //支持缩放
-        settings.setBuiltInZoomControls(true); //支持手势缩放
-        settings.setDisplayZoomControls(false); //是否显示缩放按钮
+        settings.setSupportZoom(true); // 支持缩放
+        settings.setBuiltInZoomControls(true); // 支持手势缩放
+        settings.setDisplayZoomControls(false); // 是否显示缩放按钮
 
         // >= 19(SDK4.4)启动硬件加速，否则启动软件加速
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-            settings.setLoadsImagesAutomatically(true); //支持自动加载图片
+            settings.setLoadsImagesAutomatically(true); // 支持自动加载图片
         } else {
             webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             settings.setLoadsImagesAutomatically(false);
         }
 
-        settings.setUseWideViewPort(true); //将图片调整到适合WebView的大小
-        settings.setLoadWithOverviewMode(true); //自适应屏幕
+        settings.setUseWideViewPort(true); // 将图片调整到适合WebView的大小
+        settings.setLoadWithOverviewMode(true); // 自适应屏幕
         settings.setDomStorageEnabled(true);
         settings.setSaveFormData(true);
         settings.setSupportMultipleWindows(true);
         settings.setAppCacheEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT); //优先使用缓存
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT); // 优先使用缓存
 
-        webView.setHorizontalScrollbarOverlay(true);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setOverScrollMode(View.OVER_SCROLL_NEVER); // 取消WebView中滚动或拖动到顶部、底部时的阴影
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); // 取消滚动条白边效果
         webView.requestFocus();
 
-        webView.loadUrl("file:///android_asset/about_rxgank.html");
+        webView.loadUrl(url);
         webView.setWebViewClient(new WebViewClient() {
-
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 view.loadUrl(url);
                 return true;
             }
@@ -106,14 +112,13 @@ public class AboutActivity extends BaseActivity {
             }
 
             @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                super.onReceivedError(view, errorCode, description, failingUrl);
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
                 progressBar.setVisibility(View.GONE);
             }
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
-
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress >= 100) {
