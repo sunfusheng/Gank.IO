@@ -4,6 +4,13 @@
 
 感谢代码家的[Gank.IO](http://gank.io/)，每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。
 
+<table>
+    <tr>
+        <td><img src="/res/image1.png" style="width: 30%;"></td>
+        <td><img src="/res/image2.png" style="width: 30%;"></td>
+    </tr>
+</table>
+
 ## [APK下载地址](https://fir.im/RxGank)
 
 ## 主要开源库
