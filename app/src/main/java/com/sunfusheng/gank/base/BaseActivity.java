@@ -9,10 +9,16 @@ import com.sunfusheng.gank.ui.MainActivity;
 import com.sunfusheng.gank.util.StatusBarUtil;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import rx.subjects.PublishSubject;
+import rx.subjects.SerializedSubject;
+import rx.subjects.Subject;
+
 /**
  * Created by sunfusheng on 2016/12/24.
  */
 public abstract class BaseActivity extends RxAppCompatActivity {
+
+    protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,4 +61,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        lifecycle.onCompleted();
+    }
 }

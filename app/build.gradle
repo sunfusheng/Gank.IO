@@ -22,6 +22,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/rxjava.properties'
+    }
+
     signingConfigs {
         release {
             storeFile file(prop['KEYSTORE_FILEPATH'])
@@ -81,6 +87,12 @@ dependencies {
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
+    // RxDownload
+    compile 'zlc.season:rxdownload2:1.1.1'
+
+    // RxPermissions
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.1@aar'
+
     // RxLifecycle
     compile 'com.trello:rxlifecycle:1.0'
     compile 'com.trello:rxlifecycle-components:1.0'
@@ -93,4 +105,7 @@ dependencies {
 
     // RecyclerView Animators
     compile 'jp.wasabeef:recyclerview-animators:2.2.5'
+
+    // Material Dialogs
+    compile 'com.afollestad.material-dialogs:core:0.9.2.3'
 }

@@ -2,4 +2,12 @@
 
     <string name="app_name">Gank.IO</string>
 
+    <string name="ok">确认</string>
+    <string name="cancel">取消</string>
+
+    <string name="update_app">应用更新</string>
+    <string name="update_no">暂不</string>
+    <string name="update_rightnow">立即下载</string>
+    <string name="new_version_yet">已是最新版本</string>
+
 </resources>
