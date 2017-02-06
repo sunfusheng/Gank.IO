@@ -2,12 +2,14 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.sunfusheng.gank.widget.RecyclerViewLayout.MultiTypeRecyclerView
         android:id="@+id/multiTypeRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/bg"/>
 
     <include layout="@layout/item_gank_girl"/>
 

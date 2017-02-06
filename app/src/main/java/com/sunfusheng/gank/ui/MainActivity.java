@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
         Api.getInstance().getApiService().checkVersion()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .takeUntil(lifecycle)
+                .compose(bindToLifecycle())
                 .filter(entity -> entity != null)
                 .filter(entity -> Integer.parseInt(entity.getVersion()) > Utils.getVersionCode())
                 .subscribe(entity -> {
