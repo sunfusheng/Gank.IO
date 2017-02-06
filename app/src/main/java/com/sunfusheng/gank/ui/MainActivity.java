@@ -7,13 +7,18 @@ import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.ui.gank.GankFragment;
+import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.Utils;
 import com.sunfusheng.gank.util.update.UpdateApp;
+
+import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
+
+    private static final int TIME_EXIT = 2000; // ms
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +38,25 @@ public class MainActivity extends BaseActivity {
                 .subscribe(entity -> {
                     new UpdateApp(this).dealWithVersion(entity);
                 }, Throwable::printStackTrace);
+
+        lifecycle.asObservable()
+                .throttleFirst(TIME_EXIT, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .subscribe(it -> ToastUtil.show("再按一次 退出应用"), Throwable::printStackTrace);
+
+        lifecycle.asObservable()
+                .compose(bindToLifecycle())
+                .timeInterval(AndroidSchedulers.mainThread())
+                .skip(1)
+                .filter(it -> it.getIntervalInMilliseconds() < TIME_EXIT)
+                .subscribe(it -> {
+                    finish();
+                }, Throwable::printStackTrace);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (lifecycle != null) {
+            lifecycle.onNext(null);
+        }
+    }
 }

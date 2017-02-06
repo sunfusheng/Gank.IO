@@ -64,6 +64,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        lifecycle.onCompleted();
+        if (lifecycle != null) {
+            lifecycle.onCompleted();
+            lifecycle = null;
+        }
     }
 }
