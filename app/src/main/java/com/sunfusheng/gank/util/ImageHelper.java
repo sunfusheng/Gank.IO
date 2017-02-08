@@ -26,9 +26,11 @@ public class ImageHelper {
     private Context mContext;
     private LoadingDialog mDialog;
     private Disposable mDisposable;
+    private String imagePath;
 
     public ImageHelper(Context context) {
         this.mContext = context;
+        imagePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath();
     }
 
     public void unInit() {
@@ -50,7 +52,7 @@ public class ImageHelper {
                 .filter(it -> !isImageExist(it))
                 .subscribe(it -> {
                     RxDownload.getInstance()
-                            .download(imageUrl, it, getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath())
+                            .download(imageUrl, it, imagePath)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<DownloadStatus>() {
@@ -89,7 +91,7 @@ public class ImageHelper {
 
     // 判断图片是否存在
     private boolean isImageExist(String fileName) {
-        File file = new File(getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS), fileName);
+        File file = new File(imagePath, fileName);
         boolean isExist = file.exists();
         if (isExist) {
             ToastUtil.show("图片已存在");
