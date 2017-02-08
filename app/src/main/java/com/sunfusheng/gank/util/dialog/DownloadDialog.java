@@ -38,6 +38,10 @@ public class DownloadDialog {
         materialDialog.setProgress(progress);
     }
 
+    public boolean isShowing() {
+        return materialDialog.isShowing();
+    }
+
     public void dismiss() {
         if (materialDialog != null && materialDialog.isShowing()) {
             materialDialog.dismiss();

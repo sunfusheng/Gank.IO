@@ -1,5 +1,7 @@
 package com.sunfusheng.gank.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,11 +20,15 @@ import rx.subjects.Subject;
  */
 public abstract class BaseActivity extends RxAppCompatActivity {
 
+    protected Activity mActivity;
+    protected Context mContext;
     protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = this;
+        mContext = this;
         Logger.d("log-activity", getClass().getSimpleName() + ".java");
         setStatusBarTranslucent(false);
     }

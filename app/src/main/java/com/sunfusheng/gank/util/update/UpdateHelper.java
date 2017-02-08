@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.sunfusheng.gank.R;
-import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.dialog.CommonDialog;
 import com.sunfusheng.gank.util.dialog.DownloadDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -33,17 +33,19 @@ public class UpdateHelper {
     private DownloadDialog mDialog;
     private Disposable mDisposable;
 
-    private String fileName = "RxGank.apk";
+    private String fileName;
     private String filePath;
     private String apkPathName;
 
     public UpdateHelper(Activity activity) {
         this.mActivity = activity;
-        filePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath();
-        apkPathName = filePath + File.separator + fileName;
     }
 
     public void unInit() {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
@@ -57,6 +59,9 @@ public class UpdateHelper {
                 mActivity.getString(R.string.update_rightnow),
                 mActivity.getString(R.string.update_no),
                 (dialog, which) -> {
+                    fileName = entity.getName() + "_V" + entity.getVersionShort() + ".apk";
+                    filePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath();
+                    apkPathName = filePath + File.separator + fileName;
                     download(entity.getInstall_url());
                 });
     }

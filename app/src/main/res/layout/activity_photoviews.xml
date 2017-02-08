@@ -45,4 +45,13 @@
             android:textColor="@color/color8"
             android:textSize="13sp"/>
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="12dp"
+        android:src="@mipmap/ic_action_download"/>
 </RelativeLayout>

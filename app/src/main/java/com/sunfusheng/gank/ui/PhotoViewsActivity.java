@@ -17,6 +17,7 @@ import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.ImageHelper;
 import com.sunfusheng.gank.widget.GildeImageView.GlideImageLoader;
 import com.sunfusheng.gank.widget.PhotoView.HackyViewPager;
 
@@ -42,9 +43,12 @@ public class PhotoViewsActivity extends BaseActivity {
     TextView tvSumCount;
     @BindView(R.id.rl_indicator)
     RelativeLayout rlIndicator;
+    @BindView(R.id.iv_save)
+    ImageView ivSave;
 
     private List<String> mGirls;
     private int curPosition = 0;
+    private ImageHelper imageHelper;
 
     public static void startActivity(ImageView imageView, String url) {
         Context context = imageView.getContext();
@@ -96,9 +100,22 @@ public class PhotoViewsActivity extends BaseActivity {
             }
         });
         viewPager.setCurrentItem(curPosition);
+
+        AppUtil.singleClick(ivSave, o -> {
+            imageHelper = new ImageHelper(mContext);
+            imageHelper.saveImage(mGirls.get(curPosition));
+        });
     }
 
-    static class PhotoViewAdapter extends PagerAdapter {
+    @Override
+    protected void onDestroy() {
+        if (imageHelper != null) {
+            imageHelper.unInit();
+        }
+        super.onDestroy();
+    }
+
+    public static class PhotoViewAdapter extends PagerAdapter {
 
         private Activity mActivity;
         private List<String> mList;
