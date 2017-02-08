@@ -1,6 +1,6 @@
 package com.sunfusheng.gank.http;
 
-import com.sunfusheng.gank.util.Utils;
+import com.sunfusheng.gank.util.AppUtil;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ public class CacheInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
 
-        if (!Utils.isNetworkAvailable()) {
+        if (!AppUtil.isNetworkAvailable()) {
             // 没网强制从缓存读取
             request = request.newBuilder()
                     .cacheControl(CacheControl.FORCE_CACHE)
@@ -30,7 +30,7 @@ public class CacheInterceptor implements Interceptor {
         Response response = chain.proceed(request);
         Response responseLatest;
 
-        if (Utils.isNetworkAvailable()) {
+        if (AppUtil.isNetworkAvailable()) {
             // 有网时候读接口上的@Headers里的配置
             String cacheControl = request.cacheControl().toString();
             responseLatest = response.newBuilder()

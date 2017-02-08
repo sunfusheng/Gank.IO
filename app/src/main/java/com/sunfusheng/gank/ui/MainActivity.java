@@ -2,14 +2,15 @@ package com.sunfusheng.gank.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.ui.gank.GankFragment;
 import com.sunfusheng.gank.util.ToastUtil;
-import com.sunfusheng.gank.util.Utils;
-import com.sunfusheng.gank.util.update.UpdateApp;
+import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.update.UpdateHelper;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +20,7 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends BaseActivity {
 
     private static final int TIME_EXIT = 2000; // ms
+    private UpdateHelper updateHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,9 +36,11 @@ public class MainActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle())
                 .filter(entity -> entity != null)
-                .filter(entity -> Integer.parseInt(entity.getVersion()) > Utils.getVersionCode())
+                .filter(entity -> !TextUtils.isEmpty(entity.getVersion()))
+                .filter(entity -> Integer.parseInt(entity.getVersion()) > AppUtil.getVersionCode())
                 .subscribe(entity -> {
-                    new UpdateApp(this).dealWithVersion(entity);
+                    updateHelper = new UpdateHelper(this);
+                    updateHelper.dealWithVersion(entity);
                 }, Throwable::printStackTrace);
 
         lifecycle.asObservable()
@@ -51,6 +55,14 @@ public class MainActivity extends BaseActivity {
                 .subscribe(it -> {
                     finish();
                 }, Throwable::printStackTrace);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (updateHelper != null) {
+            updateHelper.unInit();
+        }
+        super.onDestroy();
     }
 
     @Override

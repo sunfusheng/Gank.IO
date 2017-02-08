@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:maxLines="4"
+        android:ellipsize="end"
         android:padding="16dp"
         android:text="desc"
         android:textColor="@color/md_grey_800"

@@ -34,6 +34,10 @@ public class DownloadDialog {
         }
     }
 
+    public void setProgress(int progress) {
+        materialDialog.setProgress(progress);
+    }
+
     public void dismiss() {
         if (materialDialog != null && materialDialog.isShowing()) {
             materialDialog.dismiss();

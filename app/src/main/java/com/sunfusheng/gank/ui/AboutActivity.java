@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
-import com.sunfusheng.gank.util.Utils;
+import com.sunfusheng.gank.util.AppUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +56,7 @@ public class AboutActivity extends BaseActivity {
 
     private void initView() {
         ivBack.setOnClickListener(v -> finish());
-        tvAbout.setText("关于"+ Utils.getVersionName());
+        tvAbout.setText("关于"+ AppUtil.getVersionName());
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true); // 如果访问的页面中有Javascript，则WebView必须设置支持Javascript
@@ -133,6 +133,18 @@ public class AboutActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        webView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        webView.onPause();
     }
 
     @Override

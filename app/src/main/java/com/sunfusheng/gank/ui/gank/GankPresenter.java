@@ -9,7 +9,7 @@ import com.sunfusheng.gank.model.GankDayResults;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.model.GankItemTitle;
 import com.sunfusheng.gank.model.RequestParams;
-import com.sunfusheng.gank.util.Utils;
+import com.sunfusheng.gank.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class GankPresenter implements GankContract.Presenter {
 
     @Override
     public void onRefresh() {
-        if (Utils.isEmpty(mList)) {
+        if (AppUtil.isEmpty(mList)) {
             mView.onLoading();
         }
         mList = new ArrayList<>();
@@ -77,7 +77,7 @@ public class GankPresenter implements GankContract.Presenter {
                 .map(this::flatGankDay2List)
                 .takeUntil(lifecycle)
                 .subscribe(list -> {
-                    if (Utils.notEmpty(list)) {
+                    if (AppUtil.notEmpty(list)) {
                         mList.addAll(list);
                         mRequestParams.onSuccess();
                     } else {
@@ -96,7 +96,7 @@ public class GankPresenter implements GankContract.Presenter {
             getGankDayList(isLoadMore);
         } else {
             mRequestParams.onComplete();
-            if (Utils.notEmpty(mList)) {
+            if (AppUtil.notEmpty(mList)) {
                 processGirls(mList);
                 mView.onSuccess(mList, isLoadMore);
             } else {
@@ -108,24 +108,24 @@ public class GankPresenter implements GankContract.Presenter {
     private List<Object> flatGankDay2List(GankDay gankDay) {
         List<Object> list = new ArrayList<>();
         GankDayResults results = gankDay.results;
-        if (Utils.notEmpty(results.福利)) list.addAll(results.福利);
-        if (Utils.notEmpty(results.Android)) {
+        if (AppUtil.notEmpty(results.福利)) list.addAll(results.福利);
+        if (AppUtil.notEmpty(results.Android)) {
             list.add(new GankItemTitle(results.Android.get(0)));
             list.addAll(results.Android);
         }
-        if (Utils.notEmpty(results.iOS)) {
+        if (AppUtil.notEmpty(results.iOS)) {
             list.add(new GankItemTitle(results.iOS.get(0)));
             list.addAll(results.iOS);
         }
-        if (Utils.notEmpty(results.App)) {
+        if (AppUtil.notEmpty(results.App)) {
             list.add(new GankItemTitle(results.App.get(0)));
             list.addAll(results.App);
         }
-        if (Utils.notEmpty(results.瞎推荐)) {
+        if (AppUtil.notEmpty(results.瞎推荐)) {
             list.add(new GankItemTitle(results.瞎推荐.get(0)));
             list.addAll(results.瞎推荐);
         }
-        if (Utils.notEmpty(results.休息视频)) {
+        if (AppUtil.notEmpty(results.休息视频)) {
             list.add(new GankItemTitle(results.休息视频.get(0)));
             list.addAll(results.休息视频);
         }
@@ -133,7 +133,7 @@ public class GankPresenter implements GankContract.Presenter {
     }
 
     private void processGirls(List<Object> list) {
-        if (Utils.isEmpty(list) || GankApp.girls == null) {
+        if (AppUtil.isEmpty(list) || GankApp.girls == null) {
             GankApp.girls = new ArrayList<>();
             return;
         }

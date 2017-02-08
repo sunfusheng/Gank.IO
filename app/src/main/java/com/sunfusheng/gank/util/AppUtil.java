@@ -6,15 +6,20 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
+import android.view.View;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.sunfusheng.gank.GankApp;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 /**
  * Created by sunfusheng on 2017/1/17.
  */
-public class Utils {
+public class AppUtil {
 
     public static <T> boolean notEmpty(List<T> list) {
         return !isEmpty(list);
@@ -71,6 +76,13 @@ public class Utils {
             e.printStackTrace();
         }
         return 1;
+    }
+
+    // 去掉重复点击
+    public static void singleClick(View view, Action1 action1) {
+        RxView.clicks(view)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(action1, Throwable::printStackTrace);
     }
 
 }

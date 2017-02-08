@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
-import com.sunfusheng.gank.util.Utils;
+import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.widget.GildeImageView.GlideImageLoader;
 import com.sunfusheng.gank.widget.PhotoView.HackyViewPager;
 
@@ -66,7 +66,7 @@ public class PhotoViewsActivity extends BaseActivity {
 
     private void initData() {
         mGirls = GankApp.girls;
-        if (Utils.isEmpty(mGirls)) {
+        if (AppUtil.isEmpty(mGirls)) {
             throw new RuntimeException("The girls of gank is empty!");
         }
         curPosition = mGirls.indexOf(getIntent().getStringExtra("url"));

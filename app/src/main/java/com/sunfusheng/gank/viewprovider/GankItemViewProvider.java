@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.ui.WebViewActivity;
+import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
@@ -30,9 +31,6 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
     @Override
     protected ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
         View view = inflater.inflate(R.layout.item_gank, parent, false);
-        view.setOnClickListener(v -> {
-
-        });
         return new ViewHolder(view);
     }
 
@@ -50,13 +48,11 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
             holder.tvDesc.setText(ssb);
         }
 
-        holder.tvDesc.setOnClickListener(v -> {
-            WebViewActivity.startActivity(v.getContext(), item.url);
+        AppUtil.singleClick(holder.tvDesc, o -> {
+            WebViewActivity.startActivity(holder.tvDesc.getContext(), item.url);
         });
 
-        holder.tvDesc.setOnLongClickListener(v -> {
-            return true;
-        });
+        holder.tvDesc.setOnLongClickListener(v -> true);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

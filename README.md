@@ -32,6 +32,8 @@
 [RxJava](https://github.com/ReactiveX/RxJava)  
 [RxLifecycle](https://github.com/trello/RxLifecycle)  
 [RxDownload](https://github.com/ssseasonnn/RxDownload)  
+[RxPermissions](https://github.com/tbruyelle/RxPermissions)  
+[RxBinding](https://github.com/JakeWharton/RxBinding)  
 [OkHttp3](https://github.com/square/okhttp)  
 [Retrofit2](https://github.com/square/retrofit)  
 [Glide](https://github.com/bumptech/glide)  
