@@ -35,9 +35,9 @@ public class MainActivity extends BaseActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle())
-                .filter(entity -> entity != null)
-                .filter(entity -> !TextUtils.isEmpty(entity.getVersion()))
-                .filter(entity -> Integer.parseInt(entity.getVersion()) > AppUtil.getVersionCode())
+                .filter(it -> it != null)
+                .filter(entity -> !TextUtils.isEmpty(entity.version))
+                .filter(entity -> Integer.parseInt(entity.version) > AppUtil.getVersionCode())
                 .subscribe(entity -> {
                     updateHelper = new UpdateHelper(this);
                     updateHelper.dealWithVersion(entity);

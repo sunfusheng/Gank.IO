@@ -52,17 +52,17 @@ public class UpdateHelper {
     }
 
     public void dealWithVersion(final VersionEntity entity) {
-        String content = entity.getChangelog() + "\n\n下载(V" + entity.getVersionShort() + ")替换当前版本(" + AppUtil.getVersionName() + ")?";
+        String content = entity.changelog + "\n\n下载(V" + entity.versionShort + ")替换当前版本(" + AppUtil.getVersionName() + ")?";
         new CommonDialog(mActivity).show(
                 mActivity.getString(R.string.update_app),
                 content,
                 mActivity.getString(R.string.update_rightnow),
                 mActivity.getString(R.string.update_no),
                 (dialog, which) -> {
-                    fileName = entity.getName() + "_V" + entity.getVersionShort() + ".apk";
+                    fileName = entity.name + "_V" + entity.versionShort + ".apk";
                     filePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath();
                     apkPathName = filePath + File.separator + fileName;
-                    download(entity.getInstall_url());
+                    download(entity.install_url);
                 });
     }
 
@@ -98,7 +98,8 @@ public class UpdateHelper {
                                     @Override
                                     public void onError(Throwable e) {
                                         mDialog.dismiss();
-                                        e.printStackTrace();
+                                        // 实名认证的fir.im用户，应用每天的下载次数是100次
+                                        ToastUtil.show("下载次数受限，请明天尝试");
                                     }
 
                                     @Override
