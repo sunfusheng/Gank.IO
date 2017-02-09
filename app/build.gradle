@@ -13,8 +13,8 @@ android {
         applicationId "com.sunfusheng.gank"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
 
     compileOptions {
@@ -40,8 +40,6 @@ android {
     buildTypes {
         release {
             buildConfigField "boolean", "isDebug", "false"
-            shrinkResources true // 压缩资源
-            zipAlignEnabled true // zip优化
             signingConfig signingConfigs.release // apk签名
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all {
@@ -63,7 +61,7 @@ android {
 //生成自定义App名称
 def generateAppName(variant) {
     variant.outputs.each { output -> output.outputFile = new File (output.outputFile.parent,
-            "RxGank_V${variant.versionName}.apk".toLowerCase())
+            "Gank.IO_V${variant.versionName}.apk".toLowerCase())
     }
 }
 
