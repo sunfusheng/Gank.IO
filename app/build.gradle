@@ -47,7 +47,7 @@ android {
             }
         }
 
-        debug{
+        debug {
             buildConfigField "boolean", "isDebug", "true"
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -60,8 +60,9 @@ android {
 
 //生成自定义App名称
 def generateAppName(variant) {
-    variant.outputs.each { output -> output.outputFile = new File (output.outputFile.parent,
-            "Gank.IO_V${variant.versionName}.apk".toLowerCase())
+    variant.outputs.each { output ->
+        def file = output.outputFile
+        output.outputFile = new File(file.parent, "Gank.IO-V" + android.defaultConfig.versionName + ".apk")
     }
 }
 

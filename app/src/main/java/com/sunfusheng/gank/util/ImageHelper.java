@@ -1,9 +1,11 @@
 package com.sunfusheng.gank.util;
 
-import android.content.Context;
+import android.Manifest;
+import android.app.Activity;
 import android.text.TextUtils;
 
 import com.sunfusheng.gank.util.dialog.LoadingDialog;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 
@@ -23,13 +25,13 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
  */
 public class ImageHelper {
 
-    private Context mContext;
+    private Activity mActivity;
     private LoadingDialog mDialog;
     private Disposable mDisposable;
     private String imagePath;
 
-    public ImageHelper(Context context) {
-        this.mContext = context;
+    public ImageHelper(Activity activity) {
+        this.mActivity = activity;
         imagePath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath();
     }
 
@@ -45,41 +47,76 @@ public class ImageHelper {
 
     // 保存图片
     public void saveImage(String imageUrl) {
-        Observable.just(imageUrl)
+        RxPermissions rxPermissions = new RxPermissions(mActivity);
+        rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (!granted) {
+                        ToastUtil.show("您已禁止了写数据权限");
+                    } else {
+                        Observable.just(imageUrl)
+                                .filter(it -> !TextUtils.isEmpty(it))
+                                .map(this::getImageName)
+                                .filter(it -> !TextUtils.isEmpty(it))
+                                .filter(it -> !isImageExist(it))
+                                .subscribe(it -> downloadImage(imageUrl, it),
+                                        Throwable::printStackTrace);
+                    }
+                });
+    }
+
+    // 保存图片
+    public void saveImage2(String imageUrl) {
+        RxPermissions rxPermissions = new RxPermissions(mActivity);
+        Observable<Boolean> requestPermissionObservable = rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        Observable<String> getImageNameObservable = Observable.just(imageUrl)
                 .filter(it -> !TextUtils.isEmpty(it))
                 .map(this::getImageName)
                 .filter(it -> !TextUtils.isEmpty(it))
                 .filter(it -> !isImageExist(it))
-                .subscribe(it -> {
-                    RxDownload.getInstance()
-                            .download(imageUrl, it, imagePath)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Observer<DownloadStatus>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
-                                    mDisposable = d;
-                                    mDialog = new LoadingDialog(mContext);
-                                    mDialog.show("下载图片中...");
-                                }
+                .doOnError(Throwable::printStackTrace);
 
-                                @Override
-                                public void onNext(DownloadStatus value) {
+        Observable.zip(requestPermissionObservable, getImageNameObservable,
+                (permission, imageName) -> {
+                    if (!permission) {
+                        ToastUtil.show("您已禁止了写数据权限");
+                        return null;
+                    }
+                    return imageName;
+                })
+                .filter(it -> !TextUtils.isEmpty(it))
+                .subscribe(it -> downloadImage(imageUrl, it), Throwable::printStackTrace);
+    }
 
-                                }
+    // 下载图片
+    public void downloadImage(String imageUrl, String imageName) {
+        RxDownload.getInstance()
+                .download(imageUrl, imageName, imagePath)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DownloadStatus>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mDisposable = d;
+                        mDialog = new LoadingDialog(mActivity);
+                        mDialog.show("下载图片中...");
+                    }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    mDialog.dismiss();
-                                    ToastUtil.show("保存失败");
-                                }
+                    @Override
+                    public void onNext(DownloadStatus value) {
+                    }
 
-                                @Override
-                                public void onComplete() {
-                                    mDialog.dismiss();
-                                    ToastUtil.show("保存成功");
-                                }
-                            });
+                    @Override
+                    public void onError(Throwable e) {
+                        mDialog.dismiss();
+                        ToastUtil.show("保存失败");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mDialog.dismiss();
+                        ToastUtil.show("保存成功");
+                    }
                 });
     }
 

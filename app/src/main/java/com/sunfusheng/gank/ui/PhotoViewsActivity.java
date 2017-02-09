@@ -102,7 +102,7 @@ public class PhotoViewsActivity extends BaseActivity {
         viewPager.setCurrentItem(curPosition);
 
         AppUtil.singleClick(ivSave, o -> {
-            imageHelper = new ImageHelper(mContext);
+            imageHelper = new ImageHelper(mActivity);
             imageHelper.saveImage(mGirls.get(curPosition));
         });
     }

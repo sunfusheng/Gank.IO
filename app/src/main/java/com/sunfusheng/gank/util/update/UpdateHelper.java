@@ -69,42 +69,44 @@ public class UpdateHelper {
     public void download(String url) {
         RxPermissions rxPermissions = new RxPermissions(mActivity);
         rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .doOnNext(granted -> {
+                .subscribe(granted -> {
                     if (!granted) {
-                        ToastUtil.show("无权限向SDCard写数据");
-                    }
-                })
-                .compose(RxDownload.getInstance().transform(url, fileName, filePath))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<DownloadStatus>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        mDisposable = d;
-                        mDialog = new DownloadDialog(mActivity);
-                        mDialog.show();
-                    }
+                        ToastUtil.show("您已禁止了写数据权限");
+                    } else {
+                        RxDownload.getInstance()
+                                .download(url, fileName, filePath)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<DownloadStatus>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+                                        mDisposable = d;
+                                        mDialog = new DownloadDialog(mActivity);
+                                        mDialog.show();
+                                    }
 
-                    @Override
-                    public void onNext(DownloadStatus value) {
-                        float progressF = (float) (value.getDownloadSize() * 1.0 / value.getTotalSize());
-                        int progressI = (int) (progressF * 100);
-                        if (progressI > lastProgress) {
-                            lastProgress = progressI;
-                            mDialog.setProgress(progressI);
-                        }
-                    }
+                                    @Override
+                                    public void onNext(DownloadStatus value) {
+                                        float progressF = (float) (value.getDownloadSize() * 1.0 / value.getTotalSize());
+                                        int progressI = (int) (progressF * 100);
+                                        if (progressI > lastProgress) {
+                                            lastProgress = progressI;
+                                            mDialog.setProgress(progressI);
+                                        }
+                                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mDialog.dismiss();
-                        e.printStackTrace();
-                    }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        mDialog.dismiss();
+                                        e.printStackTrace();
+                                    }
 
-                    @Override
-                    public void onComplete() {
-                        mDialog.dismiss();
-                        installPackage(apkPathName);
+                                    @Override
+                                    public void onComplete() {
+                                        mDialog.dismiss();
+                                        installPackage(apkPathName);
+                                    }
+                                });
                     }
                 });
     }
