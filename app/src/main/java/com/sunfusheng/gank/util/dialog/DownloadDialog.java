@@ -39,7 +39,10 @@ public class DownloadDialog {
     }
 
     public boolean isShowing() {
-        return materialDialog.isShowing();
+        if (materialDialog != null) {
+            return materialDialog.isShowing();
+        }
+        return false;
     }
 
     public void dismiss() {
