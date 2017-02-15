@@ -41,20 +41,8 @@
             android:textSize="16sp"/>
     </LinearLayout>
 
-    <RelativeLayout
+    <com.sunfusheng.gank.widget.WebViewLayout
+        android:id="@+id/webViewLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:progressDrawable="@drawable/progressbar_orange_selector"/>
-    </RelativeLayout>
+        android:layout_height="match_parent"/>
 </LinearLayout>
