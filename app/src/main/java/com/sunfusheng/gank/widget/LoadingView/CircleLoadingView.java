@@ -17,7 +17,7 @@ public class CircleLoadingView extends View {
 
     private CircleLoadingViewParams circleLoadingViewParams = new CircleLoadingViewParams(this.getContext());
     private List<CircleWrapper> wrappers;
-    private int[] colors = new int[]{0xFF5677fc, 0xFF259b24, 0xFFff8103, 0xFFe51c23};
+    private int[] colors = new int[]{0xFF5677FC, 0xFF259B24, 0xFFFF8103, 0xFFDD3A38};
     private Paint paint = new Paint();
     private RectF oval = new RectF();
     private boolean isLoading = true;
