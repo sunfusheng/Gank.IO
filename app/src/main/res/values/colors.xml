@@ -3,7 +3,7 @@
 
     <color name="colorPrimary">#DD3A38</color>
     <color name="colorPrimaryDark">#DD3A38</color>
-    <color name="colorAccent">#e51c23</color>
+    <color name="colorAccent">#DD3A38</color>
 
     <!-- standard -->
     <color name="white">#FFFFFF</color>  <!-- 白色 -->
