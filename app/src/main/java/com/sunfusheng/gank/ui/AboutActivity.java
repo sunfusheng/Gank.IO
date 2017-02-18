@@ -52,7 +52,7 @@ public class AboutActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         //使用CollapsingToolbarLayout必须把title设置到CollapsingToolbarLayout上，设置到Toolbar上则不会显示
-        collapsingToolbarLayout.setTitle(getString(R.string.app_name) + AppUtil.getVersionName());
+        collapsingToolbarLayout.setTitle(getString(R.string.app_name) + " (" + AppUtil.getVersionName() + ")");
         //通过CollapsingToolbarLayout修改字体颜色
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.colorPrimary));//设置还没收缩时状态下字体颜色
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
