@@ -1,31 +1,40 @@
 package com.sunfusheng.gank.util;
 
+import android.content.Context;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.sunfusheng.gank.GankApp;
-
 /**
- * Created by sunfusheng on 15/8/7.
+ * Created by sunfusheng on 17/2/22.
  */
 public class ToastUtil {
 
     private static Toast mToast;
 
-    public static void show(String message) {
-        if (TextUtils.isEmpty(message)) return;
+    public static void show(Context context, @StringRes int id) {
+        if (context == null) return;
+        show(context, context.getResources().getString(id));
+    }
+
+    public static void show(Context context, String msg) {
+        if (context == null) return;
+        if (TextUtils.isEmpty(msg)) return;
+
         int duration;
-        if (message.length() > 10) {
-            duration = Toast.LENGTH_LONG; //如果字符串比较长，那么显示的时间也长一些。
+        if (msg.length() > 10) {
+            duration = Toast.LENGTH_LONG;
         } else {
             duration = Toast.LENGTH_SHORT;
         }
+
         if (mToast == null) {
-            mToast = Toast.makeText(GankApp.application, message, duration);
+            mToast = Toast.makeText(context, msg, duration);
         } else {
-            mToast.setText(message);
+            mToast.setText(msg);
             mToast.setDuration(duration);
         }
+
         mToast.show();
     }
 }

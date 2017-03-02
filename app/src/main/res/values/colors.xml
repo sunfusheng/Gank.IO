@@ -18,10 +18,12 @@
 
     <!-- common -->
     <color name="transparent">#00000000</color>
-    <color name="transparent_30percent">#4D000000</color>
-    <color name="transparent_50percent">#80000000</color>
-    <color name="transparent_70percent">#B3000000</color>
-    <color name="transparent_80percent">#CC000000</color>
+    <color name="transparent30_color">#4D000000</color>
+    <color name="transparent40_color">#66000000</color>
+    <color name="transparent50_color">#80000000</color>
+    <color name="transparent60_color">#9A000000</color>
+    <color name="transparent70_color">#B3000000</color>
+    <color name="transparent80_color">#CC000000</color>
 
     <color name="color1">#212121</color>
     <color name="color2">#333333</color>

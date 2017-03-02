@@ -15,7 +15,7 @@
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent_30percent"
+        android:background="@color/transparent30_color"
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:paddingBottom="15dp"

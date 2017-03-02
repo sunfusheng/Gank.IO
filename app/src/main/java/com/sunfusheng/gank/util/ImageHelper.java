@@ -51,7 +51,7 @@ public class ImageHelper {
         rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe(granted -> {
                     if (!granted) {
-                        ToastUtil.show("您已禁止了写数据权限");
+                        ToastUtil.show(mActivity, "您已禁止了写数据权限");
                     } else {
                         Observable.just(imageUrl)
                                 .filter(it -> !TextUtils.isEmpty(it))
@@ -79,7 +79,7 @@ public class ImageHelper {
         Observable.zip(requestPermissionObservable, getImageNameObservable,
                 (permission, imageName) -> {
                     if (!permission) {
-                        ToastUtil.show("您已禁止了写数据权限");
+                        ToastUtil.show(mActivity, "您已禁止了写数据权限");
                         return null;
                     }
                     return imageName;
@@ -109,13 +109,13 @@ public class ImageHelper {
                     @Override
                     public void onError(Throwable e) {
                         mDialog.dismiss();
-                        ToastUtil.show("保存失败");
+                        ToastUtil.show(mActivity, "保存失败");
                     }
 
                     @Override
                     public void onComplete() {
                         mDialog.dismiss();
-                        ToastUtil.show("保存成功");
+                        ToastUtil.show(mActivity, "保存成功");
                     }
                 });
     }
@@ -131,7 +131,7 @@ public class ImageHelper {
         File file = new File(imagePath, fileName);
         boolean isExist = file.exists();
         if (isExist) {
-            ToastUtil.show("图片已存在");
+            ToastUtil.show(mActivity, "图片已存在");
         }
         return isExist;
     }

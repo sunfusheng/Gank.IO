@@ -9,7 +9,7 @@
     <item>
         <selector>
             <item
-                android:drawable="@color/transparent_50percent"
+                android:drawable="@color/transparent50_color"
                 android:state_pressed="true">
             </item>
             <item

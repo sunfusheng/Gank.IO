@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
 
         lifecycle.asObservable()
                 .throttleFirst(TIME_EXIT, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                .subscribe(it -> ToastUtil.show("再按一次 退出应用"), Throwable::printStackTrace);
+                .subscribe(it -> ToastUtil.show(mContext, "再按一次 退出应用"), Throwable::printStackTrace);
 
         lifecycle.asObservable()
                 .compose(bindToLifecycle())

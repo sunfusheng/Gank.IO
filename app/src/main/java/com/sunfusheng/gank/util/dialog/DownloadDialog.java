@@ -26,7 +26,7 @@ public class DownloadDialog {
             materialDialog = new MaterialDialog.Builder(mContext)
                     .content("正在下载...")
                     .progress(false, 100, false)
-                    .cancelListener(dialog -> ToastUtil.show("已进入后台下载"))
+                    .cancelListener(dialog -> ToastUtil.show(mContext, "已进入后台下载"))
                     .build();
         }
         if (!materialDialog.isShowing()) {

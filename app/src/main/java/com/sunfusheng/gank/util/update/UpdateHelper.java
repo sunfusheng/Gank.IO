@@ -71,7 +71,7 @@ public class UpdateHelper {
         rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe(granted -> {
                     if (!granted) {
-                        ToastUtil.show("您已禁止了写数据权限");
+                        ToastUtil.show(mActivity, "您已禁止了写数据权限");
                     } else {
                         RxDownload.getInstance()
                                 .download(url, fileName, filePath)
@@ -99,7 +99,7 @@ public class UpdateHelper {
                                     public void onError(Throwable e) {
                                         mDialog.dismiss();
                                         // 实名认证的fir.im用户，应用每天的下载次数是100次
-                                        ToastUtil.show("下载次数受限，请明天尝试");
+                                        ToastUtil.show(mActivity, "下载次数受限，请明天尝试");
                                     }
 
                                     @Override
