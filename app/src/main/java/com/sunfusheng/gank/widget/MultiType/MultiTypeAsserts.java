@@ -35,13 +35,15 @@ public class MultiTypeAsserts {
      * Make the exception to occur in your class for debug and index.
      *
      * @param adapter The MultiTypeAdapter.
-     * @param items   The items list.
+     * @param items The items list.
      * @throws ProviderNotFoundException If check failed.
-     * @throws IllegalArgumentException  If your Items/List is empty.
+     * @throws IllegalArgumentException If your Items/List is empty.
      */
     @SuppressWarnings("unchecked")
-    public static void assertAllRegistered(@NonNull MultiTypeAdapter adapter, @NonNull List<?> items)
-            throws ProviderNotFoundException, IllegalArgumentException, IllegalAccessError {
+    public static void assertAllRegistered(
+        @NonNull MultiTypeAdapter adapter,
+        @NonNull List<?> items)
+        throws ProviderNotFoundException, IllegalArgumentException, IllegalAccessError {
 
         if (items.size() == 0) {
             throw new IllegalArgumentException("Your Items/List is empty.");
@@ -55,21 +57,22 @@ public class MultiTypeAsserts {
 
     /**
      * @param recyclerView The RecyclerView.
-     * @param adapter      The MultiTypeAdapter.
-     * @throws IllegalAccessError       The assertHasTheSameAdapter() method must be placed after
-     *                                  recyclerView.setAdapter().
+     * @param adapter The MultiTypeAdapter.
+     * @throws IllegalAccessError The assertHasTheSameAdapter() method must be placed after
+     * recyclerView.setAdapter().
      * @throws IllegalArgumentException If your recyclerView's adapter.
-     *                                  is not the sample with the argument adapter.
+     * is not the sample with the argument adapter.
      */
-    public static void assertHasTheSameAdapter(@NonNull RecyclerView recyclerView, @NonNull MultiTypeAdapter adapter)
-            throws IllegalArgumentException, IllegalAccessError {
+    public static void assertHasTheSameAdapter(
+            @NonNull RecyclerView recyclerView, @NonNull MultiTypeAdapter adapter)
+        throws IllegalArgumentException, IllegalAccessError {
         if (recyclerView.getAdapter() == null) {
             throw new IllegalAccessError(
-                    "The assertHasTheSameAdapter() method must be placed after recyclerView.setAdapter()");
+                "The assertHasTheSameAdapter() method must be placed after recyclerView.setAdapter()");
         }
         if (recyclerView.getAdapter() != adapter) {
             throw new IllegalArgumentException(
-                    "Your recyclerView's adapter is not the sample with the argument adapter.");
+                "Your recyclerView's adapter is not the sample with the argument adapter.");
         }
     }
 }

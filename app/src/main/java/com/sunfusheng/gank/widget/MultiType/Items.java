@@ -16,6 +16,8 @@
 
 package com.sunfusheng.gank.widget.MultiType;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -24,8 +26,7 @@ import java.util.Collection;
  */
 public class Items extends ArrayList<Object> {
 
-    public Items() {
-    }
+    public Items() {}
 
 
     public Items(int initialCapacity) {
@@ -33,7 +34,7 @@ public class Items extends ArrayList<Object> {
     }
 
 
-    public Items(Collection<?> c) {
+    public Items(@NonNull Collection<?> c) {
         super(c);
     }
 }

@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.sunfusheng.gank.widget.RecyclerViewLayout.MultiTypeRecyclerView
-        android:id="@+id/multiTypeRecyclerView"
+    <com.sunfusheng.gank.widget.RecyclerViewWrapper.RecyclerViewWrapper
+        android:id="@+id/recyclerViewWrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"/>

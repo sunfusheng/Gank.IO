@@ -30,12 +30,12 @@ import java.util.List;
  * @author drakeet
  */
 public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
-        implements FlatTypeAdapter, TypePool {
+    implements FlatTypeAdapter, TypePool {
 
     @Nullable
-    protected List<?> items;
+    private List<?> items;
     @NonNull
-    protected TypePool delegate;
+    private TypePool delegate;
     @Nullable
     protected LayoutInflater inflater;
     @Nullable
@@ -53,12 +53,12 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
 
 
     public MultiTypeAdapter(@Nullable List<?> items, int initialCapacity) {
-        this(items, new MultiTypePool(initialCapacity), null);
+        this(items, new MultiTypePool(initialCapacity), /* providedFlatTypeAdapter: */ null);
     }
 
 
-    public MultiTypeAdapter(@Nullable List<?> items, TypePool pool) {
-        this(items, pool, null);
+    public MultiTypeAdapter(@Nullable List<?> items, @NonNull TypePool pool) {
+        this(items, pool, /* providedFlatTypeAdapter: */ null);
     }
 
 
@@ -71,98 +71,41 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
     }
 
 
-    /**
-     * Update the items and views atomically and safely.
-     * It is recommended to use this method to update the data.
-     *
-     * @param items The <b>new</b> items list.
-     * @since v2.4.0
-     */
-    public void setItems(@Nullable List<?> items) {
-        this.items = items;
-        notifyDataSetChanged();
-    }
-
-    public List<?> getItems() {
-        return items;
-    }
-
-    public void removeAll() {
-        if (items == null) {
-            items = new ArrayList<>();
-        }
-        items.clear();
-    }
-
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public int getItemViewType(int position) {
-        assert items != null;
-        Object item = items.get(position);
-        return indexOf(flattenClass(item));
-    }
-
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int indexViewType) {
-        if (inflater == null) {
-            inflater = LayoutInflater.from(parent.getContext());
-        }
-        ItemViewProvider provider = getProviderByIndex(indexViewType);
-        provider.adapter = MultiTypeAdapter.this;
-        return provider.onCreateViewHolder(inflater, parent);
-    }
-
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        assert items != null;
-        Object item = items.get(position);
-        ItemViewProvider provider = getProviderByClass(flattenClass(item));
-        provider.onBindViewHolder(holder, flattenItem(item));
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return items == null ? 0 : items.size();
-    }
-
-
-    @Override
-    public void register(@NonNull Class<?> clazz, @NonNull ItemViewProvider provider) {
+    @Override public void register(@NonNull Class<?> clazz, @NonNull ItemViewProvider provider) {
         delegate.register(clazz, provider);
     }
 
 
-    public void registerAll(@NonNull final MultiTypePool pool) {
+    public void registerAll(@NonNull final TypePool pool) {
         for (int i = 0; i < pool.getContents().size(); i++) {
             delegate.register(pool.getContents().get(i), pool.getProviders().get(i));
         }
     }
 
 
-    public void applyGlobalMultiTypePool() {
-        for (int i = 0; i < GlobalMultiTypePool.getContents().size(); i++) {
-            final Class<?> clazz = GlobalMultiTypePool.getContents().get(i);
-            final ItemViewProvider provider = GlobalMultiTypePool.getProviders().get(i);
-            if (!this.getContents().contains(clazz)) {
-                this.register(clazz, provider);
-            }
-        }
+    /**
+     * Update the items atomically and safely.
+     * It is recommended to use this method to update the data.
+     * <p>e.g. {@code adapter.setItems(new Items(changedItems));}</p>
+     *
+     * <p>Note: If you want to refresh the list views, you should
+     * call {@link RecyclerView.Adapter#notifyDataSetChanged()} by yourself.</p>
+     *
+     * @param items The <b>new</b> items list.
+     * @since v2.4.1
+     */
+    public void setItems(@Nullable List<?> items) {
+        this.items = items;
     }
 
 
-    @Override
-    public int indexOf(@NonNull Class<?> clazz)
-            throws ProviderNotFoundException {
-        int index = delegate.indexOf(clazz);
-        if (index >= 0) {
-            return index;
-        }
-        throw new ProviderNotFoundException(clazz);
+    /**
+     * Set the TypePool to hold the types and view providers.
+     *
+     * @param typePool The TypePool implementation
+     */
+    public void setTypePool(@NonNull TypePool typePool) {
+        this.delegate = typePool;
     }
 
 
@@ -177,6 +120,59 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
      */
     public void setFlatTypeAdapter(@NonNull FlatTypeAdapter flatTypeAdapter) {
         this.providedFlatTypeAdapter = flatTypeAdapter;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Override public int getItemViewType(int position) {
+        assert items != null;
+        Object item = items.get(position);
+        return indexOf(flattenClass(item));
+    }
+
+
+    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int indexViewType) {
+        if (inflater == null) {
+            inflater = LayoutInflater.from(parent.getContext());
+        }
+        ItemViewProvider provider = getProviderByIndex(indexViewType);
+        provider.adapter = MultiTypeAdapter.this;
+        return provider.onCreateViewHolder(inflater, parent);
+    }
+
+
+    @Override @SuppressWarnings("unchecked")
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        assert items != null;
+        Object item = items.get(position);
+        ItemViewProvider provider = getProviderByClass(flattenClass(item));
+        provider.onBindViewHolder(holder, flattenItem(item));
+    }
+
+
+    @Override public int getItemCount() {
+        return items == null ? 0 : items.size();
+    }
+
+
+    public void applyGlobalMultiTypePool() {
+        for (int i = 0; i < GlobalMultiTypePool.getContents().size(); i++) {
+            final Class<?> clazz = GlobalMultiTypePool.getContents().get(i);
+            final ItemViewProvider provider = GlobalMultiTypePool.getProviders().get(i);
+            if (!this.getContents().contains(clazz)) {
+                this.register(clazz, provider);
+            }
+        }
+    }
+
+
+    @Override public int indexOf(@NonNull Class<?> clazz)
+        throws ProviderNotFoundException {
+        int index = delegate.indexOf(clazz);
+        if (index >= 0) {
+            return index;
+        }
+        throw new ProviderNotFoundException(clazz);
     }
 
 
@@ -205,8 +201,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
      * The method may be removed next time.
      */
     @NonNull
-    @Override
-    public Class onFlattenClass(@NonNull final Object item) {
+    @Override public Class onFlattenClass(@NonNull final Object item) {
         return item.getClass();
     }
 
@@ -216,29 +211,25 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
      * The method may be removed next time.
      */
     @NonNull
-    @Override
-    public Object onFlattenItem(@NonNull final Object item) {
+    @Override public Object onFlattenItem(@NonNull final Object item) {
         return item;
     }
 
 
     @NonNull
-    @Override
-    public ArrayList<Class<?>> getContents() {
+    @Override public ArrayList<Class<?>> getContents() {
         return delegate.getContents();
     }
 
 
     @NonNull
-    @Override
-    public ArrayList<ItemViewProvider> getProviders() {
+    @Override public ArrayList<ItemViewProvider> getProviders() {
         return delegate.getProviders();
     }
 
 
     @NonNull
-    @Override
-    public ItemViewProvider getProviderByIndex(int index) {
+    @Override public ItemViewProvider getProviderByIndex(int index) {
         return delegate.getProviderByIndex(index);
     }
 
@@ -247,5 +238,17 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder>
     @Override
     public <T extends ItemViewProvider> T getProviderByClass(@NonNull Class<?> clazz) {
         return delegate.getProviderByClass(clazz);
+    }
+
+
+    @Nullable
+    public List<?> getItems() {
+        return items;
+    }
+
+
+    @NonNull
+    public TypePool getTypePool() {
+        return delegate;
     }
 }

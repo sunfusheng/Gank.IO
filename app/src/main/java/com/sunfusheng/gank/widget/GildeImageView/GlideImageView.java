@@ -1,7 +1,7 @@
 package com.sunfusheng.gank.widget.GildeImageView;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 
 /**
@@ -36,7 +36,7 @@ public class GlideImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     // 加载drawable图片
-    public void loadResImage(@IdRes int resId, int holderResId) {
+    public void loadResImage(@DrawableRes int resId, int holderResId) {
         mLoader.loadResImage(resId, holderResId);
     }
 

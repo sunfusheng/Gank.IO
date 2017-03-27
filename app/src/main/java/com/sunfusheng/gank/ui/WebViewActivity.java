@@ -33,6 +33,7 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
 
+        webViewLayout.setTopShadowVisible(true);
         webViewLayout.setProgressDrawable(R.drawable.progressbar_color_primary_selector);
         webViewLayout.loadUrl(getIntent().getStringExtra("url"));
     }

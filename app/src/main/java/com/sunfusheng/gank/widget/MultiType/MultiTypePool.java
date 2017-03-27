@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * @author drakeet
  */
-public final class MultiTypePool implements TypePool {
+public class MultiTypePool implements TypePool {
 
     private final String TAG = MultiTypePool.class.getSimpleName();
     private ArrayList<Class<?>> contents;
@@ -51,13 +51,12 @@ public final class MultiTypePool implements TypePool {
             int index = contents.indexOf(clazz);
             providers.set(index, provider);
             Log.w(TAG, "You have registered the " + clazz.getSimpleName() + " type. " +
-                    "It will override the original provider.");
+                "It will override the original provider.");
         }
     }
 
 
-    @Override
-    public int indexOf(@NonNull final Class<?> clazz) {
+    @Override public int indexOf(@NonNull final Class<?> clazz) {
         int index = contents.indexOf(clazz);
         if (index >= 0) {
             return index;
@@ -72,28 +71,24 @@ public final class MultiTypePool implements TypePool {
 
 
     @NonNull
-    @Override
-    public ArrayList<Class<?>> getContents() {
+    @Override public ArrayList<Class<?>> getContents() {
         return contents;
     }
 
 
     @NonNull
-    @Override
-    public ArrayList<ItemViewProvider> getProviders() {
+    @Override public ArrayList<ItemViewProvider> getProviders() {
         return providers;
     }
 
 
     @NonNull
-    @Override
-    public ItemViewProvider getProviderByIndex(int index) {
+    @Override public ItemViewProvider getProviderByIndex(int index) {
         return providers.get(index);
     }
 
 
-    @SuppressWarnings("unchecked")
-    @NonNull
+    @SuppressWarnings("unchecked") @NonNull
     @Override
     public <T extends ItemViewProvider> T getProviderByClass(@NonNull final Class<?> clazz) {
         return (T) getProviderByIndex(indexOf(clazz));

@@ -2,15 +2,19 @@ package com.sunfusheng.gank.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.widget.TextView;
 
+import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.WebViewLayout;
 
 import butterknife.BindView;
@@ -29,6 +33,12 @@ public class AboutActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.collapsingToolbarLayout)
     CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.iv_girl)
+    GlideImageView ivGirl;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
 
     private String url = "file:///android_asset/about_rxgank.html";
 
@@ -45,17 +55,23 @@ public class AboutActivity extends BaseActivity {
 
         initToolBar();
         webViewLayout.loadUrl(url);
+        if (AppUtil.isEmpty(GankApp.girls) || TextUtils.isEmpty(GankApp.girls.get(0))) {
+            ivGirl.loadResImage(R.mipmap.liuyifei, R.mipmap.liuyifei);
+        } else {
+            ivGirl.loadNetImage(GankApp.girls.get(0), R.mipmap.liuyifei);
+        }
     }
 
     private void initToolBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        //使用CollapsingToolbarLayout必须把title设置到CollapsingToolbarLayout上，设置到Toolbar上则不会显示
-        collapsingToolbarLayout.setTitle(getString(R.string.app_name) + " (" + AppUtil.getVersionName() + ")");
-        //通过CollapsingToolbarLayout修改字体颜色
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.colorPrimary));//设置还没收缩时状态下字体颜色
-        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
+        collapsingToolbarLayout.setTitle("");
+        toolbar.setTitle("");
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));//设置还没收缩时状态下字体颜色
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.transparent));//设置收缩后Toolbar上字体的颜色
+        tvTitle.setText(getString(R.string.app_name) + " (" + AppUtil.getVersionName() + ")");
+        appBarLayout.addOnOffsetChangedListener((appBar, offset) -> tvTitle.setAlpha(Math.abs(offset * 1f / appBar.getTotalScrollRange())));
     }
 
     @Override

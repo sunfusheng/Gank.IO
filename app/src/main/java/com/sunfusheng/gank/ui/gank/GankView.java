@@ -17,8 +17,8 @@ import com.sunfusheng.gank.ui.AboutActivity;
 import com.sunfusheng.gank.ui.PhotoViewsActivity;
 import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
-import com.sunfusheng.gank.widget.RecyclerViewLayout.LoadingStateDelegate;
-import com.sunfusheng.gank.widget.RecyclerViewLayout.MultiTypeRecyclerView;
+import com.sunfusheng.gank.widget.RecyclerViewWrapper.LoadingStateDelegate;
+import com.sunfusheng.gank.widget.RecyclerViewWrapper.RecyclerViewWrapper;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
 
 import java.util.List;
@@ -30,12 +30,12 @@ import butterknife.ButterKnife;
  * Created by sunfusheng on 2017/1/13.
  */
 public class GankView extends FrameLayout implements GankContract.View,
-        MultiTypeRecyclerView.OnRequestListener,
-        MultiTypeRecyclerView.OnScrollListener,
+        RecyclerViewWrapper.OnRequestListener,
+        RecyclerViewWrapper.OnScrollListener,
         SwipeRefreshLayout.OnDragOffsetListener {
 
-    @BindView(R.id.multiTypeRecyclerView)
-    MultiTypeRecyclerView multiTypeRecyclerView;
+    @BindView(R.id.recyclerViewWrapper)
+    RecyclerViewWrapper recyclerViewWrapper;
     @BindView(R.id.giv_girl)
     GlideImageView givGirl;
     @BindView(R.id.tv_time)
@@ -68,40 +68,40 @@ public class GankView extends FrameLayout implements GankContract.View,
 
         tvTime.setTypeface(GankApp.songTi);
         rlGirl.setVisibility(INVISIBLE);
-        multiTypeRecyclerView.setOnRequestListener(this);
-        multiTypeRecyclerView.setOnScrollListener(this);
-        multiTypeRecyclerView.getSwipeRefreshLayout().setOnDragOffsetListener(this);
+        recyclerViewWrapper.setOnRequestListener(this);
+        recyclerViewWrapper.setOnScrollListener(this);
+        recyclerViewWrapper.getSwipeRefreshLayout().setOnDragOffsetListener(this);
         givGirl.setOnClickListener(v -> PhotoViewsActivity.startActivity(givGirl, curGirl.url));
         ivAbout.setOnClickListener(v -> AboutActivity.startActivity(mContext));
     }
 
     @Override
     public void onDetach() {
-        multiTypeRecyclerView.removeAllViews();
-        multiTypeRecyclerView = null;
+        recyclerViewWrapper.removeAllViews();
+        recyclerViewWrapper = null;
     }
 
     @Override
     public void onLoading() {
-        multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.LOADING);
+        recyclerViewWrapper.setLoadingState(LoadingStateDelegate.STATE.LOADING);
     }
 
     @Override
     public void onSuccess(List<Object> list, boolean isLoadMore) {
-        multiTypeRecyclerView.setData(list);
+        recyclerViewWrapper.setData(list);
         renderFakeView(0);
         rlGirl.setVisibility(VISIBLE);
-        multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.SUCCEED);
+        recyclerViewWrapper.setLoadingState(LoadingStateDelegate.STATE.SUCCEED);
     }
 
     @Override
     public void onError() {
-        multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.ERROR);
+        recyclerViewWrapper.setLoadingState(LoadingStateDelegate.STATE.ERROR);
     }
 
     @Override
     public void onEmpty() {
-        multiTypeRecyclerView.setLoadingState(LoadingStateDelegate.STATE.EMPTY);
+        recyclerViewWrapper.setLoadingState(LoadingStateDelegate.STATE.EMPTY);
     }
 
     @Override
@@ -144,9 +144,9 @@ public class GankView extends FrameLayout implements GankContract.View,
     private void renderFakeView(int pos) {
         if (lastPos == pos) return;
         lastPos = pos;
-        if (multiTypeRecyclerView.getFirstVisibleItem() == null) return;
-        for (int i = multiTypeRecyclerView.getFirstVisibleItemPosition(); i >= 0; i--) {
-            Object item = multiTypeRecyclerView.getData().get(i);
+        if (recyclerViewWrapper.getFirstVisibleItem() == null) return;
+        for (int i = recyclerViewWrapper.getFirstVisibleItemPosition(); i >= 0; i--) {
+            Object item = recyclerViewWrapper.getData().get(i);
             if (item instanceof GankItemGirl) {
                 curGirl = (GankItemGirl) item;
                 break;
@@ -163,7 +163,7 @@ public class GankView extends FrameLayout implements GankContract.View,
                 rlGirl.setVisibility(INVISIBLE);
             }
         } else {
-            if (rlGirl.getVisibility() == INVISIBLE && multiTypeRecyclerView.getItemCount() > 0) {
+            if (rlGirl.getVisibility() == INVISIBLE && recyclerViewWrapper.getItemCount() > 0) {
                 rlGirl.setVisibility(VISIBLE);
             }
         }
