@@ -1,4 +1,4 @@
-## RxGank (V1.1)
+## RxGank
 
 干货集中营Android客户端
 
