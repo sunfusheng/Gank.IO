@@ -18,14 +18,14 @@ public class LogInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        Logger.d("log-data-request", request.url().toString());
+        Logger.d("log-data-request", "" + request.url().toString());
 
         Response response = chain.proceed(request);
 
         if (response != null && response.body() != null) {
             MediaType mediaType = response.body().contentType();
             String content = response.body().string();
-            Logger.d("log-data-response", content);
+            Logger.d("log-data-response", "" + content);
             return response.newBuilder()
                     .body(ResponseBody.create(mediaType, content))
                     .build();

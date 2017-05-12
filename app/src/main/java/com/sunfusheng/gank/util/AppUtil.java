@@ -8,13 +8,13 @@ import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.sunfusheng.gank.GankApp;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by sunfusheng on 2017/1/17.
@@ -79,10 +79,10 @@ public class AppUtil {
     }
 
     // 去掉重复点击
-    public static void singleClick(View view, Action1 action1) {
+    public static void singleClick(View view, Consumer consumer) {
         RxView.clicks(view)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe(action1, Throwable::printStackTrace);
+                .subscribe(consumer, Throwable::printStackTrace);
     }
 
 }

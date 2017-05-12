@@ -3,7 +3,7 @@ package com.sunfusheng.gank.base;
 import android.os.Bundle;
 
 import com.orhanobut.logger.Logger;
-import com.trello.rxlifecycle.components.support.RxFragment;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
  * Created by sunfusheng on 2017/1/12.

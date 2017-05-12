@@ -4,10 +4,10 @@ import com.sunfusheng.gank.Constants;
 import com.sunfusheng.gank.model.GankDay;
 import com.sunfusheng.gank.util.update.VersionEntity;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Created by sunfusheng on 2017/1/17.

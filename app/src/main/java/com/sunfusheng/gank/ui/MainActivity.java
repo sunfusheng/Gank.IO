@@ -8,18 +8,18 @@ import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.ui.gank.GankFragment;
-import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.update.UpdateHelper;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
 
-    private static final int TIME_EXIT = 2000; // ms
+    private static final int END_TIME_SECONDS = 2;
     private UpdateHelper updateHelper;
 
     @Override
@@ -43,18 +43,14 @@ public class MainActivity extends BaseActivity {
                     updateHelper.dealWithVersion(entity);
                 }, Throwable::printStackTrace);
 
-        lifecycle.asObservable()
-                .throttleFirst(TIME_EXIT, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                .subscribe(it -> ToastUtil.show(mContext, "再按一次 退出应用"), Throwable::printStackTrace);
+        lifecycle.throttleFirst(END_TIME_SECONDS, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .subscribe(it -> ToastUtil.show(this, "再按一次 退出应用"), Throwable::printStackTrace);
 
-        lifecycle.asObservable()
-                .compose(bindToLifecycle())
+        lifecycle.compose(bindToLifecycle())
                 .timeInterval(AndroidSchedulers.mainThread())
                 .skip(1)
-                .filter(it -> it.getIntervalInMilliseconds() < TIME_EXIT)
-                .subscribe(it -> {
-                    finish();
-                }, Throwable::printStackTrace);
+                .filter(it -> it.time(TimeUnit.SECONDS) < END_TIME_SECONDS)
+                .subscribe(it -> finish(), Throwable::printStackTrace);
     }
 
     @Override
@@ -68,7 +64,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (lifecycle != null) {
-            lifecycle.onNext(null);
+            lifecycle.onNext(0);
         }
     }
 }

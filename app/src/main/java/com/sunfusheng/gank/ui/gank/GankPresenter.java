@@ -14,11 +14,10 @@ import com.sunfusheng.gank.util.AppUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 /**
  * Created by sunfusheng on 2017/1/13.
@@ -28,7 +27,7 @@ public class GankPresenter implements GankContract.Presenter {
     private GankView mView;
     private List<Object> mList;
     private RequestParams mRequestParams;
-    protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
+    protected Subject<Object> lifecycle = PublishSubject.create().toSerialized();
 
     public GankPresenter(GankView view) {
         this.mView = view;
@@ -47,7 +46,7 @@ public class GankPresenter implements GankContract.Presenter {
     @Override
     public void unInit() {
         lifecycle.onNext(null);
-        lifecycle.onCompleted();
+        lifecycle.onComplete();
         if (mView != null) {
             mView.onDetach();
         }

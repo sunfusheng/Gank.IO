@@ -9,11 +9,10 @@ import android.support.annotation.Nullable;
 import com.orhanobut.logger.Logger;
 import com.sunfusheng.gank.ui.MainActivity;
 import com.sunfusheng.gank.util.StatusBarUtil;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 /**
  * Created by sunfusheng on 2016/12/24.
@@ -22,7 +21,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected Activity mActivity;
     protected Context mContext;
-    protected Subject<Void, Void> lifecycle = new SerializedSubject<>(PublishSubject.create());
+    protected Subject<Object> lifecycle = PublishSubject.create().toSerialized();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (lifecycle != null) {
-            lifecycle.onCompleted();
+            lifecycle.onComplete();
             lifecycle = null;
         }
     }

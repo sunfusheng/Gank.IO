@@ -23,10 +23,9 @@ public class GankApp extends Application {
         super.onCreate();
         application = this;
         girls = new ArrayList<>();
-        Logger.init("RxGank").setLogLevel(BuildConfig.isDebug ? LogLevel.FULL : LogLevel.NONE);
+        Logger.init("RxGank").logLevel(BuildConfig.isDebug ? LogLevel.FULL : LogLevel.NONE);
 
         songTi = Typeface.createFromAsset(getAssets(), "SongTi.TTF");
         MultiTypeInitializer.init();
     }
-
 }
