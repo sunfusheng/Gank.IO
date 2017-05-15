@@ -28,7 +28,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         mContext = this;
-        Logger.d("log-activity", getClass().getSimpleName() + ".java");
+        Logger.d("log-activity " + getClass().getSimpleName() + ".java");
         setStatusBarTranslucent(false);
     }
 
