@@ -16,8 +16,9 @@ import java.lang.reflect.Method;
 public class StatusBarUtil {
 
     // 设置状态栏透明与字体颜色
-    public static void setStatusBarTranslucent(Activity acitivty, boolean isLightStatusBar) {
-        Window window = acitivty.getWindow();
+    public static void setStatusBarTranslucent(Activity activity, boolean isLightStatusBar) {
+        if (activity == null) return;
+        Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -87,5 +88,4 @@ public class StatusBarUtil {
             e.printStackTrace();
         }
     }
-
 }

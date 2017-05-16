@@ -25,6 +25,7 @@ import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.ui.WebViewActivity;
 import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.util.ToastUtil;
+import com.sunfusheng.gank.util.dialog.ImagesBottomSheetDialog;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
@@ -34,6 +35,8 @@ import butterknife.ButterKnife;
  * Created by sunfusheng on 2017/1/17.
  */
 public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemViewProvider.ViewHolder> {
+
+    private ImagesBottomSheetDialog mDialog;
 
     @NonNull
     @Override
@@ -66,18 +69,21 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
     }
 
     private void showMoreMenu(View anchor, GankItem gank) {
+        Context context = anchor.getContext();
         PopupMenu popupMenu = new PopupMenu(anchor.getContext(), anchor);
         popupMenu.getMenuInflater().inflate(R.menu.item_more_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.item_check_image:
-                    ToastUtil.show(anchor.getContext(), "开发中...");
+                    mDialog = new ImagesBottomSheetDialog();
+                    mDialog.initBottomSheetDialog(context, gank.images);
+                    mDialog.show();
                     return true;
                 case R.id.item_copy_url:
-                    copy(anchor.getContext(), gank.url);
+                    copy(context, gank.url);
                     return true;
                 case R.id.item_share:
-                    share(anchor.getContext(), gank.desc + "\n" + gank.url);
+                    share(context, gank.desc + "\n" + gank.url);
                     return true;
             }
             return false;
@@ -87,6 +93,7 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
         popupMenu.show();
     }
 
+    // 复制链接
     public static void copy(Context context, String content) {
         ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content.trim());
