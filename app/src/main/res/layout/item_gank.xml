@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:id="@+id/rl_gank"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:maxLines="4"
+        android:layout_toLeftOf="@+id/iv_more"
         android:ellipsize="end"
-        android:padding="16dp"
+        android:maxLines="4"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
         android:text="desc"
         android:textColor="@color/md_grey_800"
-        android:textSize="14sp"
-        tools:background="@color/md_grey_200"/>
+        android:textSize="14sp"/>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:alpha="0.6"
+        android:background="?attr/actionBarItemBackground"
+        android:paddingBottom="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp"
+        android:src="@mipmap/ic_item_more_vertical"/>
+
+</RelativeLayout>

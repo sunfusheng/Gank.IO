@@ -12,7 +12,7 @@
     <View
         android:id="@+id/view_top_shadow"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:background="@drawable/drawable_top_bg"
         android:visibility="gone"/>
 
