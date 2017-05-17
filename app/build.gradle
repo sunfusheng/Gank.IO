@@ -32,12 +32,6 @@ android {
         ignoreWarnings true
     }
 
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/rxjava.properties'
-    }
-
     signingConfigs {
         release {
             storeFile file(prop['KEYSTORE_FILEPATH'])
