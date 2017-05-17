@@ -25,7 +25,7 @@ import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.ui.WebViewActivity;
 import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.util.ToastUtil;
-import com.sunfusheng.gank.util.dialog.ImagesBottomSheetDialog;
+import com.sunfusheng.gank.util.dialog.ImagesDialog;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
  */
 public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemViewProvider.ViewHolder> {
 
-    private ImagesBottomSheetDialog mDialog;
+    private ImagesDialog mDialog;
 
     @NonNull
     @Override
@@ -75,8 +75,7 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.item_check_image:
-                    mDialog = new ImagesBottomSheetDialog();
-                    mDialog.initBottomSheetDialog(context, gank.images);
+                    mDialog = new ImagesDialog(context, gank.images);
                     mDialog.show();
                     return true;
                 case R.id.item_copy_url:
@@ -89,7 +88,12 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
             return false;
         });
         MenuItem menuItem = popupMenu.getMenu().findItem(R.id.item_check_image);
-        menuItem.setVisible(!AppUtil.isEmpty(gank.images));
+        if (!AppUtil.isEmpty(gank.images)) {
+            menuItem.setVisible(true);
+            menuItem.setTitle("查看效果图（共" + gank.images.size() + "张）");
+        } else {
+            menuItem.setVisible(false);
+        }
         popupMenu.show();
     }
 

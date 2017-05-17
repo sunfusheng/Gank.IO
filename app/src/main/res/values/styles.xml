@@ -8,4 +8,24 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="dialog_view_theme" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="dialog_fade_animation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_fade_out</item>
+    </style>
+
+    <style name="dialog_slide_animation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out</item>
+    </style>
+
+    <style name="dialog_scale_animation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/zoom_open_enter</item>
+        <item name="android:windowExitAnimation">@anim/zoom_open_exit</item>
+    </style>
+
 </resources>
