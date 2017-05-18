@@ -37,7 +37,7 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
         holder.rlGirl.setTag(true);
         holder.tvTime.setTypeface(GankApp.songTi);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
-        holder.givGirl.loadNetImage(item.url, R.mipmap.liuyifei);
+        holder.givGirl.loadNetImage(item.url, R.mipmap.she);
 
         AppUtil.singleClick(holder.givGirl, o -> {
             PhotoViewsActivity.startActivity(holder.givGirl, item.url);

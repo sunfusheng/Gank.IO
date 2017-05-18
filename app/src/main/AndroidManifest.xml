@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.sunfusheng.gank"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.sunfusheng.gank"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -19,11 +18,12 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.KotlinMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -32,12 +32,13 @@
             android:name=".ui.PhotoViewsActivity"
             android:screenOrientation="portrait"/>
 
-        <activity
-            android:name=".ui.WebViewActivity"/>
+        <activity android:name=".ui.WebViewActivity"/>
 
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait"/>
+
+        <!--<activity android:name=".ui.KotlinMainActivity"/>-->
     </application>
 
 </manifest>

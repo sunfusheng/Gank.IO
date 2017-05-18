@@ -147,7 +147,7 @@ public class PhotoViewsActivity extends BaseActivity {
             });
 
             GlideImageLoader imageLoader = new GlideImageLoader(photoView);
-            imageLoader.loadNetImage(mList.get(position), R.mipmap.liuyifei);
+            imageLoader.loadNetImage(mList.get(position), R.mipmap.she);
             container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             return photoView;
         }

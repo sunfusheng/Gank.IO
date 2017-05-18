@@ -19,8 +19,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
 
-    private static final int END_TIME_SECONDS = 2;
-    private UpdateHelper updateHelper;
+    private static final long END_TIME_SECONDS = 2;
+    private UpdateHelper updateHelper = new UpdateHelper(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,20 +31,24 @@ public class MainActivity extends BaseActivity {
                 .replace(R.id.fragment_container, new GankFragment())
                 .commitAllowingStateLoss();
 
+        checkVersion();
+        prepareForExiting();
+    }
+
+    private void checkVersion() {
         Api.getInstance().getApiService().checkVersion()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle())
                 .filter(it -> it != null)
-                .filter(entity -> !TextUtils.isEmpty(entity.version))
-                .filter(entity -> Integer.parseInt(entity.version) > AppUtil.getVersionCode())
-                .subscribe(entity -> {
-                    updateHelper = new UpdateHelper(this);
-                    updateHelper.dealWithVersion(entity);
-                }, Throwable::printStackTrace);
+                .filter(it -> !TextUtils.isEmpty(it.version))
+                .filter(it -> Integer.parseInt(it.version) > AppUtil.getVersionCode())
+                .subscribe(it -> updateHelper.dealWithVersion(it), Throwable::printStackTrace);
+    }
 
+    private void prepareForExiting() {
         lifecycle.throttleFirst(END_TIME_SECONDS, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .subscribe(it -> ToastUtil.show(this, "再按一次 退出应用"), Throwable::printStackTrace);
+                .subscribe(it -> ToastUtil.show(this, getString(R.string.exit_tip)), Throwable::printStackTrace);
 
         lifecycle.compose(bindToLifecycle())
                 .timeInterval(AndroidSchedulers.mainThread())

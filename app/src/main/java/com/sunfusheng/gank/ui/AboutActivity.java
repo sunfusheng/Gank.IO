@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.util.AppUtil;
@@ -55,11 +53,6 @@ public class AboutActivity extends BaseActivity {
 
         initToolBar();
         webViewLayout.loadUrl(url);
-        if (AppUtil.isEmpty(GankApp.girls) || TextUtils.isEmpty(GankApp.girls.get(0))) {
-            ivGirl.loadResImage(R.mipmap.liuyifei, R.mipmap.liuyifei);
-        } else {
-            ivGirl.loadNetImage(GankApp.girls.get(0), R.mipmap.liuyifei);
-        }
     }
 
     private void initToolBar() {
