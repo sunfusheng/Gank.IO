@@ -12,7 +12,7 @@
         android:background="@color/bg"
         android:text="查看效果图"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="16dp"
         android:textSize="16sp"
         android:textColor="@color/colorPrimary"/>
 

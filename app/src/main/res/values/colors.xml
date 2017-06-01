@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#DD3A38</color>
-    <color name="colorPrimaryDark">#DD3A38</color>
-    <color name="colorAccent">#DD3A38</color>
+    <color name="colorPrimary">#C34A42</color>
+    <color name="colorPrimaryDark">#C34A42</color>
+    <color name="colorAccent">#C34A42</color>
 
     <!-- standard -->
     <color name="white">#FFFFFF</color>  <!-- 白色 -->

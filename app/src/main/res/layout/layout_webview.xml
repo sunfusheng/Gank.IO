@@ -9,13 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <View
-        android:id="@+id/view_top_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@drawable/drawable_top_bg"
-        android:visibility="gone"/>
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"

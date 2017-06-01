@@ -1,11 +1,14 @@
 package com.sunfusheng.gank.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by sunfusheng on 2017/1/17.
  */
-public class GankItem {
+public class GankItem implements Parcelable {
 
     public String _id;
     public String type;
@@ -16,17 +19,46 @@ public class GankItem {
     public String createdAt;
     public String publishedAt;
 
-    @Override
-    public String toString() {
-        return "GankItem{" +
-                "_id='" + _id + '\'' +
-                ", type='" + type + '\'' +
-                ", desc='" + desc + '\'' +
-                ", who='" + who + '\'' +
-                ", url='" + url + '\'' +
-                ", images=" + images +
-                ", createdAt='" + createdAt + '\'' +
-                ", publishedAt='" + publishedAt + '\'' +
-                '}';
+    public GankItem() {
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this._id);
+        dest.writeString(this.type);
+        dest.writeString(this.desc);
+        dest.writeString(this.who);
+        dest.writeString(this.url);
+        dest.writeStringList(this.images);
+        dest.writeString(this.createdAt);
+        dest.writeString(this.publishedAt);
+    }
+
+    protected GankItem(Parcel in) {
+        this._id = in.readString();
+        this.type = in.readString();
+        this.desc = in.readString();
+        this.who = in.readString();
+        this.url = in.readString();
+        this.images = in.createStringArrayList();
+        this.createdAt = in.readString();
+        this.publishedAt = in.readString();
+    }
+
+    public static final Creator<GankItem> CREATOR = new Creator<GankItem>() {
+        @Override
+        public GankItem createFromParcel(Parcel source) {
+            return new GankItem(source);
+        }
+
+        @Override
+        public GankItem[] newArray(int size) {
+            return new GankItem[size];
+        }
+    };
 }

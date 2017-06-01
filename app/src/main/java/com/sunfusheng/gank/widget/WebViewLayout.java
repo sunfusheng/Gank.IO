@@ -31,8 +31,6 @@ public class WebViewLayout extends RelativeLayout {
     WebView webView;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.view_top_shadow)
-    View viewTopShadow;
 
     private String mUrl;
 
@@ -129,10 +127,6 @@ public class WebViewLayout extends RelativeLayout {
     public void loadUrl(String url) {
         mUrl = url;
         webView.loadUrl(url);
-    }
-
-    public void setTopShadowVisible(boolean isVisible) {
-        viewTopShadow.setVisibility(isVisible? VISIBLE:GONE);
     }
 
     public void setProgressDrawable(@DrawableRes int id) {

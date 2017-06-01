@@ -11,7 +11,7 @@ import com.sunfusheng.gank.widget.MultiType.GlobalMultiTypePool;
 /**
  * Created by sunfusheng on 2017/1/16.
  */
-public class MultiTypeInitializer {
+public class Initializer {
 
     static void init() {
         GlobalMultiTypePool.register(GankItem.class, new GankItemViewProvider());

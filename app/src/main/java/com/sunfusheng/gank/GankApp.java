@@ -26,6 +26,6 @@ public class GankApp extends Application {
         Logger.init("RxGank").logLevel(BuildConfig.isDebug ? LogLevel.FULL : LogLevel.NONE);
 
         songTi = Typeface.createFromAsset(getAssets(), "SongTi.TTF");
-        MultiTypeInitializer.init();
+        Initializer.init();
     }
 }
