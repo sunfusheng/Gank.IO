@@ -37,7 +37,7 @@ public class MoreActionHelper {
         MenuItem menuItem = popupMenu.getMenu().findItem(R.id.item_check_image);
         if (!AppUtil.isEmpty(gank.images)) {
             menuItem.setVisible(true);
-            menuItem.setTitle("查看效果图（共" + gank.images.size() + "张）");
+            menuItem.setTitle(context.getString(R.string.tip_check_image, gank.images.size()));
         } else {
             menuItem.setVisible(false);
         }
@@ -49,16 +49,16 @@ public class MoreActionHelper {
     public static void copy(Context context, String content) {
         ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         manager.setText(content.trim());
-        ToastUtil.show(context, "已复制");
+        ToastUtil.show(context, context.getString(R.string.tip_copy));
     }
 
     // 系统分享
     public static void share(Context context, String content) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.share));
+        intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.tip_share));
         intent.putExtra(Intent.EXTRA_TEXT, content);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.tip_share)));
     }
 }

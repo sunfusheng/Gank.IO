@@ -7,7 +7,9 @@
 
     <string name="exit_tip">再按一次 退出应用</string>
 
-    <string name="share">分享到</string>
+    <string name="tip_check_image">查看效果图（共%d张）</string>
+    <string name="tip_share">分享到</string>
+    <string name="tip_copy">已复制</string>
 
     <string name="update_app">应用更新</string>
     <string name="update_no">暂不</string>
