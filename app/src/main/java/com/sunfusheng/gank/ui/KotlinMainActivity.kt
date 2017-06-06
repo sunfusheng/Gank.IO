@@ -36,9 +36,9 @@ class KotlinMainActivity : BaseActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose<VersionEntity>(bindToLifecycle<VersionEntity>())
-                .filter { it -> TextUtils.isEmpty(it?.version) }
-                .filter { it -> Integer.parseInt(it.version) > AppUtil.getVersionCode() }
-                .subscribe({ it -> updateHelper.dealWithVersion(it) }, { it.printStackTrace() })
+                .filter { TextUtils.isEmpty(it?.version) }
+                .filter { Integer.parseInt(it.version) > AppUtil.getVersionCode() }
+                .subscribe({ updateHelper.dealWithVersion(it) }, { it.printStackTrace() })
     }
 
     fun prepareForExiting() {
@@ -48,12 +48,12 @@ class KotlinMainActivity : BaseActivity() {
         lifecycle.compose(bindToLifecycle<Any>())
                 .timeInterval(AndroidSchedulers.mainThread())
                 .skip(1)
-                .filter { it -> it.time(TimeUnit.SECONDS) < END_TIME_SECONDS }
+                .filter { it.time(TimeUnit.SECONDS) < END_TIME_SECONDS }
                 .subscribe({ finish() }, { it.printStackTrace() })
     }
 
     override fun onDestroy() {
-        updateHelper?.unInit()
+        updateHelper.unInit()
         super.onDestroy()
     }
 
