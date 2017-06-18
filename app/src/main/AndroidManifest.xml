@@ -29,10 +29,10 @@
         </activity>
 
         <activity
-            android:name=".ui.PhotoViewsActivity"
+            android:name=".ui.ImagesActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.WebViewActivity"/>
+        <activity android:name=".ui.WebActivity"/>
 
         <activity
             android:name=".ui.AboutActivity"

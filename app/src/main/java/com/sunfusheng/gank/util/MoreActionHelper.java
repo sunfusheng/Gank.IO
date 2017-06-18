@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
-import com.sunfusheng.gank.util.dialog.ImagesDialog;
+import com.sunfusheng.gank.ui.ImagesActivity;
 
 /**
  * Created by sunfusheng on 2017/6/1.
@@ -23,7 +23,7 @@ public class MoreActionHelper {
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.item_check_image:
-                    new ImagesDialog(context, gank.images).show();
+                    ImagesActivity.startActivity(context, gank.images);
                     return true;
                 case R.id.item_copy_url:
                     copy(context, gank.url);

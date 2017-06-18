@@ -52,7 +52,7 @@ public class UpdateHelper {
     }
 
     public void dealWithVersion(final VersionEntity entity) {
-        String content = entity.changelog + "\n\n下载(V" + entity.versionShort + ")替换当前版本(" + AppUtil.getVersionName() + ")?";
+        String content = entity.changelog + "\n\n下载(V" + entity.versionShort + ")替换当前版本(" + AppUtil.getVersionName(mActivity) + ")?";
         new CommonDialog(mActivity).show(
                 mActivity.getString(R.string.update_app),
                 content,

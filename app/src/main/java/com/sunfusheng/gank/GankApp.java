@@ -7,7 +7,6 @@ import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sunfusheng on 2017/1/5.
@@ -16,7 +15,7 @@ public class GankApp extends Application {
 
     public static Application application;
     public static Typeface songTi; // 宋体
-    public static List<String> girls;
+    public static ArrayList<String> girls;
 
     @Override
     public void onCreate() {

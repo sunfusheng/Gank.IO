@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
-import com.sunfusheng.gank.ui.WebViewActivity;
+import com.sunfusheng.gank.ui.WebActivity;
 import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.util.MoreActionHelper;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
@@ -52,7 +52,7 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
         }
 
         AppUtil.singleClick(holder.rlGank, o -> {
-            WebViewActivity.startActivity(holder.tvDesc.getContext(), item);
+            WebActivity.startActivity(holder.tvDesc.getContext(), item);
         });
 
         holder.rlGank.setOnLongClickListener(v -> true);

@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by sunfusheng on 2017/1/22.
  */
-public class WebViewActivity extends BaseActivity {
+public class WebActivity extends BaseActivity {
 
     @BindView(R.id.webViewLayout)
     WebViewLayout webViewLayout;
@@ -37,7 +37,7 @@ public class WebViewActivity extends BaseActivity {
     CoordinatorLayout coordinatorLayout;
 
     public static void startActivity(Context context, GankItem gank) {
-        Intent intent = new Intent(context, WebViewActivity.class);
+        Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra("gank", gank);
         context.startActivity(intent);
     }
@@ -47,7 +47,7 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_webview);
+        setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
 
         gank = getIntent().getParcelableExtra("gank");

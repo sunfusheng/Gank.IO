@@ -37,7 +37,7 @@ class KotlinMainActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose<VersionEntity>(bindToLifecycle<VersionEntity>())
                 .filter { TextUtils.isEmpty(it?.version) }
-                .filter { Integer.parseInt(it.version) > AppUtil.getVersionCode() }
+                .filter { Integer.parseInt(it.version) > AppUtil.getVersionCode(this) }
                 .subscribe({ updateHelper.dealWithVersion(it) }, { it.printStackTrace() })
     }
 

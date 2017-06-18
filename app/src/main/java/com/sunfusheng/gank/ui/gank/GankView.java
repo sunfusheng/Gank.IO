@@ -14,12 +14,12 @@ import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.ui.AboutActivity;
-import com.sunfusheng.gank.ui.PhotoViewsActivity;
+import com.sunfusheng.gank.ui.ImagesActivity;
 import com.sunfusheng.gank.util.DateUtil;
-import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.LoadingStateDelegate;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.RecyclerViewWrapper;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
@@ -71,7 +71,7 @@ public class GankView extends FrameLayout implements GankContract.View,
         recyclerViewWrapper.setOnRequestListener(this);
         recyclerViewWrapper.setOnScrollListener(this);
         recyclerViewWrapper.getSwipeRefreshLayout().setOnDragOffsetListener(this);
-        givGirl.setOnClickListener(v -> PhotoViewsActivity.startActivity(givGirl, curGirl.url));
+        givGirl.setOnClickListener(v -> ImagesActivity.startActivity(givGirl.getContext(), GankApp.girls, curGirl.url));
         ivAbout.setOnClickListener(v -> AboutActivity.startActivity(mContext));
     }
 
@@ -153,7 +153,7 @@ public class GankView extends FrameLayout implements GankContract.View,
             }
         }
         tvTime.setText(DateUtil.convertString2String(curGirl.publishedAt));
-        givGirl.loadNetImage(curGirl.url, R.mipmap.she);
+        givGirl.loadImage(curGirl.url, R.mipmap.she);
     }
 
     @Override

@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.util.AppUtil;
-import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.WebViewLayout;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +63,7 @@ public class AboutActivity extends BaseActivity {
         toolbar.setTitle("");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));//设置还没收缩时状态下字体颜色
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.transparent));//设置收缩后Toolbar上字体的颜色
-        tvTitle.setText(getString(R.string.app_name) + " (" + AppUtil.getVersionName() + ")");
+        tvTitle.setText(getString(R.string.app_name) + " (" + AppUtil.getVersionName(this) + ")");
         appBarLayout.addOnOffsetChangedListener((appBar, offset) -> tvTitle.setAlpha(Math.abs(offset * 1f / appBar.getTotalScrollRange())));
     }
 

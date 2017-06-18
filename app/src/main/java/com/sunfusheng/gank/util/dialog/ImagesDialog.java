@@ -8,11 +8,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.util.DensityUtil;
-import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
+import com.sunfusheng.glideimageview.GlideImageLoader;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
@@ -51,10 +54,31 @@ public class ImagesDialog {
             params.topMargin = gap;
             params.bottomMargin = gap;
             iv.setLayoutParams(params);
-            iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            iv.loadNetImage(images.get(i), R.color.transparent);
+            iv.setScaleType(ImageView.ScaleType.FIT_START);
+            iv.loadImage(images.get(i), R.color.transparent);
             llContainer.addView(iv);
         }
+    }
+
+    private GlideImageView createGlideImageView(String imageUrl) {
+        GlideImageView glideImageView = new GlideImageView(mContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DensityUtil.getScreenWidth(mContext), ViewGroup.LayoutParams.MATCH_PARENT);
+        glideImageView.setLayoutParams(params);
+
+        RequestOptions requestOptions = glideImageView.requestOptions(R.color.transparent)
+                .centerInside();
+
+        GlideImageLoader imageLoader = glideImageView.getImageLoader();
+
+        imageLoader.setOnGlideImageViewListener(imageUrl, (percent, isDone, exception) -> {
+
+        });
+
+        imageLoader.requestBuilder(imageUrl, requestOptions)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(glideImageView);
+
+        return glideImageView;
     }
 
     public void show() {

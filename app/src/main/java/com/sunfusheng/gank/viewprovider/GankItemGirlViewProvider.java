@@ -11,11 +11,11 @@ import android.widget.TextView;
 import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
-import com.sunfusheng.gank.ui.PhotoViewsActivity;
+import com.sunfusheng.gank.ui.ImagesActivity;
 import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.util.DateUtil;
-import com.sunfusheng.gank.widget.GildeImageView.GlideImageView;
 import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
+import com.sunfusheng.glideimageview.GlideImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,10 +37,10 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
         holder.rlGirl.setTag(true);
         holder.tvTime.setTypeface(GankApp.songTi);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
-        holder.givGirl.loadNetImage(item.url, R.mipmap.she);
+        holder.givGirl.loadImage(item.url, R.mipmap.she);
 
         AppUtil.singleClick(holder.givGirl, o -> {
-            PhotoViewsActivity.startActivity(holder.givGirl, item.url);
+            ImagesActivity.startActivity(holder.givGirl.getContext(), GankApp.girls, item.url);
         });
     }
 

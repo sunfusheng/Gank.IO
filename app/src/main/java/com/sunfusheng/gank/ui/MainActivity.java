@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
                 .compose(bindToLifecycle())
                 .filter(it -> it != null)
                 .filter(it -> !TextUtils.isEmpty(it.version))
-                .filter(it -> Integer.parseInt(it.version) > AppUtil.getVersionCode())
+                .filter(it -> Integer.parseInt(it.version) > AppUtil.getVersionCode(this))
                 .subscribe(it -> updateHelper.dealWithVersion(it), Throwable::printStackTrace);
     }
 

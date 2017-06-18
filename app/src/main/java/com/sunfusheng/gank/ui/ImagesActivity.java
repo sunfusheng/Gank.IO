@@ -7,20 +7,23 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.GankApp;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.util.ImageHelper;
-import com.sunfusheng.gank.widget.GildeImageView.GlideImageLoader;
 import com.sunfusheng.gank.widget.PhotoView.HackyViewPager;
+import com.sunfusheng.glideimageview.GlideImageLoader;
+import com.sunfusheng.glideimageview.progress.CircleProgressView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,7 +34,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 /**
  * Created by sunfusheng on 2017/1/23.
  */
-public class PhotoViewsActivity extends BaseActivity {
+public class ImagesActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
     HackyViewPager viewPager;
@@ -46,21 +49,27 @@ public class PhotoViewsActivity extends BaseActivity {
     @BindView(R.id.iv_save)
     ImageView ivSave;
 
-    private List<String> mGirls;
-    private int curPosition = 0;
+    private List<String> images;
+    private int curPos = 0;
     private ImageHelper imageHelper;
 
-    public static void startActivity(ImageView imageView, String url) {
-        Context context = imageView.getContext();
-        Intent intent = new Intent(context, PhotoViewsActivity.class);
-        intent.putExtra("url", url);
+    public static void startActivity(Context context, ArrayList<String> images) {
+        Intent intent = new Intent(context, ImagesActivity.class);
+        intent.putStringArrayListExtra("images", images);
+        context.startActivity(intent);
+    }
+
+    public static void startActivity(Context context, ArrayList<String> images, String curImage) {
+        Intent intent = new Intent(context, ImagesActivity.class);
+        intent.putStringArrayListExtra("images", images);
+        intent.putExtra("curImage", curImage);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photoviews);
+        setContentView(R.layout.activity_images);
         ButterKnife.bind(this);
 
         initData();
@@ -69,17 +78,19 @@ public class PhotoViewsActivity extends BaseActivity {
     }
 
     private void initData() {
-        mGirls = GankApp.girls;
-        if (AppUtil.isEmpty(mGirls)) {
-            throw new RuntimeException("The girls of gank is empty!");
+        images = getIntent().getStringArrayListExtra("images");
+        if (AppUtil.isEmpty(images)) {
+            finish();
         }
-        curPosition = mGirls.indexOf(getIntent().getStringExtra("url"));
+        String curImage = getIntent().getStringExtra("curImage");
+        curPos = TextUtils.isEmpty(curImage) ? 0 : images.indexOf(curImage);
     }
 
     private void initView() {
-        tvCurPosition.setText(String.valueOf(curPosition + 1));
-        tvSumCount.setText(String.valueOf(mGirls.size()));
-        viewPager.setAdapter(new PhotoViewAdapter(this, mGirls));
+        rlIndicator.setVisibility((images.size() == 1) ? View.GONE : View.VISIBLE);
+        tvCurPosition.setText(String.valueOf(curPos + 1));
+        tvSumCount.setText(String.valueOf(images.size()));
+        viewPager.setAdapter(new PhotoViewAdapter(this, images));
     }
 
     private void initListener() {
@@ -90,7 +101,7 @@ public class PhotoViewsActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                curPosition = position;
+                curPos = position;
                 tvCurPosition.setText(String.valueOf(position + 1));
                 viewPager.setTag(position);
             }
@@ -99,11 +110,11 @@ public class PhotoViewsActivity extends BaseActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
-        viewPager.setCurrentItem(curPosition);
+        viewPager.setCurrentItem(curPos);
 
         AppUtil.singleClick(ivSave, o -> {
             imageHelper = new ImageHelper(mActivity);
-            imageHelper.saveImage(mGirls.get(curPosition));
+            imageHelper.saveImage(images.get(curPos));
         });
     }
 
@@ -132,8 +143,13 @@ public class PhotoViewsActivity extends BaseActivity {
 
         @Override
         public View instantiateItem(ViewGroup container, int position) {
-            PhotoView photoView = new PhotoView(container.getContext());
+            LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.item_image_layout, null);
+
+            PhotoView photoView = (PhotoView) view.findViewById(R.id.photoView);
             photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            CircleProgressView progressView = (CircleProgressView) view.findViewById(R.id.progressView);
+
             photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
                 @Override
                 public void onPhotoTap(View view, float x, float y) {
@@ -147,9 +163,13 @@ public class PhotoViewsActivity extends BaseActivity {
             });
 
             GlideImageLoader imageLoader = new GlideImageLoader(photoView);
-            imageLoader.loadNetImage(mList.get(position), R.mipmap.she);
-            container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            return photoView;
+            imageLoader.loadImage(mList.get(position), R.color.transparent);
+            imageLoader.setOnGlideImageViewListener(mList.get(position), (percent, isDone, exception) -> {
+                progressView.setProgress(percent);
+                progressView.setVisibility(isDone ? View.GONE : View.VISIBLE);
+            });
+            container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            return view;
         }
 
         @Override

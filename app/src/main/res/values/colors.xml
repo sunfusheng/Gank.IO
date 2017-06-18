@@ -16,14 +16,30 @@
     <color name="blue">#0000FF</color>   <!-- 蓝色 -->
     <color name="black">#000000</color>  <!-- 黑色 -->
 
-    <!-- common -->
     <color name="transparent">#00000000</color>
-    <color name="transparent30_color">#4D000000</color>
-    <color name="transparent40_color">#66000000</color>
-    <color name="transparent50_color">#80000000</color>
-    <color name="transparent60_color">#9A000000</color>
-    <color name="transparent70_color">#B3000000</color>
-    <color name="transparent80_color">#CC000000</color>
+    <color name="transparent05">#0B000000</color>
+    <color name="transparent10">#1A000000</color>
+    <color name="transparent20">#33000000</color>
+    <color name="transparent30">#4D000000</color>
+    <color name="transparent40">#66000000</color>
+    <color name="transparent50">#80000000</color>
+    <color name="transparent60">#9A000000</color>
+    <color name="transparent70">#B3000000</color>
+    <color name="transparent80">#CC000000</color>
+    <color name="transparent90">#E5000000</color>
+    <color name="transparent100">#FF000000</color>
+
+    <color name="transparent_white">#00ffffff</color>
+    <color name="transparent10_white">#1Affffff</color>
+    <color name="transparent20_white">#33ffffff</color>
+    <color name="transparent30_white">#4Dffffff</color>
+    <color name="transparent40_white">#66ffffff</color>
+    <color name="transparent50_white">#80ffffff</color>
+    <color name="transparent60_white">#9Affffff</color>
+    <color name="transparent70_white">#B3ffffff</color>
+    <color name="transparent80_white">#CCffffff</color>
+    <color name="transparent90_white">#E5ffffff</color>
+    <color name="transparent100_white">#FFffffff</color>
 
     <color name="color1">#212121</color>
     <color name="color2">#333333</color>

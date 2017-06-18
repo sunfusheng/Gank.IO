@@ -65,7 +65,7 @@ public class LoadingDialog {
     }
 
     public boolean isShowing() {
-        return dialog.isShowing();
+        return dialog != null && dialog.isShowing();
     }
 
 }

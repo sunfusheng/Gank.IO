@@ -3,7 +3,7 @@ package com.sunfusheng.gank.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by sunfusheng on 2017/1/17.
@@ -15,7 +15,7 @@ public class GankItem implements Parcelable {
     public String desc;
     public String who;
     public String url;
-    public List<String> images;
+    public ArrayList<String> images;
     public String createdAt;
     public String publishedAt;
 

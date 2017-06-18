@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/gank_girl_height">
 
-    <com.sunfusheng.gank.widget.GildeImageView.GlideImageView
+    <com.sunfusheng.glideimageview.GlideImageView
         android:id="@+id/giv_girl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/gank_girl_height"
@@ -15,7 +15,7 @@
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent30_color"
+        android:background="@color/transparent30"
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:paddingBottom="15dp"
