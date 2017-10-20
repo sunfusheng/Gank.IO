@@ -162,7 +162,7 @@ public class ImagesActivity extends BaseActivity {
                 }
             });
 
-            GlideImageLoader imageLoader = new GlideImageLoader(photoView);
+            GlideImageLoader imageLoader = GlideImageLoader.create(photoView);
             imageLoader.loadImage(mList.get(position), R.color.transparent);
             imageLoader.setOnGlideImageViewListener(mList.get(position), (percent, isDone, exception) -> {
                 progressView.setProgress(percent);
