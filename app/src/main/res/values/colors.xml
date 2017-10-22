@@ -5,6 +5,15 @@
     <color name="colorPrimaryDark">#C34A42</color>
     <color name="colorAccent">#C34A42</color>
 
+    <color name="color1">#212121</color>
+    <color name="color2">#333333</color>
+    <color name="color3">#666666</color>
+    <color name="color4">#999999</color>
+    <color name="color5">#BBBBBB</color>
+    <color name="color6">#EEEEEE</color>
+    <color name="color7">#F5F5F5</color>
+    <color name="color8">#FAFAFA</color>
+
     <!-- standard -->
     <color name="white">#FFFFFF</color>  <!-- 白色 -->
     <color name="yellow">#FFFF00</color> <!-- 黄色 -->
@@ -40,15 +49,6 @@
     <color name="transparent80_white">#CCffffff</color>
     <color name="transparent90_white">#E5ffffff</color>
     <color name="transparent100_white">#FFffffff</color>
-
-    <color name="color1">#212121</color>
-    <color name="color2">#333333</color>
-    <color name="color3">#666666</color>
-    <color name="color4">#999999</color>
-    <color name="color5">#BBBBBB</color>
-    <color name="color6">#EEEEEE</color>
-    <color name="color7">#F5F5F5</color>
-    <color name="color8">#FAFAFA</color>
 
     <!-- background -->
     <color name="bg">#FFF5F5F5</color>
