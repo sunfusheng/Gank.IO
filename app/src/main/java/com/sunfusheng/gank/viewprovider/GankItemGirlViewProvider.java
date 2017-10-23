@@ -8,22 +8,22 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.GankApp;
+import com.sunfusheng.gank.MainApplication;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.ui.ImagesActivity;
-import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.DateUtil;
-import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 import com.sunfusheng.glideimageview.GlideImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.drakeet.multitype.ItemViewBinder;
 
 /**
  * Created by sunfusheng on 2017/1/17.
  */
-public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, GankItemGirlViewProvider.ViewHolder> {
+public class GankItemGirlViewProvider extends ItemViewBinder<GankItemGirl, GankItemGirlViewProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -35,12 +35,12 @@ public class GankItemGirlViewProvider extends ItemViewProvider<GankItemGirl, Gan
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemGirl item) {
         holder.rlGirl.setTag(true);
-        holder.tvTime.setTypeface(GankApp.songTi);
+        holder.tvTime.setTypeface(MainApplication.songTi);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
         holder.givGirl.loadImage(item.url, R.mipmap.she);
 
-        AppUtil.singleClick(holder.givGirl, o -> {
-            ImagesActivity.startActivity(holder.givGirl.getContext(), GankApp.girls, item.url);
+        Util.singleClick(holder.givGirl, o -> {
+            ImagesActivity.startActivity(holder.givGirl.getContext(), MainApplication.girls, item.url);
         });
     }
 

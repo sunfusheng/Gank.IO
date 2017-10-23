@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.model.GankItem;
-import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.MoreActionHelper;
 import com.sunfusheng.gank.util.dialog.ImagesDialog;
 import com.sunfusheng.gank.widget.WebViewLayout;
@@ -67,7 +67,7 @@ public class WebActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_more_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.item_check_image);
-        if (!AppUtil.isEmpty(gank.images)) {
+        if (!Util.isEmpty(gank.images)) {
             menuItem.setVisible(true);
             menuItem.setTitle(getString(R.string.tip_check_image, gank.images.size()));
         } else {

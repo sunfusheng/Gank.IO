@@ -35,7 +35,7 @@ public class MoreActionHelper {
             return false;
         });
         MenuItem menuItem = popupMenu.getMenu().findItem(R.id.item_check_image);
-        if (!AppUtil.isEmpty(gank.images)) {
+        if (!Util.isEmpty(gank.images)) {
             menuItem.setVisible(true);
             menuItem.setTitle(context.getString(R.string.tip_check_image, gank.images.size()));
         } else {

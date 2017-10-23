@@ -18,17 +18,17 @@ import android.widget.TextView;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.ui.WebActivity;
-import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.MoreActionHelper;
-import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.drakeet.multitype.ItemViewBinder;
 
 /**
  * Created by sunfusheng on 2017/1/17.
  */
-public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemViewProvider.ViewHolder> {
+public class GankItemViewProvider extends ItemViewBinder<GankItem, GankItemViewProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -51,7 +51,7 @@ public class GankItemViewProvider extends ItemViewProvider<GankItem, GankItemVie
             holder.tvDesc.setText(ssb);
         }
 
-        AppUtil.singleClick(holder.rlGank, o -> {
+        Util.singleClick(holder.rlGank, o -> {
             WebActivity.startActivity(holder.tvDesc.getContext(), item);
         });
 

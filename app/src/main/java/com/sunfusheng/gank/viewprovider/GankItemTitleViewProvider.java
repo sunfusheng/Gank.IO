@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.GankApp;
+import com.sunfusheng.gank.MainApplication;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemTitle;
-import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.drakeet.multitype.ItemViewBinder;
 
 /**
  * Created by sunfusheng on 2017/1/17.
  */
-public class GankItemTitleViewProvider extends ItemViewProvider<GankItemTitle, GankItemTitleViewProvider.ViewHolder> {
+public class GankItemTitleViewProvider extends ItemViewBinder<GankItemTitle, GankItemTitleViewProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -29,7 +29,7 @@ public class GankItemTitleViewProvider extends ItemViewProvider<GankItemTitle, G
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemTitle item) {
-        holder.tvTitle.setTypeface(GankApp.songTi);
+        holder.tvTitle.setTypeface(MainApplication.songTi);
         holder.tvTitle.setText(item.type + "");
     }
 

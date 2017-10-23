@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.sunfusheng.gank.R;
-import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.dialog.CommonDialog;
 import com.sunfusheng.gank.util.dialog.DownloadDialog;
@@ -52,7 +52,7 @@ public class UpdateHelper {
     }
 
     public void dealWithVersion(final VersionEntity entity) {
-        String content = entity.changelog + "\n\n下载(V" + entity.versionShort + ")替换当前版本(" + AppUtil.getVersionName(mActivity) + ")?";
+        String content = entity.changelog + "\n\n下载(V" + entity.versionShort + ")替换当前版本(" + Util.getVersionName(mActivity) + ")?";
         new CommonDialog(mActivity).show(
                 mActivity.getString(R.string.update_app),
                 content,

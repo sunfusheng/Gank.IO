@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by sunfusheng on 2017/1/5.
  */
-public class GankApp extends Application {
+public class MainApplication extends Application {
 
     public static Application application;
     public static Typeface songTi; // 宋体
@@ -33,6 +33,5 @@ public class GankApp extends Application {
         Logger.addLogAdapter(logAdapter);
 
         Schedulers.io().createWorker().schedule(() -> songTi = Typeface.createFromAsset(getAssets(), "SongTi.TTF"));
-        Initializer.init();
     }
 }

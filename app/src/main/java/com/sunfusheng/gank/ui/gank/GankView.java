@@ -10,12 +10,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.GankApp;
+import com.sunfusheng.gank.MainApplication;
 import com.sunfusheng.gank.R;
+import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.model.GankItemGirl;
+import com.sunfusheng.gank.model.GankItemTitle;
 import com.sunfusheng.gank.ui.AboutActivity;
 import com.sunfusheng.gank.ui.ImagesActivity;
 import com.sunfusheng.gank.util.DateUtil;
+import com.sunfusheng.gank.viewprovider.GankItemGirlViewProvider;
+import com.sunfusheng.gank.viewprovider.GankItemTitleViewProvider;
+import com.sunfusheng.gank.viewprovider.GankItemViewProvider;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.LoadingStateDelegate;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.RecyclerViewWrapper;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
@@ -66,12 +71,18 @@ public class GankView extends FrameLayout implements GankContract.View,
         View view = inflater.inflate(R.layout.view_gank, this);
         ButterKnife.bind(this, view);
 
-        tvTime.setTypeface(GankApp.songTi);
+        tvTime.setTypeface(MainApplication.songTi);
         rlGirl.setVisibility(INVISIBLE);
+
+        recyclerViewWrapper.register(GankItem.class, new GankItemViewProvider());
+        recyclerViewWrapper.register(GankItemGirl.class, new GankItemGirlViewProvider());
+        recyclerViewWrapper.register(GankItemTitle.class, new GankItemTitleViewProvider());
+
         recyclerViewWrapper.setOnRequestListener(this);
         recyclerViewWrapper.setOnScrollListener(this);
         recyclerViewWrapper.getSwipeRefreshLayout().setOnDragOffsetListener(this);
-        givGirl.setOnClickListener(v -> ImagesActivity.startActivity(givGirl.getContext(), GankApp.girls, curGirl.url));
+
+        givGirl.setOnClickListener(v -> ImagesActivity.startActivity(givGirl.getContext(), MainApplication.girls, curGirl.url));
         ivAbout.setOnClickListener(v -> AboutActivity.startActivity(mContext));
     }
 
@@ -125,7 +136,9 @@ public class GankView extends FrameLayout implements GankContract.View,
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         View realItemView = recyclerView.findChildViewUnder(rlGirl.getMeasuredWidth() / 2, rlGirl.getMeasuredHeight() + 1);
-        if (realItemView == null) return;
+        if (realItemView == null) {
+            return;
+        }
         if (realItemView.getTag() != null) {
             boolean isGirl = (boolean) realItemView.getTag();
             if (isGirl && realItemView.getTop() > 0) {

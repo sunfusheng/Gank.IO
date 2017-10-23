@@ -39,8 +39,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        if (intent == null) return;
-        if (intent.getComponent() == null) return;
+        if (intent == null) {
+            return;
+        }
+        if (intent.getComponent() == null) {
+            return;
+        }
         String className = intent.getComponent().getClassName();
         if (!className.equals(MainActivity.class.getName())) {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -50,8 +54,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
-        if (intent == null) return;
-        if (intent.getComponent() == null) return;
+        if (intent == null) {
+            return;
+        }
+        if (intent.getComponent() == null) {
+            return;
+        }
         String className = intent.getComponent().getClassName();
         if (!className.equals(MainActivity.class.getName())) {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

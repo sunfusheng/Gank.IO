@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.sunfusheng.gank.GankApp;
+import com.sunfusheng.gank.MainApplication;
 import com.sunfusheng.gank.R;
-import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.DensityUtil;
 import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.sunfusheng.glideimageview.GlideImageView;
@@ -38,7 +38,7 @@ public class ImagesDialog {
         View view = View.inflate(mContext, R.layout.dialog_images, null);
         LinearLayout llContainer = (LinearLayout) view.findViewById(R.id.ll_container);
         TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        tvTitle.setTypeface(GankApp.songTi);
+        tvTitle.setTypeface(MainApplication.songTi);
         tvTitle.setText("查看效果图（共" + images.size() + "张）");
         addImageViews(images, llContainer);
         mDialogView = new DialogView(mContext, view);
@@ -46,7 +46,7 @@ public class ImagesDialog {
     }
 
     private void addImageViews(List<String> images, LinearLayout llContainer) {
-        if (AppUtil.isEmpty(images)) return;
+        if (Util.isEmpty(images)) return;
         for (int i = 0; i < images.size(); i++) {
             int gap = DensityUtil.dip2px(mContext, 10);
             GlideImageView iv = new GlideImageView(mContext);

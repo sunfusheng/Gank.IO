@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.jakewharton.rxbinding2.view.RxView;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.functions.Consumer;
@@ -18,14 +18,14 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by sunfusheng on 2017/1/17.
  */
-public class AppUtil {
+public class Util {
 
-    public static <T> boolean notEmpty(List<T> list) {
-        return !isEmpty(list);
+    public static boolean notEmpty(Collection collection) {
+        return !isEmpty(collection);
     }
 
-    public static <T> boolean isEmpty(List<T> list) {
-        if (list == null || list.size() == 0) {
+    public static boolean isEmpty(Collection collection) {
+        if (collection == null || collection.isEmpty()) {
             return true;
         }
         return false;

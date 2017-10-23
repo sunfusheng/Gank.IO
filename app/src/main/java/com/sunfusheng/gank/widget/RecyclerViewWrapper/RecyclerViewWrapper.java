@@ -13,8 +13,7 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 
 import com.sunfusheng.gank.R;
-import com.sunfusheng.gank.widget.MultiType.ItemViewProvider;
-import com.sunfusheng.gank.widget.MultiType.MultiTypeAdapter;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.DragDistanceConverterEg;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.RefreshView;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
@@ -25,6 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import me.drakeet.multitype.ItemViewBinder;
+import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
  * Created by sunfusheng on 2017/1/15.
@@ -81,13 +82,11 @@ public class RecyclerViewWrapper extends FrameLayout {
         loadingView = ButterKnife.findById(view, R.id.loading_view);
         loadingStateDelegate = new LoadingStateDelegate(swipeRefreshLayout, loadingView, errorStub, emptyStub);
 
-        multiTypeAdapter = new MultiTypeAdapter();
-        multiTypeAdapter.applyGlobalMultiTypePool();
-
         swipeRefreshLayout.setDragDistanceConverter(new DragDistanceConverterEg());
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        multiTypeAdapter = new MultiTypeAdapter();
         AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(multiTypeAdapter);
         alphaInAnimationAdapter.setDuration(500);
         SlideInBottomAnimationAdapter slideInBottomAnimationAdapter = new SlideInBottomAnimationAdapter(alphaInAnimationAdapter);
@@ -185,17 +184,19 @@ public class RecyclerViewWrapper extends FrameLayout {
         }
     }
 
+    public <T> void register(Class<? extends T> clazz, ItemViewBinder<T, ?> binder) {
+        multiTypeAdapter.register(clazz, binder);
+    }
+
     public void setData(@Nullable List<?> items) {
-        multiTypeAdapter.setItems(items);
-        multiTypeAdapter.notifyDataSetChanged();
+        if (Util.notEmpty(items)) {
+            multiTypeAdapter.setItems(items);
+            multiTypeAdapter.notifyDataSetChanged();
+        }
     }
 
     public void notifyDataSetChanged() {
         multiTypeAdapter.notifyDataSetChanged();
-    }
-
-    public void register(@NonNull Class<?> clazz, @NonNull ItemViewProvider provider) {
-        multiTypeAdapter.register(clazz, provider);
     }
 
     public List<?> getData() {
@@ -254,13 +255,11 @@ public class RecyclerViewWrapper extends FrameLayout {
 
     public interface OnRequestListener {
         void onRefresh();
-
         void onLoadingMore();
     }
 
     public interface OnScrollListener {
         void onScrollStateChanged(RecyclerView recyclerView, int newState);
-
         void onScrolled(RecyclerView recyclerView, int dx, int dy);
     }
 }

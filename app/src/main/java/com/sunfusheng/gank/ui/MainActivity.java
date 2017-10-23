@@ -8,7 +8,7 @@ import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.ui.gank.GankFragment;
-import com.sunfusheng.gank.util.AppUtil;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.update.UpdateHelper;
 
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
                 .compose(bindToLifecycle())
                 .filter(it -> it != null)
                 .filter(it -> !TextUtils.isEmpty(it.version))
-                .filter(it -> Integer.parseInt(it.version) > AppUtil.getVersionCode(this))
+                .filter(it -> Integer.parseInt(it.version) > Util.getVersionCode(this))
                 .subscribe(it -> updateHelper.dealWithVersion(it), Throwable::printStackTrace);
     }
 
