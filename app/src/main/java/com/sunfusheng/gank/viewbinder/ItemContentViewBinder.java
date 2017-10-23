@@ -1,4 +1,4 @@
-package com.sunfusheng.gank.viewprovider;
+package com.sunfusheng.gank.viewbinder;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewBinder;
 
 /**
- * Created by sunfusheng on 2017/1/17.
+ * @author by sunfusheng on 2017/1/17.
  */
-public class GankItemViewProvider extends ItemViewBinder<GankItem, GankItemViewProvider.ViewHolder> {
+public class ItemContentViewBinder extends ItemViewBinder<GankItem, ItemContentViewBinder.ViewHolder> {
 
     @NonNull
     @Override

@@ -1,7 +1,7 @@
 package com.sunfusheng.gank;
 
 /**
- * Created by sunfusheng on 2017/1/17.
+ * @author by sunfusheng on 2017/1/17.
  */
 public class Constants {
 

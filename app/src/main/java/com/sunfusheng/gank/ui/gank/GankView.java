@@ -12,15 +12,11 @@ import android.widget.TextView;
 
 import com.sunfusheng.gank.MainApplication;
 import com.sunfusheng.gank.R;
-import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.model.GankItemGirl;
-import com.sunfusheng.gank.model.GankItemTitle;
 import com.sunfusheng.gank.ui.AboutActivity;
 import com.sunfusheng.gank.ui.ImagesActivity;
 import com.sunfusheng.gank.util.DateUtil;
-import com.sunfusheng.gank.viewprovider.GankItemGirlViewProvider;
-import com.sunfusheng.gank.viewprovider.GankItemTitleViewProvider;
-import com.sunfusheng.gank.viewprovider.GankItemViewProvider;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.LoadingStateDelegate;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.RecyclerViewWrapper;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
@@ -30,9 +26,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.drakeet.multitype.ItemViewBinder;
 
 /**
- * Created by sunfusheng on 2017/1/13.
+ * @author by sunfusheng on 2017/1/13.
  */
 public class GankView extends FrameLayout implements GankContract.View,
         RecyclerViewWrapper.OnRequestListener,
@@ -74,10 +71,6 @@ public class GankView extends FrameLayout implements GankContract.View,
         tvTime.setTypeface(MainApplication.songTi);
         rlGirl.setVisibility(INVISIBLE);
 
-        recyclerViewWrapper.register(GankItem.class, new GankItemViewProvider());
-        recyclerViewWrapper.register(GankItemGirl.class, new GankItemGirlViewProvider());
-        recyclerViewWrapper.register(GankItemTitle.class, new GankItemTitleViewProvider());
-
         recyclerViewWrapper.setOnRequestListener(this);
         recyclerViewWrapper.setOnScrollListener(this);
         recyclerViewWrapper.getSwipeRefreshLayout().setOnDragOffsetListener(this);
@@ -93,12 +86,21 @@ public class GankView extends FrameLayout implements GankContract.View,
     }
 
     @Override
+    public <T> void register(@NonNull Class<? extends T> clazz, @NonNull ItemViewBinder<T, ?> binder) {
+        recyclerViewWrapper.register(clazz, binder);
+    }
+
+    @Override
     public void onLoading() {
         recyclerViewWrapper.setLoadingState(LoadingStateDelegate.STATE.LOADING);
     }
 
     @Override
     public void onSuccess(List<Object> list, boolean isLoadMore) {
+        if (Util.isEmpty(list) && !isLoadMore) {
+            onEmpty();
+            return;
+        }
         recyclerViewWrapper.setData(list);
         renderFakeView(0);
         rlGirl.setVisibility(VISIBLE);

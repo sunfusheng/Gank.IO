@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by sunfusheng on 2017/1/5.
+ * @author by sunfusheng on 2017/1/5.
  */
 public class MainApplication extends Application {
 

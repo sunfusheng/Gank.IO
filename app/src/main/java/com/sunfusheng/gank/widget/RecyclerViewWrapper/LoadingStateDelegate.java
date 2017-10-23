@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Created by sunfusheng on 2017/1/16.
+ * @author by sunfusheng on 2017/1/16.
  */
 public class LoadingStateDelegate {
 

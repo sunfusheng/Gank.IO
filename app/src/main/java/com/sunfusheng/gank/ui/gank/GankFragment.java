@@ -7,9 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sunfusheng.gank.base.BaseFragment;
+import com.sunfusheng.gank.model.GankItem;
+import com.sunfusheng.gank.model.GankItemGirl;
+import com.sunfusheng.gank.model.GankItemTitle;
+import com.sunfusheng.gank.viewbinder.ItemContentViewBinder;
+import com.sunfusheng.gank.viewbinder.ItemGirlViewBinder;
+import com.sunfusheng.gank.viewbinder.ItemTitleViewBinder;
 
 /**
- * Created by sunfusheng on 2017/1/13.
+ * @author by sunfusheng on 2017/1/13.
  */
 public class GankFragment extends BaseFragment {
 
@@ -22,6 +28,9 @@ public class GankFragment extends BaseFragment {
         mView = new GankView(getContext());
         mPresenter = new GankPresenter(mView);
         mPresenter.init();
+        mView.register(GankItem.class, new ItemContentViewBinder());
+        mView.register(GankItemGirl.class, new ItemGirlViewBinder());
+        mView.register(GankItemTitle.class, new ItemTitleViewBinder());
         return mView;
     }
 

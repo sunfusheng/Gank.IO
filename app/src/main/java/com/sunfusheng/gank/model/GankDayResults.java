@@ -3,7 +3,7 @@ package com.sunfusheng.gank.model;
 import java.util.List;
 
 /**
- * Created by sunfusheng on 2017/1/17.
+ * @author by sunfusheng on 2017/1/17.
  */
 public class GankDayResults {
 

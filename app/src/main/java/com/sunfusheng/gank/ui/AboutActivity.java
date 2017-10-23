@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by sunfusheng on 15/9/8.
+ * @author by sunfusheng on 15/9/8.
  * <p>
  * Logo 字母格式 Allura
  */

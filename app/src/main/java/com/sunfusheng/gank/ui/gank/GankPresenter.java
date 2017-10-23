@@ -20,7 +20,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 /**
- * Created by sunfusheng on 2017/1/13.
+ * @author by sunfusheng on 2017/1/13.
  */
 public class GankPresenter implements GankContract.Presenter {
 
@@ -37,6 +37,7 @@ public class GankPresenter implements GankContract.Presenter {
     public void init() {
         mList = new ArrayList<>();
         mRequestParams = new RequestParams();
+
         if (mView != null) {
             mView.setPresenter(this);
             mView.onAttach();
@@ -47,6 +48,7 @@ public class GankPresenter implements GankContract.Presenter {
     public void unInit() {
         lifecycle.onNext(null);
         lifecycle.onComplete();
+
         if (mView != null) {
             mView.onDetach();
         }

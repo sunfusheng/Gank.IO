@@ -28,7 +28,7 @@ import me.drakeet.multitype.ItemViewBinder;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
- * Created by sunfusheng on 2017/1/15.
+ * @author by sunfusheng on 2017/1/15.
  */
 public class RecyclerViewWrapper extends FrameLayout {
 
@@ -79,7 +79,7 @@ public class RecyclerViewWrapper extends FrameLayout {
         View view = inflater.inflate(R.layout.layout_recyclerview, this);
         ButterKnife.bind(this, view);
 
-        loadingView = ButterKnife.findById(view, R.id.loading_view);
+        loadingView = view.findViewById(R.id.loading_view);
         loadingStateDelegate = new LoadingStateDelegate(swipeRefreshLayout, loadingView, errorStub, emptyStub);
 
         swipeRefreshLayout.setDragDistanceConverter(new DragDistanceConverterEg());
@@ -184,7 +184,7 @@ public class RecyclerViewWrapper extends FrameLayout {
         }
     }
 
-    public <T> void register(Class<? extends T> clazz, ItemViewBinder<T, ?> binder) {
+    public <T> void register(@NonNull Class<? extends T> clazz, @NonNull ItemViewBinder<T, ?> binder) {
         multiTypeAdapter.register(clazz, binder);
     }
 
@@ -255,11 +255,13 @@ public class RecyclerViewWrapper extends FrameLayout {
 
     public interface OnRequestListener {
         void onRefresh();
+
         void onLoadingMore();
     }
 
     public interface OnScrollListener {
         void onScrollStateChanged(RecyclerView recyclerView, int newState);
+
         void onScrolled(RecyclerView recyclerView, int dx, int dy);
     }
 }

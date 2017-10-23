@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by sunfusheng on 2017/2/15.
+ * @author by sunfusheng on 2017/2/15.
  */
 @SuppressLint("SetJavaScriptEnabled")
 public class WebViewLayout extends RelativeLayout {

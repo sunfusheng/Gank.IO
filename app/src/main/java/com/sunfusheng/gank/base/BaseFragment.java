@@ -6,7 +6,7 @@ import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
- * Created by sunfusheng on 2017/1/12.
+ * @author by sunfusheng on 2017/1/12.
  */
 public class BaseFragment extends RxFragment {
 

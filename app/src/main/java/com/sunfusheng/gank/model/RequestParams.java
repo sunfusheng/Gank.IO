@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by sunfusheng on 2017/1/17.
+ * @author by sunfusheng on 2017/1/17.
  */
 public class RequestParams {
 

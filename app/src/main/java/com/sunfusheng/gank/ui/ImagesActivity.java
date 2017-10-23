@@ -32,7 +32,7 @@ import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
- * Created by sunfusheng on 2017/1/23.
+ * @author by sunfusheng on 2017/1/23.
  */
 public class ImagesActivity extends BaseActivity {
 

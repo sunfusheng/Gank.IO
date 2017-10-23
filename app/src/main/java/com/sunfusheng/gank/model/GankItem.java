@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 /**
- * Created by sunfusheng on 2017/1/17.
+ * @author by sunfusheng on 2017/1/17.
  */
 public class GankItem implements Parcelable {
 

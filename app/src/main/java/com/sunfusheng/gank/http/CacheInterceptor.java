@@ -11,7 +11,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by sunfusheng on 2017/2/3.
+ * @author by sunfusheng on 2017/2/3.
  *
  * get方式缓存拦截器
  */
