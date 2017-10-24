@@ -10,9 +10,9 @@ import com.sunfusheng.gank.base.BaseFragment;
 import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.model.GankItemTitle;
-import com.sunfusheng.gank.viewbinder.ItemContentViewBinder;
-import com.sunfusheng.gank.viewbinder.ItemGirlViewBinder;
-import com.sunfusheng.gank.viewbinder.ItemTitleViewBinder;
+import com.sunfusheng.gank.viewbinder.ContentItemViewBinder;
+import com.sunfusheng.gank.viewbinder.GirlItemViewBinder;
+import com.sunfusheng.gank.viewbinder.TitleItemViewBinder;
 
 /**
  * @author by sunfusheng on 2017/1/13.
@@ -28,9 +28,9 @@ public class GankFragment extends BaseFragment {
         mView = new GankView(getContext());
         mPresenter = new GankPresenter(mView);
         mPresenter.init();
-        mView.register(GankItem.class, new ItemContentViewBinder());
-        mView.register(GankItemGirl.class, new ItemGirlViewBinder());
-        mView.register(GankItemTitle.class, new ItemTitleViewBinder());
+        mView.register(GankItem.class, new ContentItemViewBinder());
+        mView.register(GankItemGirl.class, new GirlItemViewBinder());
+        mView.register(GankItemTitle.class, new TitleItemViewBinder());
         return mView;
     }
 

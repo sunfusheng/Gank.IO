@@ -13,7 +13,6 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 
 import com.sunfusheng.gank.R;
-import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.DragDistanceConverterEg;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.RefreshView;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
@@ -134,6 +133,25 @@ public class RecyclerViewWrapper extends FrameLayout {
         });
     }
 
+    public <T> void register(@NonNull Class<? extends T> clazz, @NonNull ItemViewBinder<T, ?> binder) {
+        multiTypeAdapter.register(clazz, binder);
+    }
+
+    public void setData(@Nullable List<?> items) {
+        if (items != null) {
+            multiTypeAdapter.setItems(items);
+            multiTypeAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public List<?> getData() {
+        return multiTypeAdapter.getItems();
+    }
+
+    public void notifyDataSetChanged() {
+        multiTypeAdapter.notifyDataSetChanged();
+    }
+
     public void addItemDecoration(RecyclerView.ItemDecoration decor) {
         recyclerView.addItemDecoration(decor);
     }
@@ -145,16 +163,16 @@ public class RecyclerViewWrapper extends FrameLayout {
         swipeRefreshLayout.setRefreshing(false);
         if (state == LoadingStateDelegate.STATE.ERROR) {
             if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() > 0) {
-                loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.SUCCEED);
+                loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.SUCCEED);
             } else {
-                emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.ERROR);
+                errorView = loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.ERROR);
                 setErrorViewClickListener(errorViewClickListener);
             }
         } else if (state == LoadingStateDelegate.STATE.EMPTY) {
-            emptyView = loadingStateDelegate.setViewState(LoadingStateDelegate.STATE.EMPTY);
+            emptyView = loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.EMPTY);
             setEmptyViewClickListener(emptyViewClickListener);
         } else {
-            loadingStateDelegate.setViewState(state);
+            loadingStateDelegate.setLoadingState(state);
         }
     }
 
@@ -170,37 +188,6 @@ public class RecyclerViewWrapper extends FrameLayout {
         if (emptyView != null) {
             emptyView.setOnClickListener(emptyViewClickListener);
         }
-    }
-
-    public void setEmptyView(int layoutId) {
-        if (emptyStub != null && layoutId != -1) {
-            emptyStub.setLayoutResource(layoutId);
-        }
-    }
-
-    public void setErrorView(int layoutId) {
-        if (errorStub != null && layoutId != -1) {
-            errorStub.setLayoutResource(layoutId);
-        }
-    }
-
-    public <T> void register(@NonNull Class<? extends T> clazz, @NonNull ItemViewBinder<T, ?> binder) {
-        multiTypeAdapter.register(clazz, binder);
-    }
-
-    public void setData(@Nullable List<?> items) {
-        if (Util.notEmpty(items)) {
-            multiTypeAdapter.setItems(items);
-            multiTypeAdapter.notifyDataSetChanged();
-        }
-    }
-
-    public void notifyDataSetChanged() {
-        multiTypeAdapter.notifyDataSetChanged();
-    }
-
-    public List<?> getData() {
-        return multiTypeAdapter.getItems();
     }
 
     public int getItemCount() {

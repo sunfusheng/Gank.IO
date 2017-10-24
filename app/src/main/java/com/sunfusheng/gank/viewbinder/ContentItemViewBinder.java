@@ -28,7 +28,7 @@ import me.drakeet.multitype.ItemViewBinder;
 /**
  * @author by sunfusheng on 2017/1/17.
  */
-public class ItemContentViewBinder extends ItemViewBinder<GankItem, ItemContentViewBinder.ViewHolder> {
+public class ContentItemViewBinder extends ItemViewBinder<GankItem, ContentItemViewBinder.ViewHolder> {
 
     @NonNull
     @Override

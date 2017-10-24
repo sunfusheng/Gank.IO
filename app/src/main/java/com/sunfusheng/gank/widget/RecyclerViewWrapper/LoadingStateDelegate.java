@@ -31,7 +31,7 @@ public class LoadingStateDelegate {
         viewStubHolder[3] = emptyStub;
     }
 
-    public View setViewState(@STATE int state) {
+    public View setLoadingState(@STATE int state) {
         if (state < 0 || state >= viewHolder.length) {
             return null;
         }

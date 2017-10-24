@@ -23,7 +23,7 @@ import me.drakeet.multitype.ItemViewBinder;
 /**
  * @author by sunfusheng on 2017/1/17.
  */
-public class ItemGirlViewBinder extends ItemViewBinder<GankItemGirl, ItemGirlViewBinder.ViewHolder> {
+public class GirlItemViewBinder extends ItemViewBinder<GankItemGirl, GirlItemViewBinder.ViewHolder> {
 
     @NonNull
     @Override
