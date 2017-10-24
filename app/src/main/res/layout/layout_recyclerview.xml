@@ -14,6 +14,13 @@
             android:layout_height="match_parent"/>
     </com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout>
 
+    <include
+        android:id="@+id/loading_view"
+        layout="@layout/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
     <ViewStub
         android:id="@+id/error_stub"
         android:layout_width="match_parent"
@@ -25,13 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout="@layout/layout_empty"/>
-
-    <include
-        android:id="@+id/loading_view"
-        layout="@layout/layout_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
 
     <com.sunfusheng.gank.widget.SwipeRefreshLayout.RefreshView
         android:id="@+id/rv_loading"
