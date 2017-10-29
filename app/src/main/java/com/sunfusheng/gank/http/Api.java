@@ -20,9 +20,6 @@ public class Api {
 
     private static ApiService mApiService;
 
-    // 连接超时时间，默认20秒
-    private static final int CONNECT_TIMEOUT = 20;
-
     private static class Holder {
         private static Api instance = new Api();
     }
@@ -36,11 +33,11 @@ public class Api {
     }
 
     private void init() {
-        File cacheFile = new File(MainApplication.application.getCacheDir(), "HttpCache");
-        Cache cache = new Cache(cacheFile, 1024 * 1024 * 20); // 20M
+        File cacheDir = new File(MainApplication.context.getCacheDir(), "HttpCache");
+        Cache cache = new Cache(cacheDir, 1024 * 1024 * 20); // 20M
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(new CacheInterceptor())
                 .addNetworkInterceptor(new CacheInterceptor())
                 .cache(cache);

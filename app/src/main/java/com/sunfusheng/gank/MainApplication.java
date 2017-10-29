@@ -1,6 +1,8 @@
 package com.sunfusheng.gank;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Typeface;
 
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -16,14 +18,15 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class MainApplication extends Application {
 
-    public static Application application;
+    @SuppressLint("StaticFieldLeak")
+    public static Context context;
     public static Typeface songTi; // 宋体
     public static ArrayList<String> girls = new ArrayList<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        application = this;
+        context = getApplicationContext();
 
         PrettyFormatStrategy strategy = PrettyFormatStrategy.newBuilder()
                 .tag(getString(R.string.app_name))

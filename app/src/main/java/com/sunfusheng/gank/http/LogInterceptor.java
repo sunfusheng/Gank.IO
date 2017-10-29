@@ -32,5 +32,4 @@ public class LogInterceptor implements Interceptor {
         }
         return response;
     }
-
 }

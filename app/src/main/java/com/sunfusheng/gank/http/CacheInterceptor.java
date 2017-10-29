@@ -21,7 +21,7 @@ public class CacheInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
 
-        if (!Util.isNetworkAvailable(MainApplication.application)) {
+        if (!Util.isNetworkAvailable(MainApplication.context)) {
             // 没网强制从缓存读取
             request = request.newBuilder()
                     .cacheControl(CacheControl.FORCE_CACHE)
@@ -31,7 +31,7 @@ public class CacheInterceptor implements Interceptor {
         Response response = chain.proceed(request);
         Response responseLatest;
 
-        if (Util.isNetworkAvailable(MainApplication.application)) {
+        if (Util.isNetworkAvailable(MainApplication.context)) {
             // 有网时候读接口上的@Headers里的配置
             String cacheControl = request.cacheControl().toString();
             responseLatest = response.newBuilder()
