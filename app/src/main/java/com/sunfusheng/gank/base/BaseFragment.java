@@ -13,7 +13,7 @@ public class BaseFragment extends RxFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.d("log-fragment " + getClass().getSimpleName() + ".java");
+        Logger.d("log-fragment: " + getClass().getSimpleName() + ".java");
     }
 
 }

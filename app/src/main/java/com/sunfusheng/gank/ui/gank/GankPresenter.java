@@ -78,7 +78,7 @@ public class GankPresenter implements GankContract.Presenter {
                 .map(this::flatGankDay2List)
                 .takeUntil(lifecycle)
                 .subscribe(list -> {
-                    if (Util.notEmpty(list)) {
+                    if (Util.isNotEmpty(list)) {
                         mList.addAll(list);
                         mRequestParams.onSuccess();
                     } else {
@@ -97,7 +97,7 @@ public class GankPresenter implements GankContract.Presenter {
             getGankDayList(isLoadMore);
         } else {
             mRequestParams.onComplete();
-            if (Util.notEmpty(mList)) {
+            if (Util.isNotEmpty(mList)) {
                 processGirls(mList);
                 mView.onSuccess(mList, isLoadMore);
             } else {
@@ -109,26 +109,26 @@ public class GankPresenter implements GankContract.Presenter {
     private List<Object> flatGankDay2List(GankDay gankDay) {
         List<Object> list = new ArrayList<>();
         GankDayResults results = gankDay.results;
-        if (Util.notEmpty(results.福利)) {
+        if (Util.isNotEmpty(results.福利)) {
             list.addAll(results.福利);
         }
-        if (Util.notEmpty(results.Android)) {
+        if (Util.isNotEmpty(results.Android)) {
             list.add(new GankItemTitle(results.Android.get(0)));
             list.addAll(results.Android);
         }
-        if (Util.notEmpty(results.iOS)) {
+        if (Util.isNotEmpty(results.iOS)) {
             list.add(new GankItemTitle(results.iOS.get(0)));
             list.addAll(results.iOS);
         }
-        if (Util.notEmpty(results.App)) {
+        if (Util.isNotEmpty(results.App)) {
             list.add(new GankItemTitle(results.App.get(0)));
             list.addAll(results.App);
         }
-        if (Util.notEmpty(results.瞎推荐)) {
+        if (Util.isNotEmpty(results.瞎推荐)) {
             list.add(new GankItemTitle(results.瞎推荐.get(0)));
             list.addAll(results.瞎推荐);
         }
-        if (Util.notEmpty(results.休息视频)) {
+        if (Util.isNotEmpty(results.休息视频)) {
             list.add(new GankItemTitle(results.休息视频.get(0)));
             list.addAll(results.休息视频);
         }

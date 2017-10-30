@@ -15,10 +15,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
-import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.ImageHelper;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.widget.PhotoView.HackyViewPager;
 import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.sunfusheng.glideimageview.progress.CircleProgressView;
@@ -28,8 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * @author by sunfusheng on 2017/1/23.
@@ -146,21 +145,11 @@ public class ImagesActivity extends BaseActivity {
             LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_image_layout, null);
 
-            PhotoView photoView = (PhotoView) view.findViewById(R.id.photoView);
+            PhotoView photoView = view.findViewById(R.id.photoView);
             photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            CircleProgressView progressView = (CircleProgressView) view.findViewById(R.id.progressView);
+            CircleProgressView progressView = view.findViewById(R.id.progressView);
 
-            photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-                @Override
-                public void onPhotoTap(View view, float x, float y) {
-                    mActivity.finish();
-                }
-
-                @Override
-                public void onOutsidePhotoTap() {
-                    mActivity.finish();
-                }
-            });
+            photoView.setOnPhotoTapListener((view1, x, y) -> mActivity.finish());
 
             GlideImageLoader imageLoader = GlideImageLoader.create(photoView);
             imageLoader.loadImage(mList.get(position), R.color.transparent);

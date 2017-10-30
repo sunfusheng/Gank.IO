@@ -1,5 +1,7 @@
 package com.sunfusheng.gank.http;
 
+import android.support.annotation.NonNull;
+
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
@@ -16,20 +18,21 @@ import okhttp3.ResponseBody;
 public class LogInterceptor implements Interceptor {
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
-        Logger.d("log-data-request " + request.url().toString());
+        Logger.d("log-api-request: " + request.url().toString());
 
         Response response = chain.proceed(request);
-
-        if (response != null && response.body() != null) {
-            MediaType mediaType = response.body().contentType();
-            String content = response.body().string();
-            Logger.d("log-data-response " + content);
-            return response.newBuilder()
-                    .body(ResponseBody.create(mediaType, content))
-                    .build();
+        if (response == null || response.body() == null) {
+            return response;
         }
-        return response;
+
+        MediaType contentType = response.body().contentType();
+        String content = response.body().string();
+        Logger.d("log-api-response: " + content);
+
+        return response.newBuilder()
+                .body(ResponseBody.create(contentType, content))
+                .build();
     }
 }

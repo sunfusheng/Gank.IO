@@ -20,15 +20,15 @@ import io.reactivex.functions.Consumer;
  */
 public class Util {
 
-    public static boolean notEmpty(Collection collection) {
-        return !isEmpty(collection);
-    }
-
     public static boolean isEmpty(Collection collection) {
         if (collection == null || collection.isEmpty()) {
             return true;
         }
         return false;
+    }
+
+    public static boolean isNotEmpty(Collection collection) {
+        return !isEmpty(collection);
     }
 
     // 判断网络是否可用
