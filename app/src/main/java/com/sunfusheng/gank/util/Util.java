@@ -16,15 +16,12 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by sunfusheng on 2017/1/17.
+ * @author by sunfusheng on 2017/1/17.
  */
 public class Util {
 
     public static boolean isEmpty(Collection collection) {
-        if (collection == null || collection.isEmpty()) {
-            return true;
-        }
-        return false;
+        return collection == null || collection.isEmpty();
     }
 
     public static boolean isNotEmpty(Collection collection) {
@@ -33,19 +30,10 @@ public class Util {
 
     // 判断网络是否可用
     public static boolean isNetworkAvailable(Context context) {
-        try {
-            ConnectivityManager connectivity = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (connectivity != null) {
-                NetworkInfo info = connectivity.getActiveNetworkInfo();
-                if (info != null && info.isConnected()) {
-                    if (info.getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo.isAvailable() && networkInfo.getState() == NetworkInfo.State.CONNECTED;
         }
         return false;
     }
@@ -53,9 +41,9 @@ public class Util {
     // WiFi是否连接
     public static boolean isWiFiAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isAvailable() && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-            return true;
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo.isAvailable() && networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
         }
         return false;
     }
@@ -66,13 +54,11 @@ public class Util {
             PackageManager packageManager = context.getApplicationContext().getPackageManager();
             PackageInfo packInfo = packageManager.getPackageInfo(context.getApplicationContext().getPackageName(), 0);
             String version = packInfo.versionName;
-            if (!TextUtils.isEmpty(version)) {
-                return "V" + version;
-            }
+            return !TextUtils.isEmpty(version) ? "V" + version : "V1.0";
         } catch (Exception e) {
             e.printStackTrace();
+            return "V1.0";
         }
-        return "V1.0";
     }
 
     // 获取当前应用的版本号
@@ -83,12 +69,12 @@ public class Util {
             return packInfo.versionCode;
         } catch (Exception e) {
             e.printStackTrace();
+            return 1;
         }
-        return 1;
     }
 
     // 去掉重复点击
-    public static void singleClick(View view, Consumer consumer) {
+    public static void singleClick(View view, Consumer<Object> consumer) {
         RxView.clicks(view)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe(consumer, Throwable::printStackTrace);
