@@ -12,8 +12,8 @@ android {
         applicationId "com.sunfusheng.gank"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
         multiDexEnabled true
     }
 
@@ -47,8 +47,10 @@ android {
             buildConfigField "boolean", "isDebug", "false"
             signingConfig signingConfigs.release // apk签名
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all {
-//                variant -> generateAppName(variant)
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "Gank.IO_V${android.defaultConfig.versionName}.apk"
+                }
             }
         }
 
@@ -59,14 +61,6 @@ android {
             applicationVariants.all {
             }
         }
-    }
-}
-
-//生成自定义App名称
-def generateAppName(variant) {
-    variant.outputs.each { output ->
-        def file = output.outputFile
-        output.outputFile = new File(file.parent, "Gank.IO-V" + android.defaultConfig.versionName + ".apk")
     }
 }
 
