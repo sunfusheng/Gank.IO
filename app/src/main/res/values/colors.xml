@@ -50,6 +50,27 @@
     <color name="transparent90_white">#E5ffffff</color>
     <color name="transparent100_white">#FFffffff</color>
 
+    <color name="config_color_blue">#1B88EE</color>
+    <color name="config_color_50_blue">#801B88EE</color>
+    <color name="config_color_red">#FA3A3A</color>
+    <color name="config_color_separator">#DEE0E2</color>
+    <color name="config_color_separator_darken">#D4D6D8</color>
+    <color name="config_color_background">#F4F5F7</color>
+    <color name="config_color_background_pressed">#EEEFF1</color>
+    <color name="config_color_black">#212832</color>
+    <color name="config_color_link">#547FB0</color>
+    <color name="config_color_pressed">#EEEEF0</color>
+
+    <color name="config_color_gray_1">#353C46</color>
+    <color name="config_color_gray_2">#49505A</color>
+    <color name="config_color_gray_3">#5D646E</color>
+    <color name="config_color_gray_4">#717882</color>
+    <color name="config_color_gray_5">#858C96</color>
+    <color name="config_color_gray_6">#99A0AA</color>
+    <color name="config_color_gray_7">#ADB4BE</color>
+    <color name="config_color_gray_8">#C4C8D0</color>
+    <color name="config_color_gray_9">#D8DCE4</color>
+
     <!-- background -->
     <color name="bg">#FFF5F5F5</color>
     <color name="bg_pressed">#FFF2F2F2</color>

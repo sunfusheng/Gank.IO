@@ -14,9 +14,8 @@ import android.view.MenuItem;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.model.GankItem;
-import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.MoreActionHelper;
-import com.sunfusheng.gank.util.dialog.ImagesDialog;
+import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.widget.WebViewLayout;
 
 import butterknife.BindView;
@@ -83,7 +82,7 @@ public class WebActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.item_check_image:
-                new ImagesDialog(this, gank.images).show();
+                ImagesActivity.startActivity(this, gank.images);
                 return true;
             case R.id.item_copy_url:
                 MoreActionHelper.copy(this, gank.url);

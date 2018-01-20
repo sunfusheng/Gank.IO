@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ButtonBase" parent="android:Widget.Holo.Light.Button"/>
+
+    <style name="Button" parent="ButtonBase"/>
+
+    <style name="RadiusButton" parent="@style/Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="isRadiusAdjustBounds">true</item>
+        <item name="backgroundColor">@color/transparent</item>
+        <item name="android:textColor">?attr/radius_button_text_color</item>
+        <item name="android:textSize">?attr/radius_button_text_size</item>
+        <item name="borderColor">?attr/radius_button_border_color</item>
+        <item name="borderWidth">?attr/radius_button_border_width</item>
+    </style>
+
+</resources>

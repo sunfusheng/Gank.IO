@@ -34,10 +34,10 @@ public class CircleLoadingView extends View {
 
     public CircleLoadingView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleLoadingViewAttr);
-        circleRadius = (int) a.getDimension(R.styleable.CircleLoadingViewAttr_circleRadius, circleLoadingViewParams.getDefaultCircleRadius());
-        circleSpacing = (int) a.getDimension(R.styleable.CircleLoadingViewAttr_circleSpacing, circleLoadingViewParams.getDefaultCircleSpacing());
-        int cycle = a.getInt(R.styleable.CircleLoadingViewAttr_cycle, 1000); // 周期，默认为1秒
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleLoadingView);
+        circleRadius = (int) a.getDimension(R.styleable.CircleLoadingView_circleRadius, circleLoadingViewParams.getDefaultCircleRadius());
+        circleSpacing = (int) a.getDimension(R.styleable.CircleLoadingView_circleSpacing, circleLoadingViewParams.getDefaultCircleSpacing());
+        int cycle = a.getInt(R.styleable.CircleLoadingView_cycle, 1000); // 周期，默认为1秒
         cycle = cycle / 2;
         int number = (int) (cycle * 1.0 / 1000 * 83);
         this.increment = (int) (this.circleRadius * 2.0 / number);
@@ -152,7 +152,7 @@ public class CircleLoadingView extends View {
         drawCircle02(canvas);
         drawCircle03(canvas);
         drawCircle04(canvas);
-        if (isLoading){
+        if (isLoading) {
             this.invalidate();
         }
     }

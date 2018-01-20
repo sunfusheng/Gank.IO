@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="DefaultAttr" format="reference"/>
+    <attr name="backgroundColor" format="color"/>
+    <attr name="borderColor" format="color"/>
+    <attr name="borderWidth" format="dimension"/>
+    <attr name="linkColor" format="color"/>
+    <attr name="orientation" format="enum">
+        <enum name="horizontal" value="0"/>
+        <enum name="vertical" value="1"/>
+    </attr>
+    <attr name="title" format="string"/>
+    <!-- 圆角是否要自适应为 View 高度的一半 -->
+    <attr name="isRadiusAdjustBounds" format="boolean"/>
+    <attr name="radius" format="dimension"/>
+    <attr name="radiusTopLeft" format="dimension"/>
+    <attr name="radiusTopRight" format="dimension"/>
+    <attr name="radiusBottomLeft" format="dimension"/>
+    <attr name="radiusBottomRight" format="dimension"/>
+
+
+    <attr name="radius_button_background_color" format="color"/>
+    <attr name="radius_button_text_color" format="color"/>
+    <attr name="radius_button_text_size" format="dimension"/>
+    <attr name="radius_button_border_color" format="color"/>
+    <attr name="radius_button_border_width" format="dimension"/>
+
+</resources>

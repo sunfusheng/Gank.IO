@@ -18,8 +18,8 @@ import android.widget.TextView;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.ui.WebActivity;
-import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.util.MoreActionHelper;
+import com.sunfusheng.gank.util.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

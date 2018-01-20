@@ -1,0 +1,45 @@
+<resources>
+
+    <declare-styleable name="CircleLoadingView">
+        <attr name="circleRadius" format="dimension"/>
+        <attr name="circleSpacing" format="dimension"/>
+        <attr name="cycle" format="integer"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="LoadingView">
+        <attr name="loading_view_size" format="dimension"/>
+        <attr name="android:color"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="EmptyView">
+        <attr name="show_loading" format="boolean"/>
+        <attr name="title_text" format="string"/>
+        <attr name="detail_text" format="string"/>
+        <attr name="button_text" format="string"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="RefreshableLayout">
+        <attr name="isHeightMatchParent" format="boolean"/>
+        <attr name="isWidthMatchParent" format="boolean"/>
+        <attr name="autoRefresh" format="boolean"/>
+        <attr name="autoLoadMore" format="boolean"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="RadiusWidget">
+        <attr name="backgroundColor"/>
+        <attr name="borderColor"/>
+        <attr name="borderWidth"/>
+        <attr name="isRadiusAdjustBounds"/>
+        <attr name="radius"/>
+        <attr name="radiusTopLeft"/>
+        <attr name="radiusTopRight"/>
+        <attr name="radiusBottomLeft"/>
+        <attr name="radiusBottomRight"/>
+    </declare-styleable>
+
+
+</resources>
