@@ -51,7 +51,7 @@
     <color name="transparent100_white">#FFffffff</color>
 
     <color name="config_color_blue">#1B88EE</color>
-    <color name="config_color_50_blue">#801B88EE</color>
+    <color name="config_color_blue_50">#801B88EE</color>
     <color name="config_color_red">#FA3A3A</color>
     <color name="config_color_separator">#DEE0E2</color>
     <color name="config_color_separator_darken">#D4D6D8</color>

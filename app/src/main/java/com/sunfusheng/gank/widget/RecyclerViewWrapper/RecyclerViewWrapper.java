@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.FrameLayout;
 
 import com.sunfusheng.gank.R;
+import com.sunfusheng.gank.widget.EmptyView;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.DragDistanceConverterEg;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.RefreshView;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
@@ -35,20 +35,18 @@ public class RecyclerViewWrapper extends FrameLayout {
     RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.rv_loading)
-    RefreshView rvLoading;
-    @BindView(R.id.error_stub)
-    ViewStub errorStub;
-    @BindView(R.id.empty_stub)
-    ViewStub emptyStub;
-
-    View loadingView;
-    View errorView;
-    View emptyView;
+    @BindView(R.id.loading_view)
+    EmptyView loadingView;
+    @BindView(R.id.error_view)
+    EmptyView errorView;
+    @BindView(R.id.empty_view)
+    EmptyView emptyView;
+    @BindView(R.id.loading_more_view)
+    RefreshView loadingMoreView;
 
     private OnClickListener errorViewClickListener;
     private OnClickListener emptyViewClickListener;
-    private OnRequestListener onRequestListener;
+    private OnLoadListener onLoadListener;
     private OnScrollListener onScrollListener;
 
     private LoadingStateDelegate loadingStateDelegate;
@@ -64,7 +62,7 @@ public class RecyclerViewWrapper extends FrameLayout {
     }
 
     public RecyclerViewWrapper(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, R.attr.DefaultAttr);
     }
 
     public RecyclerViewWrapper(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
@@ -79,7 +77,7 @@ public class RecyclerViewWrapper extends FrameLayout {
         ButterKnife.bind(this, view);
 
         loadingView = view.findViewById(R.id.loading_view);
-        loadingStateDelegate = new LoadingStateDelegate(swipeRefreshLayout, loadingView, errorStub, emptyStub);
+        loadingStateDelegate = new LoadingStateDelegate(swipeRefreshLayout, loadingView, errorView, emptyView);
 
         swipeRefreshLayout.setDragDistanceConverter(new DragDistanceConverterEg());
         linearLayoutManager = new LinearLayoutManager(context);
@@ -95,9 +93,9 @@ public class RecyclerViewWrapper extends FrameLayout {
 
     private void initListener() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (onRequestListener != null) {
+            if (onLoadListener != null) {
                 lastItemCount = 0;
-                onRequestListener.onRefresh();
+                onLoadListener.onLoad();
             }
         });
 
@@ -119,16 +117,24 @@ public class RecyclerViewWrapper extends FrameLayout {
                     int itemCount = linearLayoutManager.getItemCount();
                     int lastPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
 
-                    if (itemCount != lastItemCount && lastPosition == itemCount - 1 && onRequestListener != null) {
+                    if (itemCount != lastItemCount && lastPosition == itemCount - 1 && onLoadListener != null) {
                         lastItemCount = itemCount;
-                        onRequestListener.onLoadingMore();
-                        rvLoading.startLoading();
+                        onLoadListener.onLoadMore();
+                        loadingMoreView.startLoading();
                     }
                 }
 
                 if (onScrollListener != null) {
                     onScrollListener.onScrolled(recyclerView, dx, dy);
                 }
+            }
+        });
+
+        errorView.setButtonOnClickListener(v -> {
+            if (onLoadListener != null) {
+                setLoadingState(LoadingStateDelegate.STATE.LOADING);
+                lastItemCount = 0;
+                onLoadListener.onLoad();
             }
         });
     }
@@ -157,19 +163,19 @@ public class RecyclerViewWrapper extends FrameLayout {
     }
 
     public void setLoadingState(@LoadingStateDelegate.STATE int state) {
-        if (rvLoading.getVisibility() == VISIBLE) {
-            rvLoading.stopLoading();
+        if (loadingMoreView.getVisibility() == VISIBLE) {
+            loadingMoreView.stopLoading();
         }
         swipeRefreshLayout.setRefreshing(false);
         if (state == LoadingStateDelegate.STATE.ERROR) {
             if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() > 0) {
                 loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.SUCCEED);
             } else {
-                errorView = loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.ERROR);
+                loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.ERROR);
                 setErrorViewClickListener(errorViewClickListener);
             }
         } else if (state == LoadingStateDelegate.STATE.EMPTY) {
-            emptyView = loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.EMPTY);
+            loadingStateDelegate.setLoadingState(LoadingStateDelegate.STATE.EMPTY);
             setEmptyViewClickListener(emptyViewClickListener);
         } else {
             loadingStateDelegate.setLoadingState(state);
@@ -232,18 +238,18 @@ public class RecyclerViewWrapper extends FrameLayout {
         return multiTypeAdapter.getItems().get(lastVisibleItemPosition);
     }
 
-    public void setOnRequestListener(OnRequestListener onRequestListener) {
-        this.onRequestListener = onRequestListener;
+    public void setOnLoadListener(OnLoadListener onLoadListener) {
+        this.onLoadListener = onLoadListener;
     }
 
     public void setOnScrollListener(OnScrollListener onScrollListener) {
         this.onScrollListener = onScrollListener;
     }
 
-    public interface OnRequestListener {
-        void onRefresh();
+    public interface OnLoadListener {
+        void onLoad();
 
-        void onLoadingMore();
+        void onLoadMore();
     }
 
     public interface OnScrollListener {

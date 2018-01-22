@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,7 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:viewColor="@color/config_color_gray_3"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/empty_view_title"
@@ -26,7 +30,8 @@
             android:gravity="center_horizontal"
             android:textColor="@color/config_color_gray_3"
             android:textSize="16sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/empty_view_detail"
@@ -34,9 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
-            android:textColor="@color/config_color_gray_3"
+            android:textColor="@color/config_color_gray_5"
             android:textSize="14sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <com.sunfusheng.gank.widget.RadiusWidget.RadiusButton
             android:id="@+id/empty_view_button"
@@ -46,7 +52,8 @@
             android:layout_marginLeft="51dp"
             android:layout_marginRight="51dp"
             android:layout_marginTop="10dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:visibility="visible"/>
     </LinearLayout>
 
 </merge>

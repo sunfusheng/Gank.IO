@@ -16,4 +16,9 @@
     <string name="update_rightnow">立即下载</string>
     <string name="new_version_yet">已是最新版本</string>
 
+    <string name="loading_error_title">加载失败</string>
+    <string name="loading_error_detail">请检查网络是否异常</string>
+    <string name="loading_empty_title">暂无数据</string>
+    <string name="loading_button">点击重试</string>
+
 </resources>

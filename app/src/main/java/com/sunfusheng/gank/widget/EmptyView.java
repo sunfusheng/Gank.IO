@@ -31,15 +31,16 @@ public class EmptyView extends FrameLayout {
 
     public EmptyView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EmptyView);
-        Boolean attrShowLoading = typedArray.getBoolean(R.styleable.EmptyView_show_loading, false);
-        String attrTitleText = typedArray.getString(R.styleable.EmptyView_title_text);
-        String attrDetailText = typedArray.getString(R.styleable.EmptyView_detail_text);
-        String attrBtnText = typedArray.getString(R.styleable.EmptyView_button_text);
-        typedArray.recycle();
-        show(attrShowLoading, attrTitleText, attrDetailText, attrBtnText, null);
-
         init();
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EmptyView);
+        boolean showLoading = typedArray.getBoolean(R.styleable.EmptyView_showLoading, false);
+        String title = typedArray.getString(R.styleable.EmptyView_title);
+        String detail = typedArray.getString(R.styleable.EmptyView_detail);
+        String button = typedArray.getString(R.styleable.EmptyView_button);
+        typedArray.recycle();
+
+        show(showLoading, title, detail, button, null);
     }
 
     private void init() {
@@ -50,8 +51,8 @@ public class EmptyView extends FrameLayout {
         button = findViewById(R.id.empty_view_button);
     }
 
-    public void show(boolean loading, String titleText, String detailText, String buttonText, OnClickListener onButtonClickListener) {
-        setLoadingShowing(loading);
+    public void show(boolean showLoading, String titleText, String detailText, String buttonText, OnClickListener onButtonClickListener) {
+        setLoadingShowing(showLoading);
         setTitleText(titleText);
         setDetailText(detailText);
         setButton(buttonText, onButtonClickListener);
@@ -119,6 +120,10 @@ public class EmptyView extends FrameLayout {
     public void setButton(String text, OnClickListener onClickListener) {
         button.setText(text);
         button.setVisibility(text != null ? VISIBLE : GONE);
+        setButtonOnClickListener(onClickListener);
+    }
+
+    public void setButtonOnClickListener(OnClickListener onClickListener) {
         button.setOnClickListener(onClickListener);
     }
 }

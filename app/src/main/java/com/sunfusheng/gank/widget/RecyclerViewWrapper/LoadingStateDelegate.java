@@ -2,7 +2,6 @@ package com.sunfusheng.gank.widget.RecyclerViewWrapper;
 
 import android.support.annotation.IntDef;
 import android.view.View;
-import android.view.ViewStub;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,38 +20,31 @@ public class LoadingStateDelegate {
         int EMPTY = 3;
     }
 
-    private View viewHolder[] = new View[4];
-    private ViewStub viewStubHolder[] = new ViewStub[4];
+    private View views[] = new View[4];
 
-    public LoadingStateDelegate(View normalView, View loadingView, ViewStub errorStub, ViewStub emptyStub) {
-        viewHolder[0] = normalView;
-        viewHolder[1] = loadingView;
-        viewStubHolder[2] = errorStub;
-        viewStubHolder[3] = emptyStub;
+    public LoadingStateDelegate(View normalView, View loadingView, View errorView, View emptyView) {
+        views[0] = normalView;
+        views[1] = loadingView;
+        views[2] = errorView;
+        views[3] = emptyView;
     }
 
     public View setLoadingState(@STATE int state) {
-        if (state < 0 || state >= viewHolder.length) {
+        if (state < 0 || state >= views.length) {
             return null;
         }
 
-        for (View v : viewHolder) {
-            if (v == null) {
+        for (View view : views) {
+            if (view == null) {
                 continue;
             }
-            v.setVisibility(View.GONE);
+            view.setVisibility(View.GONE);
         }
 
-        if (viewHolder[state] == null) {
-            if (viewStubHolder[state] != null && viewStubHolder[state].getParent() != null) {
-                viewHolder[state] = viewStubHolder[state].inflate();
-            }
+        if (views[state] != null) {
+            views[state].setVisibility(View.VISIBLE);
         }
 
-        if (viewHolder[state] != null) {
-            viewHolder[state].setVisibility(View.VISIBLE);
-        }
-
-        return viewHolder[state];
+        return views[state];
     }
 }

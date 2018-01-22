@@ -55,7 +55,7 @@ public class GankPresenter implements GankContract.Presenter {
     }
 
     @Override
-    public void onRefresh() {
+    public void onLoad() {
         if (Util.isEmpty(mList)) {
             mView.onLoading();
         }
@@ -65,7 +65,7 @@ public class GankPresenter implements GankContract.Presenter {
     }
 
     @Override
-    public void onLoadingMore() {
+    public void onLoadMore() {
         getGankDayList(true);
     }
 
@@ -73,8 +73,7 @@ public class GankPresenter implements GankContract.Presenter {
         Api.getInstance().getApiService().getGankDay(mRequestParams.year, mRequestParams.month, mRequestParams.day)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(gankDay -> gankDay != null)
-                .filter(gankDay -> gankDay.results != null)
+                .filter(gankDay -> gankDay != null && gankDay.results != null)
                 .map(this::flatGankDay2List)
                 .takeUntil(lifecycle)
                 .subscribe(list -> {

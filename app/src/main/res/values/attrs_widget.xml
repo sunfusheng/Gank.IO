@@ -8,16 +8,16 @@
 
 
     <declare-styleable name="LoadingView">
-        <attr name="loading_view_size" format="dimension"/>
-        <attr name="android:color"/>
+        <attr name="ViewColor"/>
+        <attr name="viewSize"/>
     </declare-styleable>
 
 
     <declare-styleable name="EmptyView">
-        <attr name="show_loading" format="boolean"/>
-        <attr name="title_text" format="string"/>
-        <attr name="detail_text" format="string"/>
-        <attr name="button_text" format="string"/>
+        <attr name="showLoading"/>
+        <attr name="title"/>
+        <attr name="detail"/>
+        <attr name="button"/>
     </declare-styleable>
 
 

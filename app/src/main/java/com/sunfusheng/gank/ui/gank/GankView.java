@@ -32,7 +32,7 @@ import me.drakeet.multitype.ItemViewBinder;
  * @author by sunfusheng on 2017/1/13.
  */
 public class GankView extends FrameLayout implements GankContract.View,
-        RecyclerViewWrapper.OnRequestListener,
+        RecyclerViewWrapper.OnLoadListener,
         RecyclerViewWrapper.OnScrollListener,
         SwipeRefreshLayout.OnDragOffsetListener {
 
@@ -71,7 +71,7 @@ public class GankView extends FrameLayout implements GankContract.View,
         tvTime.setTypeface(MainApplication.songTi);
         rlGirl.setVisibility(INVISIBLE);
 
-        recyclerViewWrapper.setOnRequestListener(this);
+        recyclerViewWrapper.setOnLoadListener(this);
         recyclerViewWrapper.setOnScrollListener(this);
         recyclerViewWrapper.getSwipeRefreshLayout().setOnDragOffsetListener(this);
 
@@ -118,16 +118,16 @@ public class GankView extends FrameLayout implements GankContract.View,
     }
 
     @Override
-    public void onRefresh() {
+    public void onLoad() {
         if (mPresenter != null) {
-            mPresenter.onRefresh();
+            mPresenter.onLoad();
         }
     }
 
     @Override
-    public void onLoadingMore() {
+    public void onLoadMore() {
         if (mPresenter != null) {
-            mPresenter.onLoadingMore();
+            mPresenter.onLoadMore();
         }
     }
 

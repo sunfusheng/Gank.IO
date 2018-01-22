@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
@@ -14,27 +15,31 @@
             android:layout_height="match_parent"/>
     </com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout>
 
-    <include
+    <com.sunfusheng.gank.widget.EmptyView
         android:id="@+id/loading_view"
-        layout="@layout/layout_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:showLoading="true"/>
 
-    <ViewStub
-        android:id="@+id/error_stub"
+    <com.sunfusheng.gank.widget.EmptyView
+        android:id="@+id/error_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/layout_error"/>
+        android:visibility="gone"
+        app:title="@string/loading_error_title"
+        app:detail="@string/loading_error_detail"
+        app:button="@string/loading_button"/>
 
-    <ViewStub
-        android:id="@+id/empty_stub"
+    <com.sunfusheng.gank.widget.EmptyView
+        android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/layout_empty"/>
+        android:visibility="gone"
+        app:title="@string/loading_empty_title"/>
 
     <com.sunfusheng.gank.widget.SwipeRefreshLayout.RefreshView
-        android:id="@+id/rv_loading"
+        android:id="@+id/loading_more_view"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="bottom|center"

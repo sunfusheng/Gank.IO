@@ -15,9 +15,9 @@ import me.drakeet.multitype.ItemViewBinder;
 public interface GankContract {
 
     interface Presenter extends BasePresenter {
-        void onRefresh();
+        void onLoad();
 
-        void onLoadingMore();
+        void onLoadMore();
     }
 
     interface View extends BaseView<Presenter> {

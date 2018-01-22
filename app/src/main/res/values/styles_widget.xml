@@ -21,10 +21,10 @@
         <item name="android:ellipsize">end</item>
         <item name="isRadiusAdjustBounds">true</item>
         <item name="backgroundColor">@color/transparent</item>
-        <item name="android:textColor">?attr/radius_button_text_color</item>
-        <item name="android:textSize">?attr/radius_button_text_size</item>
-        <item name="borderColor">?attr/radius_button_border_color</item>
-        <item name="borderWidth">?attr/radius_button_border_width</item>
+        <item name="android:textColor">@color/color_blue_selector</item>
+        <item name="android:textSize">15sp</item>
+        <item name="borderColor">@color/color_blue_selector</item>
+        <item name="borderWidth">1dp</item>
     </style>
 
 </resources>
