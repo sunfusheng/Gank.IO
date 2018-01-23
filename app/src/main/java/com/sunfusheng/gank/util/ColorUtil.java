@@ -7,11 +7,11 @@ import android.content.Context;
  */
 public class ColorUtil {
 
-
     // 合成新的颜色值
     public static int getNewColorByStartEndColor(Context context, float fraction, int startValue, int endValue) {
         return evaluate(fraction, context.getResources().getColor(startValue), context.getResources().getColor(endValue));
     }
+
     /**
      * 合成新的颜色值
      * @param fraction 颜色取值的级别 (0.0f ~ 1.0f)

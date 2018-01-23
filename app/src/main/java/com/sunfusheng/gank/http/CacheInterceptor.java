@@ -41,7 +41,7 @@ public class CacheInterceptor implements Interceptor {
                     .header("Cache-Control", cacheControl)
                     .build();
         } else {
-            int maxStale = 60 * 60 * 24 * 7; // 没网一周后失效
+            int maxStale = 60 * 60 * 24 * 30; // 没网一个月后失效
             return response.newBuilder()
                     .removeHeader("Pragma")
                     .removeHeader("Cache-Control")

@@ -1,5 +1,7 @@
 package com.sunfusheng.gank.util;
 
+import android.annotation.SuppressLint;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +10,7 @@ import java.util.Date;
 /**
  * Created by sunfusheng on 2017/1/17.
  */
+@SuppressLint("SimpleDateFormat")
 public class DateUtil {
 
     public static final String GANK_DATE_FORMAT = "yyyy-MM-dd";
