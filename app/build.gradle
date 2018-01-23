@@ -2,18 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 Properties prop = new Properties()
-prop.load(new FileInputStream(file("../signing.properties")))
+prop.load(new FileInputStream(file("../sign/signing.properties")))
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    compileSdkVersion gradle.compileSdkVersion
+    buildToolsVersion gradle.buildToolsVersion
 
     defaultConfig {
         applicationId "com.sunfusheng.gank"
-        minSdkVersion 14
-        targetSdkVersion 27
-        versionCode 6
-        versionName "1.5"
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
+        versionCode gradle.versionCode
+        versionName gradle.versionName
         multiDexEnabled true
     }
 
@@ -66,11 +66,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.android.support:design:27.0.2'
-    compile 'com.android.support:recyclerview-v7:27.0.2'
-    compile 'com.android.support:support-v4:27.0.2'
-    compile 'com.android.support:support-v13:27.0.2'
+    compile 'com.android.support:appcompat-v7:' + gradle.supportLibraryVersion
+    compile 'com.android.support:design:' + gradle.supportLibraryVersion
+    compile 'com.android.support:recyclerview-v7:' + gradle.supportLibraryVersion
+    compile 'com.android.support:support-v4:' + gradle.supportLibraryVersion
+    compile 'com.android.support:support-v13:' + gradle.supportLibraryVersion
 
     // Network
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
