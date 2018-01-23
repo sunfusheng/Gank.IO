@@ -6,11 +6,24 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.view.View;
 
+import com.jakewharton.rxbinding2.view.RxView;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.functions.Consumer;
+
 /**
  * @author sunfusheng on 2018/1/20.
  */
 @SuppressWarnings("deprecation")
 public class ViewUtil {
+
+    // 去掉重复点击
+    public static void singleClick(View view, Consumer<Object> consumer) {
+        RxView.clicks(view)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(consumer, Throwable::printStackTrace);
+    }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setBackgroundKeepingPadding(View view, Drawable drawable) {

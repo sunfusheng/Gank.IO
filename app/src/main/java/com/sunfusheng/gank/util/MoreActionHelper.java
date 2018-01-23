@@ -35,7 +35,7 @@ public class MoreActionHelper {
             return false;
         });
         MenuItem menuItem = popupMenu.getMenu().findItem(R.id.item_check_image);
-        if (!Util.isEmpty(gank.images)) {
+        if (!CollectionUtil.isEmpty(gank.images)) {
             menuItem.setVisible(true);
             menuItem.setTitle(context.getString(R.string.tip_check_image, gank.images.size()));
         } else {
@@ -49,7 +49,7 @@ public class MoreActionHelper {
     public static void copy(Context context, String content) {
         ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         manager.setText(content.trim());
-        ToastUtil.show(context, context.getString(R.string.tip_copy));
+        ToastUtil.toast(R.string.tip_copy);
     }
 
     // 系统分享

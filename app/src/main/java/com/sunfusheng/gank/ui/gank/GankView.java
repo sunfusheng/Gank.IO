@@ -10,13 +10,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.MainApplication;
+import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.ui.AboutActivity;
 import com.sunfusheng.gank.ui.ImagesActivity;
+import com.sunfusheng.gank.util.CollectionUtil;
 import com.sunfusheng.gank.util.DateUtil;
-import com.sunfusheng.gank.util.Util;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.LoadingStateDelegate;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.RecyclerViewWrapper;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
@@ -68,14 +68,14 @@ public class GankView extends FrameLayout implements GankContract.View,
         View view = inflater.inflate(R.layout.view_gank, this);
         ButterKnife.bind(this, view);
 
-        tvTime.setTypeface(MainApplication.songTi);
+        tvTime.setTypeface(App.songTi);
         rlGirl.setVisibility(INVISIBLE);
 
         recyclerViewWrapper.setOnLoadListener(this);
         recyclerViewWrapper.setOnScrollListener(this);
         recyclerViewWrapper.getSwipeRefreshLayout().setOnDragOffsetListener(this);
 
-        givGirl.setOnClickListener(v -> ImagesActivity.startActivity(givGirl.getContext(), MainApplication.girls, curGirl.url));
+        givGirl.setOnClickListener(v -> ImagesActivity.startActivity(givGirl.getContext(), App.girls, curGirl.url));
         ivAbout.setOnClickListener(v -> AboutActivity.startActivity(mContext));
     }
 
@@ -97,7 +97,7 @@ public class GankView extends FrameLayout implements GankContract.View,
 
     @Override
     public void onSuccess(List<Object> list, boolean isLoadMore) {
-        if (Util.isEmpty(list) && !isLoadMore) {
+        if (CollectionUtil.isEmpty(list) && !isLoadMore) {
             onEmpty();
             return;
         }

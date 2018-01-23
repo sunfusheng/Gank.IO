@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sunfusheng.gank.MainApplication;
+import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemTitle;
 
@@ -29,7 +29,7 @@ public class TitleItemViewBinder extends ItemViewBinder<GankItemTitle, TitleItem
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GankItemTitle item) {
-        holder.tvTitle.setTypeface(MainApplication.songTi);
+        holder.tvTitle.setTypeface(App.songTi);
         holder.tvTitle.setText(item.type + "");
     }
 

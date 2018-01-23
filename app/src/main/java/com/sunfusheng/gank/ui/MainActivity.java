@@ -8,7 +8,7 @@ import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.http.Api;
 import com.sunfusheng.gank.ui.gank.GankFragment;
-import com.sunfusheng.gank.util.Util;
+import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.util.ToastUtil;
 import com.sunfusheng.gank.util.update.UpdateHelper;
 
@@ -40,15 +40,14 @@ public class MainActivity extends BaseActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle())
-                .filter(it -> it != null)
-                .filter(it -> !TextUtils.isEmpty(it.version))
-                .filter(it -> Integer.parseInt(it.version) > Util.getVersionCode(this))
+                .filter(it -> it != null && !TextUtils.isEmpty(it.version))
+                .filter(it -> Integer.parseInt(it.version) > AppUtil.getAppVersionCode())
                 .subscribe(it -> updateHelper.dealWithVersion(it), Throwable::printStackTrace);
     }
 
     private void prepareForExiting() {
         lifecycle.throttleFirst(END_TIME_SECONDS, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .subscribe(it -> ToastUtil.show(this, getString(R.string.exit_tip)), Throwable::printStackTrace);
+                .subscribe(it -> ToastUtil.toast(R.string.exit_tip), Throwable::printStackTrace);
 
         lifecycle.compose(bindToLifecycle())
                 .timeInterval(AndroidSchedulers.mainThread())

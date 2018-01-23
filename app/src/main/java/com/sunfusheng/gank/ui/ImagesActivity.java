@@ -18,8 +18,9 @@ import android.widget.TextView;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
+import com.sunfusheng.gank.util.CollectionUtil;
 import com.sunfusheng.gank.util.ImageHelper;
-import com.sunfusheng.gank.util.Util;
+import com.sunfusheng.gank.util.ViewUtil;
 import com.sunfusheng.gank.widget.PhotoView.HackyViewPager;
 import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.sunfusheng.glideimageview.progress.CircleProgressView;
@@ -78,7 +79,7 @@ public class ImagesActivity extends BaseActivity {
 
     private void initData() {
         images = getIntent().getStringArrayListExtra("images");
-        if (Util.isEmpty(images)) {
+        if (CollectionUtil.isEmpty(images)) {
             finish();
         }
         String curImage = getIntent().getStringExtra("curImage");
@@ -111,7 +112,7 @@ public class ImagesActivity extends BaseActivity {
         });
         viewPager.setCurrentItem(curPos);
 
-        Util.singleClick(ivSave, o -> {
+        ViewUtil.singleClick(ivSave, o -> {
             imageHelper = new ImageHelper(mActivity);
             imageHelper.saveImage(images.get(curPos));
         });

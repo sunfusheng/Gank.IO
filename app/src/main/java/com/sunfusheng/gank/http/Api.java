@@ -2,7 +2,7 @@ package com.sunfusheng.gank.http;
 
 import com.sunfusheng.gank.BuildConfig;
 import com.sunfusheng.gank.Constants;
-import com.sunfusheng.gank.MainApplication;
+import com.sunfusheng.gank.util.AppUtil;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +33,7 @@ public class Api {
     }
 
     private void init() {
-        File cacheDir = new File(MainApplication.context.getCacheDir(), "HttpCache");
+        File cacheDir = new File(AppUtil.getApp().getCacheDir(), "HttpCache");
         Cache cache = new Cache(cacheDir, 1024 * 1024 * 20); // 20M
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()

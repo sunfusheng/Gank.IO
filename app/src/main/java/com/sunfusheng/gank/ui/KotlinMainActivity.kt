@@ -6,8 +6,8 @@ import com.sunfusheng.gank.R
 import com.sunfusheng.gank.base.BaseActivity
 import com.sunfusheng.gank.http.Api
 import com.sunfusheng.gank.ui.gank.GankFragment
+import com.sunfusheng.gank.util.AppUtil
 import com.sunfusheng.gank.util.ToastUtil
-import com.sunfusheng.gank.util.Util
 import com.sunfusheng.gank.util.update.UpdateHelper
 import com.sunfusheng.gank.util.update.VersionEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,13 +37,13 @@ class KotlinMainActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose<VersionEntity>(bindToLifecycle<VersionEntity>())
                 .filter { TextUtils.isEmpty(it.version) }
-                .filter { Integer.parseInt(it.version) > Util.getVersionCode(this) }
+                .filter { Integer.parseInt(it.version) > AppUtil.getAppVersionCode() }
                 .subscribe({ updateHelper.dealWithVersion(it) }, { it.printStackTrace() })
     }
 
     private fun prepareForExiting() {
         lifecycle.throttleFirst(END_TIME_SECONDS, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .subscribe({ ToastUtil.show(this, getString(R.string.exit_tip)) }, { it.printStackTrace() })
+                .subscribe({ ToastUtil.toast(R.string.exit_tip) }, { it.printStackTrace() })
 
         lifecycle.compose(bindToLifecycle<Any>())
                 .timeInterval(AndroidSchedulers.mainThread())

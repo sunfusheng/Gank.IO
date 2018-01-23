@@ -19,7 +19,7 @@ import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.ui.WebActivity;
 import com.sunfusheng.gank.util.MoreActionHelper;
-import com.sunfusheng.gank.util.Util;
+import com.sunfusheng.gank.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +51,7 @@ public class ContentItemViewBinder extends ItemViewBinder<GankItem, ContentItemV
             holder.tvDesc.setText(ssb);
         }
 
-        Util.singleClick(holder.rlGank, o -> {
+        ViewUtil.singleClick(holder.rlGank, o -> {
             WebActivity.startActivity(holder.tvDesc.getContext(), item);
         });
 

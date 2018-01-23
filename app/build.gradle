@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 Properties prop = new Properties()
-prop.load(new FileInputStream(file("../sign/signing.properties")))
+prop.load(new FileInputStream(file("../sign/sign.properties")))
 
 android {
     compileSdkVersion gradle.compileSdkVersion
