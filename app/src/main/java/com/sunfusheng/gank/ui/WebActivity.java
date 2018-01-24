@@ -82,7 +82,7 @@ public class WebActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.item_check_image:
-                ImagesActivity.startActivity(this, gank.images);
+                ImagesActivity.open(this, gank.images);
                 return true;
             case R.id.item_copy_url:
                 MoreActionHelper.copy(this, gank.url);

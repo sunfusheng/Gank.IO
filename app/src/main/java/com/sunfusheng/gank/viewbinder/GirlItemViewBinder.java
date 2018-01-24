@@ -40,7 +40,7 @@ public class GirlItemViewBinder extends ItemViewBinder<GankItemGirl, GirlItemVie
         holder.givGirl.loadImage(item.url, R.mipmap.she);
 
         ViewUtil.singleClick(holder.givGirl, o -> {
-            ImagesActivity.startActivity(holder.givGirl.getContext(), App.girls, item.url);
+            ImagesActivity.open(holder.givGirl.getContext(), App.girls, item.url);
         });
     }
 

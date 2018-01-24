@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
@@ -22,6 +22,7 @@ import com.sunfusheng.gank.util.CollectionUtil;
 import com.sunfusheng.gank.util.ImageHelper;
 import com.sunfusheng.gank.util.ViewUtil;
 import com.sunfusheng.gank.widget.PhotoView.HackyViewPager;
+import com.sunfusheng.gank.widget.RadiusWidget.RadiusButton;
 import com.sunfusheng.glideimageview.GlideImageLoader;
 import com.sunfusheng.glideimageview.progress.CircleProgressView;
 
@@ -38,31 +39,36 @@ public class ImagesActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
     HackyViewPager viewPager;
-    @BindView(R.id.tv_cur_position)
-    TextView tvCurPosition;
-    @BindView(R.id.tv_separator)
-    TextView tvSeparator;
-    @BindView(R.id.tv_sum_count)
-    TextView tvSumCount;
-    @BindView(R.id.rl_indicator)
-    RelativeLayout rlIndicator;
-    @BindView(R.id.iv_save)
-    ImageView ivSave;
+    @BindView(R.id.tv_index)
+    TextView tvIndex;
+    @BindView(R.id.btn_save)
+    RadiusButton btnSave;
 
     private List<String> images;
-    private int curPos = 0;
+    private int curIndex;
     private ImageHelper imageHelper;
 
-    public static void startActivity(Context context, ArrayList<String> images) {
-        Intent intent = new Intent(context, ImagesActivity.class);
-        intent.putStringArrayListExtra("images", images);
-        context.startActivity(intent);
+    public static void open(Context context, String image) {
+        if (TextUtils.isEmpty(image)) return;
+        ArrayList<String> images = new ArrayList<>();
+        images.add(image);
+        open(context, images, 0);
     }
 
-    public static void startActivity(Context context, ArrayList<String> images, String curImage) {
+    public static void open(Context context, ArrayList<String> images) {
+        open(context, images, 0);
+    }
+
+    public static void open(Context context, ArrayList<String> images, String curImage) {
+        if (CollectionUtil.isEmpty(images)) return;
+        open(context, images, images.indexOf(curImage));
+    }
+
+    public static void open(Context context, ArrayList<String> images, int curIndex) {
+        if (CollectionUtil.isEmpty(images)) return;
         Intent intent = new Intent(context, ImagesActivity.class);
         intent.putStringArrayListExtra("images", images);
-        intent.putExtra("curImage", curImage);
+        intent.putExtra("curIndex", curIndex);
         context.startActivity(intent);
     }
 
@@ -79,18 +85,19 @@ public class ImagesActivity extends BaseActivity {
 
     private void initData() {
         images = getIntent().getStringArrayListExtra("images");
-        if (CollectionUtil.isEmpty(images)) {
-            finish();
-        }
-        String curImage = getIntent().getStringExtra("curImage");
-        curPos = TextUtils.isEmpty(curImage) ? 0 : images.indexOf(curImage);
+        curIndex = getIntent().getIntExtra("curIndex", 0);
     }
 
     private void initView() {
-        rlIndicator.setVisibility((images.size() == 1) ? View.GONE : View.VISIBLE);
-        tvCurPosition.setText(String.valueOf(curPos + 1));
-        tvSumCount.setText(String.valueOf(images.size()));
+        refreshIndex(curIndex);
         viewPager.setAdapter(new PhotoViewAdapter(this, images));
+    }
+
+    private void refreshIndex(int index) {
+        curIndex = index;
+        tvIndex.setVisibility(images.size() == 1 ? View.GONE : View.VISIBLE);
+        tvIndex.setText((index + 1) + "/" + images.size());
+
     }
 
     private void initListener() {
@@ -101,8 +108,7 @@ public class ImagesActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                curPos = position;
-                tvCurPosition.setText(String.valueOf(position + 1));
+                refreshIndex(position);
                 viewPager.setTag(position);
             }
 
@@ -110,11 +116,11 @@ public class ImagesActivity extends BaseActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
-        viewPager.setCurrentItem(curPos);
+        viewPager.setCurrentItem(curIndex);
 
-        ViewUtil.singleClick(ivSave, o -> {
+        ViewUtil.singleClick(btnSave, o -> {
             imageHelper = new ImageHelper(mActivity);
-            imageHelper.saveImage(images.get(curPos));
+            imageHelper.saveImage(images.get(curIndex));
         });
     }
 
@@ -141,8 +147,9 @@ public class ImagesActivity extends BaseActivity {
             return mList.size();
         }
 
+        @NonNull
         @Override
-        public View instantiateItem(ViewGroup container, int position) {
+        public View instantiateItem(@NonNull ViewGroup container, int position) {
             LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_image_layout, null);
 
@@ -163,12 +170,12 @@ public class ImagesActivity extends BaseActivity {
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView((View) object);
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
     }

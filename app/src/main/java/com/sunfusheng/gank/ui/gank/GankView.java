@@ -75,7 +75,7 @@ public class GankView extends FrameLayout implements GankContract.View,
         recyclerViewWrapper.setOnScrollListener(this);
         recyclerViewWrapper.getSwipeRefreshLayout().setOnDragOffsetListener(this);
 
-        givGirl.setOnClickListener(v -> ImagesActivity.startActivity(givGirl.getContext(), App.girls, curGirl.url));
+        givGirl.setOnClickListener(v -> ImagesActivity.open(givGirl.getContext(), App.girls, curGirl.url));
         ivAbout.setOnClickListener(v -> AboutActivity.startActivity(mContext));
     }
 

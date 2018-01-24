@@ -23,7 +23,7 @@ public class MoreActionHelper {
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.item_check_image:
-                    ImagesActivity.startActivity(context, gank.images);
+                    ImagesActivity.open(context, gank.images);
                     return true;
                 case R.id.item_copy_url:
                     copy(context, gank.url);
