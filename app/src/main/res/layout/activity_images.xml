@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="12dp"
         android:gravity="center"
-        android:textColor="@color/transparent80_white"
+        android:textColor="@color/white"
         android:textSize="18sp"
         tools:text="1/5"/>
 

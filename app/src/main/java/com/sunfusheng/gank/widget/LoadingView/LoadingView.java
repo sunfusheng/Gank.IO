@@ -69,12 +69,9 @@ public class LoadingView extends View {
         requestLayout();
     }
 
-    private ValueAnimator.AnimatorUpdateListener mUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            mAnimateValue = (int) animation.getAnimatedValue();
-            invalidate();
-        }
+    private ValueAnimator.AnimatorUpdateListener mUpdateListener = animation -> {
+        mAnimateValue = (int) animation.getAnimatedValue();
+        invalidate();
     };
 
     public void start() {
@@ -100,6 +97,19 @@ public class LoadingView extends View {
         }
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(mSize, mSize);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        int saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
+        drawLoading(canvas, mAnimateValue * DEGREE_PER_LINE);
+        canvas.restoreToCount(saveCount);
+    }
+
     private void drawLoading(Canvas canvas, int rotateDegrees) {
         int width = mSize / 12, height = mSize / 6;
         mPaint.setStrokeWidth(width);
@@ -114,19 +124,6 @@ public class LoadingView extends View {
             canvas.drawLine(0, 0, 0, height, mPaint);
             canvas.translate(0, mSize / 2 - width / 2);
         }
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(mSize, mSize);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        int saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
-        drawLoading(canvas, mAnimateValue * DEGREE_PER_LINE);
-        canvas.restoreToCount(saveCount);
     }
 
     @Override
