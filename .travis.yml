@@ -1,21 +1,29 @@
 language: android
-sudo: false
+jdk: oraclejdk8
+sudo: true
 android:
   components:
   - build-tools-27.0.2
   - android-27
   - extra-android-m2repository
   - extra-android-support
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_9a063031b0d7_key -iv $encrypted_9a063031b0d7_iv
-  -in keystore.jks.enc -out sign/keystore.jks -d
+-in keystore.jks.enc -out sign/keystore.jks -d
 - chmod +x gradlew
+
 script:
 - "./gradlew assembleRelease"
+
 deploy:
   provider: releases
   api_key:
     secure: ntyufCVPP+/pQbFSLGUSpaUT1qh+LUzfSqIsOeuVFSSPVagwEC0CwAHYcW14GuO4x882F/KJK5PLjjCZZF3t4HpUIvot3MmT9l3xAFXxrCd9hNNNtF2sk9nAK/VDK/O91K507pI8LFexoFZf5gdRWYXLcPdIPNveVntEV2EBIkTIMjgw0VmK+sDBFuz05WmT6le6825iS5lkHcLtrJBDm4Pxf4LqbpiHklrmF7JLVtSRQS7EdPWR/Rhr94BkJB4W2zAFH3waIgOt6zD+MgA5Z0HOn1VXsIY8AUVCN4YspLTa7nlVnHWlIIOph5CCapywXdl4B6fw16ygShLWN/bAHYjg/6PbXZfg/YCk0P3oUPfflVLiBfjYKfPkPUq8HtvAPMRcnVCyO+LyWJysbmGYvcGN5rtmafXYtC2qCpNDAFbd3lSFV5z+PydiSvAugfUyKlfxfD/jlG8nU1ZMDBd39QnXfsgbzt1j9K+oBXadZXaIAzgGneSCmg8I5SSd7dDHbqXKrGKVyUH792D3ia6yvUX3AZZjwWJ0iXcgNfgxi0oH5k1PU/ftssxL+00Okwab6NwLLbmn8GlIwsGlbnOvrXdFZghCL196RY8rvPRa5bfFCBv67mqkDi8jb3RGtLKs7VEDSwjUntD//xcMiPDLQaW5lzJQYHiRJ9zsNYmK8/U=
-  file: https://github.com/sfsheng0322/RxGank/releases
+  file: app/build/outputs/apk/debug/Gank.IO.apk
   on:
     repo: sfsheng0322/RxGank
+
+notifications:
+  email:
+  - sfsheng0322@126.com

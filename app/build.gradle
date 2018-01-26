@@ -58,7 +58,10 @@ android {
             buildConfigField "boolean", "isDebug", "true"
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all {
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "Gank.IO.apk"
+                }
             }
         }
     }
