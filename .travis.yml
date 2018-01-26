@@ -1,0 +1,21 @@
+language: android
+sudo: false
+android:
+  components:
+  - build-tools-27.0.2
+  - android-27
+  - extra-android-m2repository
+  - extra-android-support
+before_install:
+- openssl aes-256-cbc -K $encrypted_9a063031b0d7_key -iv $encrypted_9a063031b0d7_iv
+  -in keystore.jks.enc -out sign/keystore.jks -d
+- chmod +x gradlew
+script:
+- "./gradlew assembleRelease"
+deploy:
+  provider: releases
+  api_key:
+    secure: G/m1uFfPOwsBZzZnS4vmAlxd0g5+m7Y+pNQUaUk1vmvXMpPXtMBsZBEo3KRnSaXSKOorHUQMwL5HntX502BuNRcUnbOXGS/1LznhmjN551ILcrNpx94m9QCI5/BpjHp+0W706PR93Ynerwc7BP8UKW8JQTVwpcEtlAg0iELaGMI/8iCMtCkMmhUd4+CGy5FSrWGvLdnUS5Gp7/grCKpDHwUZqVB2GLb7C0l9PsMFPtNzBkc9l8Jt8gjQVOS5DNaZuq76sEnvNPXdF0/rkGCxphFwNFQ/T9AmDOw8q6a2nZy5zbVd4/spW760CGV3yfFp3qRVJeO9lErCi4NeFvUk/iyudI0NZ3P0OWk+kBkLvwW7U5IeK8NaUCUJ4TQh86epwphUkxf+y8w7L4mcjuvLUV9LDGgf1vVOsAQRHVUpt0Z6FC1GCMqZ5SseEIu5wGXYFqzLuC9HoNnJIv+qIjWJ11ES/hrr1/P9iknlCPpB3iNhObi5RLe2I1V8lW7p9/0s2+FshkuGBCsctLfN7IeWD47svEqNVJ3ZQf2yORBegw6UZSpYak/gj66cfdneTw1lxkKlOe8yihwpdCntizsPvT+Z3sDBT3Emc+OgVvIWnntjf52i5lsxsrlK9WApeDw/zS4BwYlbNxbVdfyrAz8IA6h/j65CoaIriGOU6rZttOA=
+  file: ''
+  on:
+    repo: sfsheng0322/RxGank
