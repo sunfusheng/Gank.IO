@@ -38,7 +38,7 @@ public class LoadingView extends View {
     public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.LoadingView, defStyleAttr, 0);
-        mPaintColor = array.getInt(R.styleable.LoadingView_ViewColor, Color.GRAY);
+        mPaintColor = array.getInt(R.styleable.LoadingView_viewColor, Color.GRAY);
         mSize = array.getDimensionPixelSize(R.styleable.LoadingView_viewSize, DisplayUtil.dp2px(context, 32));
         array.recycle();
         initPaint();

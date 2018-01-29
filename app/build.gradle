@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'me.tatarka.retrolambda'
+
+retrolambda {
+    javaVersion JavaVersion.VERSION_1_6
+}
 
 Properties prop = new Properties()
 prop.load(new FileInputStream(file("../sign/sign.properties")))
@@ -48,8 +53,12 @@ android {
             signingConfig signingConfigs.release // apk签名
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "Gank.IO_V${android.defaultConfig.versionName}.apk"
+//                variant.outputs.all {
+//                    outputFileName = "Gank.IO_V${android.defaultConfig.versionName}.apk"
+//                }
+
+                variant.outputs.each { output ->
+                    output.outputFile = new File(output.outputFile.parent, "Gank.IO-V" + android.defaultConfig.versionName + ".apk")
                 }
             }
         }
@@ -59,8 +68,12 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "Gank.IO.apk"
+//                variant.outputs.all {
+//                    outputFileName = "Gank.IO.apk"
+//                }
+
+                variant.outputs.each { output ->
+                    output.outputFile = new File(output.outputFile.parent, "Gank.IO.apk")
                 }
             }
         }

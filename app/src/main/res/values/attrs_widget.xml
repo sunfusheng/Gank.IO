@@ -8,7 +8,7 @@
 
 
     <declare-styleable name="LoadingView">
-        <attr name="ViewColor"/>
+        <attr name="viewColor"/>
         <attr name="viewSize"/>
     </declare-styleable>
 
