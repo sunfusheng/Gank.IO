@@ -6,22 +6,24 @@ android:
   - tools
   - platform-tools
   - tools
-  - build-tools-27.0.2
+  - build-tools-27.0.3
   - android-27
-  - extra
-  - extra-google-google_play_services
-  - extra-google-m2repository
+  - android-22
+  - sys-img-armeabi-v7a-android-22
+  - extra-android-support
   - extra-android-m2repository
-  - addon-google_apis-google-27
-  - sys-img-armeabi-v7a-android-27
+  - extra-google-m2repository
+  - extra
+  licenses:
+  - android-sdk-license-.+
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    - $HOME/.gradle
 before_install:
+- "sudo apt-get update"
 - openssl aes-256-cbc -K $encrypted_9a063031b0d7_key -iv $encrypted_9a063031b0d7_iv
   -in keystore.jks.enc -out sign/keystore.jks -d
 - chmod +x gradlew
