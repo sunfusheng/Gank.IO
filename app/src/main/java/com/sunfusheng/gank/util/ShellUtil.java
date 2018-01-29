@@ -132,7 +132,7 @@ public class ShellUtil {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            CloseUtil.close(os, successResult, errorResult);
+            IoUtil.close(os, successResult, errorResult);
             if (process != null) {
                 process.destroy();
             }

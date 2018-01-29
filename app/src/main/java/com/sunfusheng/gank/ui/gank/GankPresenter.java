@@ -77,7 +77,7 @@ public class GankPresenter implements GankContract.Presenter {
                 .map(this::flatGankDay2List)
                 .takeUntil(lifecycle)
                 .subscribe(list -> {
-                    if (CollectionUtil.isNotEmpty(list)) {
+                    if (!CollectionUtil.isEmpty(list)) {
                         mList.addAll(list);
                         mRequestParams.onSuccess();
                     } else {
@@ -96,7 +96,7 @@ public class GankPresenter implements GankContract.Presenter {
             getGankDayList(isLoadMore);
         } else {
             mRequestParams.onComplete();
-            if (CollectionUtil.isNotEmpty(mList)) {
+            if (!CollectionUtil.isEmpty(mList)) {
                 processGirls(mList);
                 mView.onSuccess(mList, isLoadMore);
             } else {
@@ -108,26 +108,26 @@ public class GankPresenter implements GankContract.Presenter {
     private List<Object> flatGankDay2List(GankDay gankDay) {
         List<Object> list = new ArrayList<>();
         GankDayResults results = gankDay.results;
-        if (CollectionUtil.isNotEmpty(results.福利)) {
+        if (!CollectionUtil.isEmpty(results.福利)) {
             list.addAll(results.福利);
         }
-        if (CollectionUtil.isNotEmpty(results.Android)) {
+        if (!CollectionUtil.isEmpty(results.Android)) {
             list.add(new GankItemTitle(results.Android.get(0)));
             list.addAll(results.Android);
         }
-        if (CollectionUtil.isNotEmpty(results.iOS)) {
+        if (!CollectionUtil.isEmpty(results.iOS)) {
             list.add(new GankItemTitle(results.iOS.get(0)));
             list.addAll(results.iOS);
         }
-        if (CollectionUtil.isNotEmpty(results.App)) {
+        if (!CollectionUtil.isEmpty(results.App)) {
             list.add(new GankItemTitle(results.App.get(0)));
             list.addAll(results.App);
         }
-        if (CollectionUtil.isNotEmpty(results.瞎推荐)) {
+        if (!CollectionUtil.isEmpty(results.瞎推荐)) {
             list.add(new GankItemTitle(results.瞎推荐.get(0)));
             list.addAll(results.瞎推荐);
         }
-        if (CollectionUtil.isNotEmpty(results.休息视频)) {
+        if (!CollectionUtil.isEmpty(results.休息视频)) {
             list.add(new GankItemTitle(results.休息视频.get(0)));
             list.addAll(results.休息视频);
         }

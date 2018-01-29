@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle())
                 .filter(it -> it != null && !TextUtils.isEmpty(it.version))
-                .filter(it -> Integer.parseInt(it.version) > AppUtil.getAppVersionCode())
+                .filter(it -> Integer.parseInt(it.version) > AppUtil.getVersionCode())
                 .subscribe(it -> updateHelper.dealWithVersion(it), Throwable::printStackTrace);
     }
 

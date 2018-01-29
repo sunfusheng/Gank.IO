@@ -1,8 +1,6 @@
 package com.sunfusheng.gank.util.update;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.util.AppUtil;
@@ -52,7 +50,7 @@ public class UpdateHelper {
     }
 
     public void dealWithVersion(final VersionEntity entity) {
-        String content = entity.changelog + "\n\n下载(V" + entity.versionShort + ")替换当前版本(" + AppUtil.getAppVersionName() + ")?";
+        String content = entity.changelog + "\n\n下载(V" + entity.versionShort + ")替换当前版本(" + AppUtil.getVersionName() + ")?";
         new CommonDialog(mActivity).show(
                 mActivity.getString(R.string.update_app),
                 content,
@@ -69,6 +67,8 @@ public class UpdateHelper {
     public void download(String url) {
         RxPermissions rxPermissions = new RxPermissions(mActivity);
         rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(granted -> {
                     if (!granted) {
                         ToastUtil.toast("您已禁止了写数据权限");
@@ -105,19 +105,11 @@ public class UpdateHelper {
                                     @Override
                                     public void onComplete() {
                                         mDialog.dismiss();
-                                        installPackage(apkPathName);
+                                        AppUtil.installApk(apkPathName);
                                     }
                                 });
                     }
                 });
     }
 
-    // 安装应用
-    private void installPackage(String apkPathName) {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(apkPathName)), "application/vnd.android.package-archive");
-        mActivity.startActivity(intent);
-    }
 }

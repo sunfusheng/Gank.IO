@@ -6,13 +6,18 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 
-import java.lang.ref.WeakReference;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Stack;
 
@@ -24,24 +29,20 @@ public class AppUtil {
 
     private static Application application;
     private static Context context;
-    private static WeakReference<Activity> topActivityWeakRef;
-    private static Stack<Activity> activityStack = new Stack<Activity>();
+    private static Stack<Activity> activityStack = new Stack<>();
 
     private static ActivityLifecycleCallbacks activityLifecycleCallbacks = new ActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(Activity activity, Bundle bundle) {
             activityStack.push(activity);
-            setTopActivity(activity);
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-            setTopActivity(activity);
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
-            setTopActivity(activity);
         }
 
         @Override
@@ -93,29 +94,15 @@ public class AppUtil {
         System.exit(0);
     }
 
-    private static void setTopActivity(final Activity activity) {
-        if (activity == null) return;
-        if (topActivityWeakRef == null || !activity.equals(topActivityWeakRef.get())) {
-            topActivityWeakRef = new WeakReference<>(activity);
-        }
-    }
-
-    public static Activity getTopActivity() {
-        if (topActivityWeakRef != null) {
-            topActivityWeakRef.get();
-        }
-        return null;
-    }
-
-    public static String getAppPackageName() {
+    public static String getPackageName() {
         return getApp().getPackageName();
     }
 
-    public static String getAppName() {
-        return getAppName(getApp().getPackageName());
+    public static String getName() {
+        return getName(getApp().getPackageName());
     }
 
-    public static String getAppName(final String packageName) {
+    public static String getName(final String packageName) {
         try {
             PackageManager pm = getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
@@ -126,11 +113,11 @@ public class AppUtil {
         }
     }
 
-    public static Drawable getAppIcon() {
-        return getAppIcon(getApp().getPackageName());
+    public static Drawable getIcon() {
+        return getIcon(getApp().getPackageName());
     }
 
-    public static Drawable getAppIcon(final String packageName) {
+    public static Drawable getIcon(final String packageName) {
         try {
             PackageManager pm = getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
@@ -141,26 +128,26 @@ public class AppUtil {
         }
     }
 
-    public static String getAppPath() {
-        return getAppPath(getApp().getPackageName());
+    public static int getVersionCode() {
+        return getVersionCode(getPackageName());
     }
 
-    public static String getAppPath(final String packageName) {
+    public static int getVersionCode(final String packageName) {
         try {
             PackageManager pm = getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
-            return pi == null ? null : pi.applicationInfo.sourceDir;
+            return pi == null ? -1 : pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return -1;
         }
     }
 
-    public static String getAppVersionName() {
-        return getAppVersionName(getApp().getPackageName());
+    public static String getVersionName() {
+        return getVersionName(getPackageName());
     }
 
-    public static String getAppVersionName(final String packageName) {
+    public static String getVersionName(final String packageName) {
         try {
             PackageManager pm = getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
@@ -171,18 +158,18 @@ public class AppUtil {
         }
     }
 
-    public static int getAppVersionCode() {
-        return getAppVersionCode(getApp().getPackageName());
+    public static String getPath() {
+        return getPath(getApp().getPackageName());
     }
 
-    public static int getAppVersionCode(final String packageName) {
+    public static String getPath(final String packageName) {
         try {
             PackageManager pm = getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
-            return pi == null ? -1 : pi.versionCode;
+            return pi == null ? null : pi.applicationInfo.sourceDir;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return -1;
+            return null;
         }
     }
 
@@ -204,6 +191,33 @@ public class AppUtil {
             }
         }
         return false;
+    }
+
+    public static void installApk(String apkPath) {
+        if (TextUtils.isEmpty(apkPath)) {
+            return;
+        }
+
+        try {
+            File apkFile = new File(apkPath);
+            if (!apkFile.exists()) {
+                throw new FileNotFoundException("Apk file does not exist!");
+            }
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Uri apkUri;
+            if (OsVersionUtil.hasN()) {
+                apkUri = FileProvider.getUriForFile(getContext(), getPackageName() + ".file_provider", apkFile);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } else {
+                apkUri = Uri.fromFile(apkFile);
+            }
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            getContext().startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
