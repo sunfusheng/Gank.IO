@@ -78,7 +78,6 @@ task copApk(type: Copy) {
     copy {
         from fromFile
         into intoFile
-
         rename {
             fileName
         }
