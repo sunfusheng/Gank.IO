@@ -31,6 +31,7 @@ before_install:
 - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
 - openssl aes-256-cbc -K $encrypted_9a063031b0d7_key -iv $encrypted_9a063031b0d7_iv
   -in keystore.jks.enc -out sign/keystore.jks -d
+- gem install fir-cli
 before_script:
   - chmod +x gradlew
 script:
@@ -40,8 +41,13 @@ deploy:
   api_key:
     secure: IRBf/+lCOPamiiGVQhyDg5AgvdgUyal5HNtDYVv6FdtvaH8n5/Tp40eTXOE4dJ2exK4+IRybatkmaPI7eOcLPRm3Fz9ZsawQwLSQNgNig0k7+iy3FdwVTPTSfq+pCQ+5ljLD2hAukT5Lejq+HmrSfnU3zFBxU4ekWQo8g41+EJDrZVL/xDE7vnpkohoeaPA0NDWr2Sl9vhmT+k8Whiuxi0yLpP8h7WXSQLP//p6TPiX+9ojNOIPJfDlypEWe9+hiASIRaC/XmIh6do15btCWUmj3+mwiR88Zzw3UKYVtotdYdjam2iFJx4mjEvDbJf634QLfcWzbnoqwgnHprIBDx+EhYRTPOZ/shIdyubEGanYU/9z9BLwWdejAqzua2bbf7GfPN10+mwxdfVUYOA9R6wO2NyFb/T40w5nKK4gaNn6N1RJFA9gSGpX+T6DVWGy9MzzJcVFhhuzub5dtBm4rKw1QhV4mpZFjz4F1Nbehkn0mHCj+fNYB/6XfEli4lv44TLKGjMJ9BvZjdop9NwAkar90moEx6IMSzwTlU/8q8J3fhvK5Mm49iZpMNXaB7nBv3XMTWH918Dl1JxaaJDN+udFawJoqR6/ZcOsu2Zuyi9sAZANdVuQDrWAZWUu/uN0tocnUJ3jb9VpKhJ6wJfCco/7nfbN5lGOYwIFQI6Bed44=
   file: app/release/Gank.IO.apk
+  skip_cleanup: false
   on:
     repo: sfsheng0322/RxGank
+    tags: true
+    all_branches: true
+after_deploy:
+- fir p app/release/Gank.IO.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
 notifications:
   email:
   - sfsheng0322@126.com
