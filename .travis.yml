@@ -1,6 +1,6 @@
 language: android
 jdk: oraclejdk8
-sudo: true
+sudo: false
 android:
   components:
   - tools
@@ -13,6 +13,14 @@ android:
   - extra-google-m2repository
   - extra-android-m2repository
   - addon-google_apis-google-27
+  - sys-img-armeabi-v7a-android-27
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 before_install:
 - openssl aes-256-cbc -K $encrypted_9a063031b0d7_key -iv $encrypted_9a063031b0d7_iv
   -in keystore.jks.enc -out sign/keystore.jks -d
