@@ -15,17 +15,17 @@ android:
   - add-on
   - extra
   licenses:
-  - 'android-sdk-preview-license-52d11cd2'
-  - 'android-sdk-license-.+'
-  - 'google-gdk-license-.+'
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 before_install:
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
@@ -38,14 +38,14 @@ script:
 - "./gradlew assembleRelease"
 deploy:
   provider: releases
-    api_key:
-      secure: clMUevnDIFVQj2sv8qdJz/H08Y6EBPMIyZQeYN5008wNoJu9NWokZO88dLi0t+qNhQ47J+D6YNCbsS8aFyFUELpOy+f/0xKqS7L1UMzIbDp/qHcPQThHck0oRl9iWkMJZ9iDdjob2p9yb77a15qKztxEKL+54tXRl6hBcymrY0Jmafpmn0nJtIu9WMBBWic85wQ716dQXjLd+ai/5ev8FXDD3gv9zQpM7wa7gpxsATizGTqG4SR+eJKv2RdbLgxdGbLpmuj1Ni7Ljq9T9g6PFmA/FQGpaMfTdt+j/p7Y2G2RYssvgiQUP1/6jR3F3nyxOCagmzV6LQHRtTvSYUuHPI0i3BC6ddzdh09QE/h4LrRCmDFbsITS5jRuL1rEGyDY+3X+/iBonAf4ec4vW3PA2zjErzdxuZz6g1x7JXqI5TS8yxSJmSwTG55LK8Nn5UUB9yLk7wXrjKpoAABTjXeVprjW9ez3vJB2o8faFbY+CIr3locSFfC0TEF6bDbKMyRIaK92Djfk1pZO6h6KKyRPWrQ1GoHsQPRKjHbpMZXrN0eoa0SoIUduk/b1vodFfKaZCb23YpNqMCvWNxjgxtotxaNr2XSRdU6SpAIyPm5cRGgHzzqpCz34JQp0R4UBvnKEu9W4HDhqcj4U93QHjpBdsmWxj919HxI+NKjDXtKV5sI=
-    file: app/outputs/Gank.IO.apk
-    skip_cleanup: true
-    on:
-      repo: sfsheng0322/RxGank
-      tags: true
-      all_branches: true
+  api_key:
+    secure: W8oDAIn5G+QG/xT0AmxJZ5QcGGWdOB8ovF5uRdTZWOhG/p9b5jEjF6cHyFLLh3uAshL/iHouI+3fMr9Vk/Q7jFZKbws1tX/kCK9RezhERTIpWN/Q4+lV61YZi7+8GKo72L4RAAlrGQT5wKrr8cxfmyojmfLXiKjL6Vd0wXNa1mLnFPeAJaD8fQiw4UcJfenwJbqkXnJBkU/BbDQTLrH+IHw1b7SZ7uFYKEYEnQn8ktW7+2J1+EKf24yzkCrsutE4a/cAUOQPW4TBW8qMoXr9cwUvV33b/glIhg6fIfJVe5aIo+P+nNUpXmBfB9oPT7tGKAPLgw5Os4GyupRESUwO73/TJe9YD7kiM/Oml1h809mGj1vQJqv+QbIm1UoUYWw4PsDJXCGm0NhLBEr6YzCW7O+q8Zn5Vj0KTsBRyrpNaUkqQaDmTV5OyO9ViapflQQ5VnICAJCI+FkFda7E7d9nvLivAfQ0vWhANSwMo1KEBsOWqxay+KOO3DHtUVGwn4DXVVdWTQqFgPetS1/u+RLrZ062c6XmMvT9MbhudwCYC9avhim5eMpmjqbPrqVqIDWcw6gL+mYR88KbLlmJZCIM/v7W+WzeE+sSsBmp8WH95jE7rPviassWnspIrRjn9H3sTi5oxfeC4tqHM3hvYRrJ/9Fh9HA3cA0V2lQKpV6gs08=
+  file: app/outputs/Gank.IO.apk
+  skip_cleanup: true
+  on:
+    repo: sfsheng0322/RxGank
+    tags: true
+    all_branches: true
 after_deploy:
 - fir p app/outputs/Gank.IO.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
 notifications:
