@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
-Properties prop = new Properties()
-prop.load(new FileInputStream(file("../sign/sign.properties")))
+Properties properties = new Properties()
+properties.load(new FileInputStream(file("../sign/sign.properties")))
 
 android {
     compileSdkVersion gradle.compileSdkVersion
@@ -36,34 +36,39 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(prop['KEYSTORE_FILEPATH'])
-            storePassword prop['STORE_PASSWORD']
-            keyAlias prop['KEY_ALIAS']
-            keyPassword prop['KEY_PASSWORD']
+            storeFile file(properties['KEYSTORE_FILEPATH'])
+            storePassword properties['STORE_PASSWORD']
+            keyAlias properties['KEY_ALIAS']
+            keyPassword properties['KEY_PASSWORD']
         }
     }
 
     buildTypes {
         release {
-            buildConfigField "boolean", "isDebug", "false"
+            buildConfigField "boolean", "debugMode", "false"
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "Gank.IO.apk"
-                }
+            applicationVariants.all {
+                variant -> generateApk(variant)
             }
         }
 
         debug {
-            buildConfigField "boolean", "isDebug", "true"
+            buildConfigField "boolean", "debugMode", "true"
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "Gank.IO.apk"
-                }
+            applicationVariants.all {
+                variant -> generateApk(variant)
             }
+        }
+    }
+}
+
+def generateApk(variant) {
+    if (variant.buildType.name == "release") {
+        variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/app/outputs")
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+            apkData.outputFileName = "Gank.IO.apk"
         }
     }
 }

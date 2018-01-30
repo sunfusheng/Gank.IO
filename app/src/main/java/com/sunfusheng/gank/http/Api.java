@@ -42,7 +42,7 @@ public class Api {
                 .addNetworkInterceptor(new CacheInterceptor())
                 .cache(cache);
 
-        if (BuildConfig.isDebug) {
+        if (BuildConfig.debugMode) {
             builder.addInterceptor(new LogInterceptor());
         }
 
