@@ -38,7 +38,7 @@ public class AboutActivity extends BaseActivity {
     @BindView(R.id.appBarLayout)
     AppBarLayout appBarLayout;
 
-    private String url = "file:///android_asset/about_rxgank.html";
+    private String url = "file:///android_asset/about.html";
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, AboutActivity.class);

@@ -1,8 +1,8 @@
-## RxGank
+## Gank.IO
 
 干货集中营Android客户端
 
-感谢代码家的[Gank.IO](http://gank.io/)，每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。
+代码家的[Gank.IO](http://gank.io/)，持续分享技术干货和妹子图，还有供大家休息的休闲视频。
 
 <br/>
 
@@ -12,7 +12,7 @@
 
 <br/>
 
-### 扫一扫[Fir.im](https://fir.im/RxGank)下载APK
+### 扫一扫[Fir.im](https://fir.im/RxGank)二维码下载APK
 
 <img src="/resources/fir.im.png" style="width: 30%;" alt="s">
 
