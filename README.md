@@ -8,7 +8,7 @@
 
 ### Gif效果
 
-<img src="/res/RxGank.gif" style="width: 30%;">
+<img src="/resources/RxGank.gif" style="width: 30%;">
 
 <br/>
 
@@ -16,14 +16,17 @@
 
 <table>
     <tr>
-        <td><img src="/res/image1.png" style="width: 30%;"></td>
-        <td><img src="/res/image2.png" style="width: 30%;"></td>
+        <td><img src="/resources/image1.png" style="width: 30%;"></td>
+        <td><img src="/resources/image2.png" style="width: 30%;"></td>
     </tr>
 </table>
 
 <br/>
 
-### [APK下载地址](https://fir.im/RxGank)
+### [Fir.im 下载地址](https://fir.im/RxGank)
+
+扫一扫下载  
+<img src="/resources/fir.im.png" style="width: 30%;" alt="s">
 
 <br/>
 
@@ -42,7 +45,7 @@
 
 ### 微信公众号
 
-<img src="/res/微信公众号.jpg" style="width: 30%;">
+<img src="/resources/微信公众号.jpg" style="width: 30%;">
 
 ### 关于我
 

@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
-Properties properties = new Properties()
-properties.load(new FileInputStream(file("../sign/sign.properties")))
+Properties signingProperties = new Properties()
+signingProperties.load(new FileInputStream(file("../signings/signing.properties")))
 
 android {
     compileSdkVersion gradle.compileSdkVersion
@@ -36,10 +36,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(properties['KEYSTORE_FILEPATH'])
-            storePassword properties['STORE_PASSWORD']
-            keyAlias properties['KEY_ALIAS']
-            keyPassword properties['KEY_PASSWORD']
+            storeFile file(signingProperties['KEYSTORE_FILEPATH'])
+            storePassword signingProperties['STORE_PASSWORD']
+            keyAlias signingProperties['KEY_ALIAS']
+            keyPassword signingProperties['KEY_PASSWORD']
         }
     }
 
