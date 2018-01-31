@@ -6,23 +6,15 @@
 
 <br/>
 
-### Gif效果
+### 预览图
 
 <img src="/resources/res1.gif" style="width: 30%;">
 
 <br/>
 
-### 截屏图
-
-<img src="/resources/res2.png" style="width: 30%;">
-
-<br/>
-
-### [Fir.im下载地址](https://fir.im/RxGank)
+### 扫一扫[Fir.im](https://fir.im/RxGank)下载APK
 
 <img src="/resources/fir.im.png" style="width: 30%;" alt="s">
-
-扫一扫下载APK
 
 <br/>
 
@@ -32,8 +24,8 @@
 
 ### 关于我
 
-个人邮箱：sfsheng0322@126.com  
-[GitHub主页](https://github.com/sfsheng0322)  
+[GitHub: sfsheng0322](https://github.com/sfsheng0322)  
+[个人邮箱: sfsheng0322@126.com]()  
+[个人博客: sunfusheng.com](http://sunfusheng.com/)  
 [简书主页](http://www.jianshu.com/users/88509e7e2ed1/latest_articles)  
-[个人博客](http://sunfusheng.com/)  
 [新浪微博](http://weibo.com/u/3852192525) 
