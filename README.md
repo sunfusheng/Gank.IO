@@ -8,44 +8,27 @@
 
 ### Gif效果
 
-<img src="/resources/RxGank.gif" style="width: 30%;">
+<img src="/resources/res1.gif" style="width: 30%;">
 
 <br/>
 
 ### 截屏图
 
-<table>
-    <tr>
-        <td><img src="/resources/image1.png" style="width: 30%;"></td>
-        <td><img src="/resources/image2.png" style="width: 30%;"></td>
-    </tr>
-</table>
+<img src="/resources/res2.png" style="width: 30%;">
 
 <br/>
 
-### [Fir.im 下载地址](https://fir.im/RxGank)
+### [Fir.im下载地址](https://fir.im/RxGank)
 
-扫一扫下载  
 <img src="/resources/fir.im.png" style="width: 30%;" alt="s">
 
+扫一扫下载APK
+
 <br/>
 
-### 主要开源库
+### 个人公众号
 
-[RxJava](https://github.com/ReactiveX/RxJava)  
-[RxLifecycle](https://github.com/trello/RxLifecycle)  
-[RxDownload](https://github.com/ssseasonnn/RxDownload)  
-[RxPermissions](https://github.com/tbruyelle/RxPermissions)  
-[RxBinding](https://github.com/JakeWharton/RxBinding)  
-[OkHttp3](https://github.com/square/okhttp)  
-[Retrofit2](https://github.com/square/retrofit)  
-[Glide](https://github.com/bumptech/glide)  
-[PhotoView](https://github.com/chrisbanes/PhotoView)  
-[MultiType](https://github.com/drakeet/MultiType)   
-
-### 微信公众号
-
-<img src="/resources/微信公众号.jpg" style="width: 30%;">
+<img src="/resources/wechat.jpg" style="width: 30%;">
 
 ### 关于我
 
