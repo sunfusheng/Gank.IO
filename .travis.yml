@@ -55,7 +55,7 @@ deploy:
     all_branches: true
 
 after_deploy:
-- fir p app/outputs/Gank.IO.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
+- fir publish app/outputs/Gank.IO.apk -T $FIR_TOKEN -c "干货集中营Android客户端"
 
 notifications:
   email:

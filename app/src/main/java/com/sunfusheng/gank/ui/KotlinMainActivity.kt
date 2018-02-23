@@ -1,23 +1,19 @@
 package com.sunfusheng.gank.ui
 
 import android.os.Bundle
-import android.text.TextUtils
+import com.sunfusheng.FirUpdater
+import com.sunfusheng.gank.Constants
 import com.sunfusheng.gank.R
 import com.sunfusheng.gank.base.BaseActivity
-import com.sunfusheng.gank.http.Api
 import com.sunfusheng.gank.ui.gank.GankFragment
-import com.sunfusheng.gank.util.AppUtil
 import com.sunfusheng.gank.util.ToastUtil
-import com.sunfusheng.gank.util.update.UpdateHelper
-import com.sunfusheng.gank.util.update.VersionEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+
 
 class KotlinMainActivity : BaseActivity() {
 
     private val END_TIME_SECONDS: Long = 2
-    private var updateHelper: UpdateHelper = UpdateHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +28,7 @@ class KotlinMainActivity : BaseActivity() {
     }
 
     private fun checkVersion() {
-        Api.getInstance().apiService.checkVersion()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose<VersionEntity>(bindToLifecycle<VersionEntity>())
-                .filter { !TextUtils.isEmpty(it.version) }
-                .filter { Integer.parseInt(it.version) > AppUtil.getVersionCode() }
-                .subscribe({ updateHelper.dealWithVersion(it) }, { it.printStackTrace() })
+        FirUpdater(this, Constants.FIR_IM_API_TOKEN, Constants.FIR_IM_APP_ID).checkVersion()
     }
 
     private fun prepareForExiting() {
@@ -53,7 +43,6 @@ class KotlinMainActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        updateHelper.unInit()
         super.onDestroy()
     }
 
