@@ -1,4 +1,4 @@
-## Gank.IO
+# Gank.IO
 
 干货集中营Android客户端
 
@@ -18,13 +18,17 @@
 
 <br/>
 
-### 关注我吧，让我们做朋友^_^
+### 个人微信公众号
 
-<img src="http://ourvm0t8d.bkt.clouddn.com/follow_me.png">
+<img src="http://ourvm0t8d.bkt.clouddn.com/wx_gongzhonghao.png">
 
-### 打个赏吧，给作者加点油^_^
+<br/>
 
-<img src="http://ourvm0t8d.bkt.clouddn.com/reward_me.png" >
+### 打点赏给作者加点油^_^
+
+<img src="http://ourvm0t8d.bkt.clouddn.com/wx_shoukuanma.png" >
+
+<br/>
 
 ### 关于我
 
