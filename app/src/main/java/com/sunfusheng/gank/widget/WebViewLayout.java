@@ -120,8 +120,6 @@ public class WebViewLayout extends RelativeLayout {
 
             }
         });
-
-
     }
 
     public void loadUrl(String url) {
