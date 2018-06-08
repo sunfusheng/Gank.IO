@@ -21,10 +21,10 @@ public class SpannableUtil {
         }
 
         SpannableString spannableString = new SpannableString(wholeText);
-        int index = wholeText.indexOf(targetText);
-        if (index != -1) {
-            spannableString.setSpan(new ForegroundColorSpan(targetTextColor),
-                    index, index + targetText.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        int startIndex = wholeText.indexOf(targetText);
+        if (startIndex != -1) {
+            int endIndex = startIndex + targetText.length();
+            spannableString.setSpan(new ForegroundColorSpan(targetTextColor), startIndex, endIndex, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         }
         return spannableString;
     }
