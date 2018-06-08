@@ -2,12 +2,7 @@ package com.sunfusheng.gank.viewbinder;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +14,7 @@ import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItem;
 import com.sunfusheng.gank.ui.WebActivity;
 import com.sunfusheng.gank.util.MoreActionHelper;
+import com.sunfusheng.gank.util.SpannableUtil;
 import com.sunfusheng.gank.util.ViewUtil;
 
 import butterknife.BindView;
@@ -42,13 +38,10 @@ public class ContentItemViewBinder extends ItemViewBinder<GankItem, ContentItemV
         if (TextUtils.isEmpty(item.who)) {
             holder.tvDesc.setText(item.desc);
         } else {
-            int start = item.desc.length();
-            int end = start + item.who.length() + 3;
-            int color = holder.tvDesc.getContext().getResources().getColor(R.color.md_grey_400);
-            SpannableStringBuilder ssb = new SpannableStringBuilder(item.desc + " - " + item.who);
-            ssb.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-            ssb.setSpan(new RelativeSizeSpan(0.85f), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.tvDesc.setText(ssb);
+            String wholeText = item.desc + " - " + item.who;
+            String targetText = " - " + item.who;
+            int targetTextColor = holder.tvDesc.getContext().getResources().getColor(R.color.md_grey_400);
+            holder.tvDesc.setText(SpannableUtil.getSpannableString(wholeText, targetText, targetTextColor));
         }
 
         ViewUtil.singleClick(holder.rlGank, o -> {

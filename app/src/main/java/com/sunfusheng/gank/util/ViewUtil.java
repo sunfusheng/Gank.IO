@@ -1,5 +1,6 @@
 package com.sunfusheng.gank.util;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -19,6 +20,7 @@ import io.reactivex.functions.Consumer;
 public class ViewUtil {
 
     // 去掉重复点击
+    @SuppressLint("CheckResult")
     public static void singleClick(View view, Consumer<Object> consumer) {
         RxView.clicks(view)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
