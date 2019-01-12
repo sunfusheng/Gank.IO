@@ -21,11 +21,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dexOptions {
-        maxProcessCount 8
-        javaMaxHeapSize "6g"
-    }
-
     lintOptions {
         quiet true
         abortOnError false
@@ -80,16 +75,16 @@ dependencies {
     implementation 'com.android.support:support-v13:' + gradle.supportLibraryVersion
 
     // Network
-    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
     // Rx2
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     implementation 'zlc.season:rxdownload2:1.1.1'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
@@ -101,7 +96,7 @@ dependencies {
     implementation 'me.drakeet.multitype:multitype:3.4.4'
     implementation 'com.afollestad.material-dialogs:core:0.9.4.4'
     implementation 'com.sunfusheng:glideimageview:1.2.0'
-    implementation 'com.sunfusheng:FirUpdater:1.0.7'
+    implementation 'com.sunfusheng:FirUpdater:1.1.1'
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
     implementation 'jp.wasabeef:recyclerview-animators:2.2.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
