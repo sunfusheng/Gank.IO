@@ -50,7 +50,7 @@ deploy:
   file: app/outputs/Gank.IO.apk
   skip_cleanup: true
   on:
-    repo: sfsheng0322/Gank.IO
+    repo: sunfusheng/Gank.IO
     tags: true
     all_branches: true
 
