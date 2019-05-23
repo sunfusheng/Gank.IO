@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -9,18 +8,18 @@
         android:id="@+id/recyclerViewWrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg"/>
+        android:background="@color/bg" />
 
-    <include layout="@layout/item_gank_girl"/>
+    <include layout="@layout/item_gank_girl" />
 
     <ImageView
         android:id="@+id/iv_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bg_round_grey_selector"
         android:padding="5dp"
-        android:src="@mipmap/ic_action_more"/>
+        android:src="@mipmap/ic_action_more" />
 </FrameLayout>

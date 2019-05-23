@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sunfusheng.GlideImageView;
 import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
@@ -20,7 +21,6 @@ import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.LoadingStateDelegate;
 import com.sunfusheng.gank.widget.RecyclerViewWrapper.RecyclerViewWrapper;
 import com.sunfusheng.gank.widget.SwipeRefreshLayout.SwipeRefreshLayout;
-import com.sunfusheng.glideimageview.GlideImageView;
 
 import java.util.List;
 
@@ -168,7 +168,7 @@ public class GankView extends FrameLayout implements GankContract.View,
             }
         }
         tvTime.setText(DateUtil.convertString2String(curGirl.publishedAt));
-        givGirl.loadImage(curGirl.url, R.mipmap.she);
+        givGirl.load(curGirl.url, R.mipmap.she);
     }
 
     @Override

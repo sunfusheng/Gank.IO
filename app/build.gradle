@@ -6,13 +6,13 @@ Properties signingProperties = new Properties()
 signingProperties.load(new FileInputStream(file("../signings/signing.properties")))
 
 android {
-    compileSdkVersion gradle.compileSdkVersion
+    compileSdkVersion compile_sdk_version
     defaultConfig {
         applicationId "com.sunfusheng.gank"
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
-        versionCode gradle.versionCode
-        versionName gradle.versionName
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode version_code
+        versionName version_name
         multiDexEnabled true
     }
 
@@ -37,54 +37,43 @@ android {
     }
 
     buildTypes {
-        release {
-            buildConfigField "boolean", "debugMode", "false"
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all {
-                variant -> generateApk(variant)
-            }
-        }
-
         debug {
             buildConfigField "boolean", "debugMode", "true"
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all {
-                variant -> generateApk(variant)
-            }
         }
-    }
-}
-
-def generateApk(variant) {
-    if (variant.buildType.name == "release") {
-        variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/app/outputs")
-        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-            apkData.outputFileName = "Gank.IO.apk"
+        release {
+            buildConfigField "boolean", "debugMode", "false"
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "Gank.IO.apk"
+                }
+            }
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:' + gradle.supportLibraryVersion
-    implementation 'com.android.support:design:' + gradle.supportLibraryVersion
-    implementation 'com.android.support:recyclerview-v7:' + gradle.supportLibraryVersion
-    implementation 'com.android.support:support-v4:' + gradle.supportLibraryVersion
-    implementation 'com.android.support:support-v13:' + gradle.supportLibraryVersion
+    implementation 'com.android.support:appcompat-v7:' + support_library_version
+    implementation 'com.android.support:design:' + support_library_version
+    implementation 'com.android.support:recyclerview-v7:' + support_library_version
+    implementation 'com.android.support:support-v4:' + support_library_version
+    implementation 'com.android.support:support-v13:' + support_library_version
 
     // Network
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
     // Rx2
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     implementation 'zlc.season:rxdownload2:1.1.1'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
@@ -95,7 +84,7 @@ dependencies {
     implementation 'com.orhanobut:logger:2.1.1'
     implementation 'me.drakeet.multitype:multitype:3.4.4'
     implementation 'com.afollestad.material-dialogs:core:0.9.4.4'
-    implementation 'com.sunfusheng:glideimageview:1.2.0'
+    implementation 'com.sunfusheng:GlideImageView:2.1.0'
     implementation 'com.sunfusheng:FirUpdater:1.1.1'
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
     implementation 'jp.wasabeef:recyclerview-animators:2.2.5'

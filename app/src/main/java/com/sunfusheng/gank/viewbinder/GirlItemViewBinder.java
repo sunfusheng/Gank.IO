@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sunfusheng.GlideImageView;
 import com.sunfusheng.gank.App;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.model.GankItemGirl;
 import com.sunfusheng.gank.ui.ImagesActivity;
 import com.sunfusheng.gank.util.DateUtil;
 import com.sunfusheng.gank.util.ViewUtil;
-import com.sunfusheng.glideimageview.GlideImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +37,7 @@ public class GirlItemViewBinder extends ItemViewBinder<GankItemGirl, GirlItemVie
         holder.rlGirl.setTag(true);
         holder.tvTime.setTypeface(App.songTi);
         holder.tvTime.setText(DateUtil.convertString2String(item.publishedAt));
-        holder.givGirl.loadImage(item.url, R.mipmap.she);
+        holder.givGirl.load(item.url, R.mipmap.she);
 
         ViewUtil.singleClick(holder.givGirl, o -> {
             ImagesActivity.open(holder.givGirl.getContext(), App.girls, item.url);

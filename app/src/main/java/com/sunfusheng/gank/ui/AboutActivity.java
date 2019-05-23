@@ -9,11 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+import com.sunfusheng.GlideImageView;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.util.AppUtil;
 import com.sunfusheng.gank.widget.WebViewLayout;
-import com.sunfusheng.glideimageview.GlideImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

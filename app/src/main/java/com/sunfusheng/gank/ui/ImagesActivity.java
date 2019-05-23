@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.sunfusheng.GlideImageLoader;
 import com.sunfusheng.gank.R;
 import com.sunfusheng.gank.base.BaseActivity;
 import com.sunfusheng.gank.util.CollectionUtil;
@@ -23,8 +24,7 @@ import com.sunfusheng.gank.util.ImageHelper;
 import com.sunfusheng.gank.util.ViewUtil;
 import com.sunfusheng.gank.widget.PhotoView.HackyViewPager;
 import com.sunfusheng.gank.widget.RadiusWidget.RadiusButton;
-import com.sunfusheng.glideimageview.GlideImageLoader;
-import com.sunfusheng.glideimageview.progress.CircleProgressView;
+import com.sunfusheng.progress.CircleProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,11 +160,11 @@ public class ImagesActivity extends BaseActivity {
             photoView.setOnPhotoTapListener((view1, x, y) -> mActivity.finish());
 
             GlideImageLoader imageLoader = GlideImageLoader.create(photoView);
-            imageLoader.loadImage(mList.get(position), R.color.transparent);
-            imageLoader.setOnGlideImageViewListener(mList.get(position), (percent, isDone, exception) -> {
-                progressView.setProgress(percent);
-                progressView.setVisibility(isDone ? View.GONE : View.VISIBLE);
-            });
+//            imageLoader.loadImage(mList.get(position), R.color.transparent);
+//            imageLoader.setOnGlideImageViewListener(mList.get(position), (percent, isDone, exception) -> {
+//                progressView.setProgress(percent);
+//                progressView.setVisibility(isDone ? View.GONE : View.VISIBLE);
+//            });
             container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             return view;
         }

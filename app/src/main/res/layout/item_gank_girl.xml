@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_girl"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/gank_girl_height">
 
-    <com.sunfusheng.glideimageview.GlideImageView
+    <com.sunfusheng.GlideImageView
         android:id="@+id/giv_girl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/gank_girl_height"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_time"
@@ -18,10 +17,10 @@
         android:background="@color/transparent20"
         android:gravity="bottom"
         android:includeFontPadding="false"
-        android:paddingBottom="15dp"
         android:paddingLeft="15dp"
+        android:paddingBottom="15dp"
         android:text="2017-01-17"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 </RelativeLayout>
