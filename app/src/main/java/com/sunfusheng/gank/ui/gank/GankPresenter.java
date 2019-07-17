@@ -1,5 +1,6 @@
 package com.sunfusheng.gank.ui.gank;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import com.sunfusheng.gank.App;
@@ -18,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
+import retrofit2.Response;
 
 /**
  * @author by sunfusheng on 2017/1/13.
@@ -69,11 +71,11 @@ public class GankPresenter implements GankContract.Presenter {
         getGankDayList(true);
     }
 
+    @SuppressLint("CheckResult")
     private void getGankDayList(final boolean isLoadMore) {
         Api.getInstance().getApiService().getGankDay(mRequestParams.year, mRequestParams.month, mRequestParams.day)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(gankDay -> gankDay != null && gankDay.results != null)
                 .map(this::flatGankDay2List)
                 .takeUntil(lifecycle)
                 .subscribe(list -> {
@@ -105,9 +107,12 @@ public class GankPresenter implements GankContract.Presenter {
         }
     }
 
-    private List<Object> flatGankDay2List(GankDay gankDay) {
+    private List<Object> flatGankDay2List(Response<GankDay> gankDay) {
         List<Object> list = new ArrayList<>();
-        GankDayResults results = gankDay.results;
+        if (gankDay == null || gankDay.body() == null) {
+            return list;
+        }
+        GankDayResults results = gankDay.body().results;
         if (!CollectionUtil.isEmpty(results.福利)) {
             list.addAll(results.福利);
         }

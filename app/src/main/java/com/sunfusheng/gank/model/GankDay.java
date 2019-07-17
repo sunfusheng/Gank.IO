@@ -7,13 +7,15 @@ import java.util.List;
  */
 public class GankDay extends BaseEntity {
 
+    public transient boolean error;
     public List<String> category;
     public GankDayResults results;
 
     @Override
     public String toString() {
         return "GankDay{" +
-                "category=" + category +
+                "error=" + error +
+                ", category=" + category +
                 ", results=" + results +
                 '}';
     }

@@ -1,5 +1,6 @@
 package com.sunfusheng.gank.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity {
         new FirUpdater(this, Constants.FIR_IM_API_TOKEN, Constants.FIR_IM_APP_ID).checkVersion();
     }
 
+    @SuppressLint("CheckResult")
     private void prepareForExiting() {
         lifecycle.throttleFirst(END_TIME_SECONDS, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .subscribe(it -> ToastUtil.toast(R.string.exit_tip), Throwable::printStackTrace);

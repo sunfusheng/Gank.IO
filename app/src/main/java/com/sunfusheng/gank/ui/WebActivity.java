@@ -49,7 +49,7 @@ public class WebActivity extends BaseActivity {
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
 
-        gank = getIntent().getParcelableExtra("gank");
+        gank = (GankItem) getIntent().getSerializableExtra("gank");
 
         toolbar.setTitle(gank.desc);
         setSupportActionBar(toolbar);

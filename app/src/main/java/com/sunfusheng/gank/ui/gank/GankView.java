@@ -167,8 +167,10 @@ public class GankView extends FrameLayout implements GankContract.View,
                 break;
             }
         }
-        tvTime.setText(DateUtil.convertString2String(curGirl.publishedAt));
-        givGirl.load(curGirl.url, R.mipmap.she);
+        if (curGirl != null) {
+            tvTime.setText(DateUtil.convertString2String(curGirl.publishedAt));
+            givGirl.load(curGirl.url, R.mipmap.she);
+        }
     }
 
     @Override
